@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f5f3ee;
+  --bg-panel: rgba(255, 255, 255, 0.78);
+  --bg-panel-strong: rgba(255, 255, 255, 0.92);
+  --text: #111318;
+  --muted: #596072;
+  --accent: #ff6b2c;
+  --accent-soft: rgba(255, 107, 44, 0.18);
+  --line: rgba(17, 19, 24, 0.08);
+}
+
+.dark {
+  --bg: #060606;
+  --bg-panel: rgba(17, 17, 17, 0.78);
+  --bg-panel-strong: rgba(24, 24, 24, 0.94);
+  --text: #f5f7fb;
+  --muted: #9aa4b5;
+  --accent: #ff7a3d;
+  --accent-soft: rgba(255, 122, 61, 0.16);
+  --line: rgba(255, 255, 255, 0.08);
+}
+
+@theme inline {
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Trebuchet MS", sans-serif;
+  --color-background: var(--bg);
+  --color-panel: var(--bg-panel);
+  --color-panel-strong: var(--bg-panel-strong);
+  --color-text-primary: var(--text);
+  --color-text-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-line: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  transition:
+    background-color 240ms ease,
+    color 240ms ease;
+  background-image:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.6), transparent 32%),
+    radial-gradient(circle at 85% 15%, var(--accent-soft), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 48%);
+}
+
+.dark body {
+  background-image:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 30%),
+    radial-gradient(circle at 85% 15%, var(--accent-soft), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 48%);
+}
+
+* {
+  border-color: var(--line);
+}
+
+::selection {
+  background: rgba(255, 122, 61, 0.28);
+}
+
+@layer components {
+  .page-shell {
+    @apply relative isolate min-h-screen overflow-x-hidden;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .surface-card {
+    background: var(--bg-panel);
+    @apply rounded-[1.75rem] border backdrop-blur-xl transition duration-300;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+  }
+
+  .surface-card-strong {
+    background: var(--bg-panel-strong);
+    @apply rounded-[1.75rem] border backdrop-blur-xl transition duration-300;
+    box-shadow: 0 24px 90px rgba(0, 0, 0, 0.12);
+  }
+
+  .eyebrow {
+    @apply font-display text-sm font-semibold uppercase tracking-[0.3em] text-accent;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply max-w-2xl text-base leading-7 text-text-muted sm:text-lg;
+  }
+
+  .primary-link {
+    background: var(--accent);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5;
+    box-shadow: 0 18px 40px rgba(255, 107, 44, 0.32);
+  }
+
+  .primary-link:hover {
+    box-shadow: 0 24px 50px rgba(255, 107, 44, 0.4);
+  }
+
+  .ghost-link {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold text-text-primary transition duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent;
+  }
+
+  .grid-outline {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+}
