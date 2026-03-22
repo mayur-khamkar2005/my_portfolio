@@ -3,8 +3,7 @@ function Footer({ socialLinks }) {
     <footer className="section-shell pb-10">
       <div className="flex flex-col gap-4 border-t pt-6 text-sm text-text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {new Date().getFullYear()} Mayur Khamkar. Built with React and Tailwind
-          CSS.
+          © {new Date().getFullYear()} Mayur Khamkar. @26
         </p>
         <div className="flex flex-wrap items-center gap-4">
           {socialLinks.map((link) => (
