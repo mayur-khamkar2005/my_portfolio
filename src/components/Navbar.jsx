@@ -49,11 +49,11 @@ function Navbar({ navigation }) {
       <div className="mx-auto max-w-6xl">
         <div className="surface-card flex items-center justify-between px-4 py-3 sm:px-6">
           <a href="#home" className="group flex min-w-0 flex-1 items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent text-sm font-bold text-white shadow-lg shadow-accent-soft">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-text-primary text-sm font-medium text-white transition-colors duration-300 group-hover:bg-accent">
               MK
             </span>
             <span className="flex min-w-0 flex-col">
-              <span className="truncate font-display text-[0.7rem] font-bold uppercase tracking-[0.18em] text-text-primary sm:text-sm sm:tracking-[0.22em]">
+              <span className="truncate font-display text-sm font-medium text-text-primary">
                 Mayur Khamkar
               </span>
               <span className="hidden text-xs text-text-muted min-[380px]:block">
@@ -67,7 +67,7 @@ function Navbar({ navigation }) {
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-text-muted transition duration-300 hover:bg-accent-soft hover:text-text-primary"
+                className="rounded-lg px-4 py-2 text-sm font-medium text-text-muted transition-all duration-300 hover:text-text-primary"
               >
                 {item.label}
               </a>
@@ -80,7 +80,7 @@ function Navbar({ navigation }) {
             </div>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border text-text-primary transition duration-300 hover:border-accent hover:text-accent md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-all duration-300 hover:border-accent hover:text-accent md:hidden"
               onClick={() => setIsOpen((currentState) => !currentState)}
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isOpen}
@@ -102,7 +102,7 @@ function Navbar({ navigation }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-text-primary transition duration-300 hover:bg-accent-soft"
+                  className="rounded-xl px-4 py-3 text-sm font-medium text-text-primary transition-all duration-300 hover:bg-accent-soft"
                 >
                   {item.label}
                 </a>

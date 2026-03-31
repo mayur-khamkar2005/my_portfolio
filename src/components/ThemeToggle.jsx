@@ -43,16 +43,16 @@ function ThemeToggle({ fullWidth = false }) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold text-text-primary transition duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent ${
+      className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-text-primary transition-all duration-300 hover:border-accent hover:text-accent ${
         fullWidth ? "w-full" : ""
       }`}
       aria-label={`Switch to ${nextTheme} mode`}
       title={`Switch to ${nextTheme} mode`}
     >
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-soft text-accent">
+      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-soft text-accent">
         {theme === "dark" ? <SunIcon /> : <MoonIcon />}
       </span>
-      <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+      <span className="text-xs">{theme === "dark" ? "Light" : "Dark"}</span>
     </button>
   );
 }

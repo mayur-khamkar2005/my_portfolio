@@ -28,15 +28,15 @@ function About({ focusAreas }) {
         {focusAreas.map((area) => (
           <article
             key={area.title}
-            className="surface-card h-full p-6 hover:-translate-y-1"
+            className="surface-card h-full p-6"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-soft text-sm font-bold text-accent">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-sm font-medium text-accent">
               {area.tag}
             </div>
-            <h3 className="mt-5 font-display text-xl font-bold text-text-primary">
+            <h3 className="mt-5 font-display text-lg font-medium text-text-primary">
               {area.title}
             </h3>
-            <p className="mt-3 text-sm leading-7 text-text-muted">
+            <p className="mt-3 text-sm leading-relaxed text-text-muted">
               {area.description}
             </p>
           </article>

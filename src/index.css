@@ -1,33 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #f5f3ee;
-  --bg-panel: rgba(255, 255, 255, 0.78);
-  --bg-panel-strong: rgba(255, 255, 255, 0.92);
-  --text: #111318;
-  --muted: #596072;
-  --accent: #ff6b2c;
-  --accent-soft: rgba(255, 107, 44, 0.18);
-  --line: rgba(17, 19, 24, 0.08);
+  --bg: #fafafa;
+  --bg-panel: rgba(255, 255, 255, 0.85);
+  --bg-panel-strong: rgba(255, 255, 255, 0.95);
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --line: rgba(0, 0, 0, 0.06);
 }
 
 .dark {
-  --bg: #060606;
-  --bg-panel: rgba(17, 17, 17, 0.78);
-  --bg-panel-strong: rgba(24, 24, 24, 0.94);
-  --text: #f5f7fb;
-  --muted: #9aa4b5;
-  --accent: #ff7a3d;
-  --accent-soft: rgba(255, 122, 61, 0.16);
-  --line: rgba(255, 255, 255, 0.08);
+  --bg: #0a0a0a;
+  --bg-panel: rgba(20, 20, 20, 0.7);
+  --bg-panel-strong: rgba(24, 24, 24, 0.9);
+  --text: #f5f5f5;
+  --muted: #9ca3af;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.12);
+  --line: rgba(255, 255, 255, 0.06);
 }
 
 @theme inline {
-  --font-sans: "Manrope", "Segoe UI", sans-serif;
-  --font-display: "Space Grotesk", "Trebuchet MS", sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-display: "DM Sans", "Inter", sans-serif;
   --color-background: var(--bg);
   --color-panel: var(--bg-panel);
   --color-panel-strong: var(--bg-panel-strong);
@@ -48,19 +48,17 @@ body {
   color: var(--text);
   font-family: var(--font-sans);
   transition:
-    background-color 240ms ease,
-    color 240ms ease;
+    background-color 300ms ease,
+    color 300ms ease;
   background-image:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.6), transparent 32%),
-    radial-gradient(circle at 85% 15%, var(--accent-soft), transparent 30%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 48%);
+    radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.03), transparent 50%),
+    radial-gradient(circle at 80% 100%, rgba(37, 99, 235, 0.02), transparent 40%);
 }
 
 .dark body {
   background-image:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 30%),
-    radial-gradient(circle at 85% 15%, var(--accent-soft), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 48%);
+    radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.04), transparent 50%),
+    radial-gradient(circle at 80% 100%, rgba(59, 130, 246, 0.02), transparent 40%);
 }
 
 * {
@@ -68,7 +66,8 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 122, 61, 0.28);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 @layer components {
@@ -82,46 +81,80 @@ body {
 
   .surface-card {
     background: var(--bg-panel);
-    @apply rounded-[1.75rem] border backdrop-blur-xl transition duration-300;
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+    @apply rounded-2xl border backdrop-blur-md transition-all duration-300;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .surface-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 16px 40px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .surface-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .dark .surface-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 16px 40px rgba(0, 0, 0, 0.2);
   }
 
   .surface-card-strong {
     background: var(--bg-panel-strong);
-    @apply rounded-[1.75rem] border backdrop-blur-xl transition duration-300;
-    box-shadow: 0 24px 90px rgba(0, 0, 0, 0.12);
+    @apply rounded-2xl border backdrop-blur-md transition-all duration-300;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 30px rgba(0, 0, 0, 0.04);
+  }
+
+  .surface-card-strong:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 20px 50px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .surface-card-strong {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .surface-card-strong:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 20px 50px rgba(0, 0, 0, 0.25);
   }
 
   .eyebrow {
-    @apply font-display text-sm font-semibold uppercase tracking-[0.3em] text-accent;
+    @apply font-display text-xs font-medium uppercase tracking-[0.2em] text-accent;
+    letter-spacing: 0.15em;
   }
 
   .section-title {
-    @apply font-display text-3xl font-bold tracking-tight sm:text-4xl;
+    @apply font-display text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl;
+    line-height: 1.15;
   }
 
   .section-copy {
-    @apply max-w-2xl text-base leading-7 text-text-muted sm:text-lg;
+    @apply max-w-2xl text-base leading-relaxed text-text-muted;
+    line-height: 1.7;
   }
 
   .primary-link {
-    background: var(--accent);
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5;
-    box-shadow: 0 18px 40px rgba(255, 107, 44, 0.32);
+    background: var(--text);
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-all duration-300;
   }
 
   .primary-link:hover {
-    box-shadow: 0 24px 50px rgba(255, 107, 44, 0.4);
+    background: var(--accent);
+    transform: translateY(-1px);
   }
 
   .ghost-link {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold text-text-primary transition duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium text-text-primary transition-all duration-300;
+  }
+
+  .ghost-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
   }
 
   .grid-outline {
     background-image:
       linear-gradient(to right, var(--line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-    background-size: 42px 42px;
+    background-size: 48px 48px;
+    opacity: 0.5;
   }
 }

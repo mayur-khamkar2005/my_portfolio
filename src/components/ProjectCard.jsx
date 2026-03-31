@@ -17,26 +17,26 @@ function ArrowUpRightIcon() {
 
 function ProjectCard({ project }) {
   return (
-    <article className="surface-card-strong flex h-full flex-col p-6 hover:-translate-y-1 hover:border-accent">
+    <article className="surface-card-strong flex h-full flex-col p-6 hover:border-accent">
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
         <div className="min-w-0">
-          <p className="eyebrow !text-xs">{project.category}</p>
-          <h3 className="mt-3 font-display text-2xl font-bold text-text-primary">
+          <p className="eyebrow">{project.category}</p>
+          <h3 className="mt-3 font-display text-xl font-medium text-text-primary">
             {project.title}
           </h3>
         </div>
-        <span className="rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-text-muted">
+        <span className="rounded-lg border px-2.5 py-1 text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
           {project.year}
         </span>
       </div>
 
-      <p className="mt-5 text-sm leading-7 text-text-muted">{project.description}</p>
+      <p className="mt-5 text-sm leading-relaxed text-text-muted">{project.description}</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
         {project.techStack.map((tech) => (
           <span
             key={tech}
-            className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent"
+            className="rounded-lg bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent"
           >
             {tech}
           </span>
@@ -44,13 +44,13 @@ function ProjectCard({ project }) {
       </div>
 
       <div className="mt-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-text-muted">
+        <p className="text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
           Key Features
         </p>
-        <ul className="mt-4 space-y-3 text-sm leading-6 text-text-primary">
+        <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-text-primary">
           {project.features.map((feature) => (
             <li key={feature} className="flex items-start gap-3">
-              <span className="mt-2 h-2 w-2 rounded-full bg-accent" />
+              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent" />
               <span>{feature}</span>
             </li>
           ))}
@@ -78,7 +78,7 @@ function ProjectCard({ project }) {
             <ArrowUpRightIcon />
           </a>
         ) : (
-          <span className="inline-flex w-full items-center justify-center rounded-full border px-4 py-2.5 text-sm font-semibold text-text-muted sm:w-auto">
+          <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
             Live Demo Soon
           </span>
         )}
