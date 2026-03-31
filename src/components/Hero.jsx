@@ -41,10 +41,10 @@ function Hero({ resumeUrl, highlights }) {
       <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
           <p className="eyebrow">Backend-Driven MERN Portfolio</p>
-          <h1 className="mt-5 font-display text-4xl font-bold leading-tight tracking-tight text-text-primary min-[420px]:text-5xl sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary min-[420px]:text-5xl sm:text-6xl lg:text-7xl">
             Mayur Khamkar
-            <span className="mt-3 block text-2xl font-medium text-text-muted sm:text-3xl">
-              Full Stack Developer (MERN)
+            <span className="mt-3 block text-2xl font-normal text-text-muted sm:text-3xl">
+              Full Stack Developer
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-text-muted sm:text-xl">
@@ -71,10 +71,10 @@ function Hero({ resumeUrl, highlights }) {
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
             {highlights.map((item) => (
               <div key={item.label} className="surface-card p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-muted">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-text-muted">
                   {item.label}
                 </p>
-                <p className="mt-3 text-sm font-semibold text-text-primary">
+                <p className="mt-3 text-sm font-medium text-text-primary">
                   {item.value}
                 </p>
               </div>
@@ -83,24 +83,24 @@ function Hero({ resumeUrl, highlights }) {
         </div>
 
         <div className="surface-card-strong relative overflow-hidden p-6 sm:p-8">
-          <div className="grid-outline absolute inset-0 opacity-45" />
-          <div className="absolute inset-x-10 top-0 h-28 rounded-full bg-accent-soft blur-3xl" />
+          <div className="grid-outline absolute inset-0" />
+          <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-accent-soft blur-3xl" />
 
           <div className="relative">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-accent">
+            <div className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent">
               Current Focus
             </div>
 
-            <div className="mt-6 rounded-[1.5rem] border bg-background/70 p-5">
+            <div className="mt-6 rounded-xl border bg-background/60 p-5">
               <div className="mb-5 flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-                <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-                <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
               </div>
 
-              <div className="space-y-4 font-mono text-xs text-text-muted [overflow-wrap:anywhere] sm:text-sm">
+              <div className="space-y-3 font-mono text-xs text-text-muted [overflow-wrap:anywhere] sm:text-sm">
                 <p>
-                  <span className="text-accent">const</span> developer ={" "}
+                  <span className="text-accent font-medium">const</span> developer ={" "}
                   <span className="text-text-primary">{"{"}</span>
                 </p>
                 <p className="pl-4">
@@ -125,19 +125,19 @@ function Hero({ resumeUrl, highlights }) {
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <div className="surface-card p-5">
-                <p className="text-sm font-semibold text-text-primary">
+                <p className="text-sm font-medium text-text-primary">
                   Backend-first thinking
                 </p>
-                <p className="mt-2 text-sm leading-6 text-text-muted">
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">
                   I enjoy turning business logic into reliable APIs and protected
                   workflows.
                 </p>
               </div>
               <div className="surface-card p-5">
-                <p className="text-sm font-semibold text-text-primary">
+                <p className="text-sm font-medium text-text-primary">
                   Recruiter-ready presentation
                 </p>
-                <p className="mt-2 text-sm leading-6 text-text-muted">
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">
                   Clean UI, clear communication, and practical project storytelling.
                 </p>
               </div>

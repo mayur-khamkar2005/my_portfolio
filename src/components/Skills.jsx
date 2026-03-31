@@ -16,18 +16,18 @@ function Skills({ skills }) {
         {skills.map((skill, index) => (
           <article
             key={skill.name}
-            className="surface-card group p-6 hover:-translate-y-1 hover:border-accent"
+            className="surface-card group p-6 hover:border-accent"
           >
             <div className="flex min-w-0 items-start justify-between gap-4">
               <div className="min-w-0">
-                <p className="font-display text-xl font-bold text-text-primary">
+                <p className="font-display text-lg font-medium text-text-primary">
                   {skill.name}
                 </p>
-                <p className="mt-3 text-sm leading-7 text-text-muted">
+                <p className="mt-3 text-sm leading-relaxed text-text-muted">
                   {skill.description}
                 </p>
               </div>
-              <span className="rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-text-muted transition duration-300 group-hover:border-accent group-hover:text-accent">
+              <span className="rounded-lg border px-2.5 py-1 text-xs font-medium uppercase tracking-[0.1em] text-text-muted transition-all duration-300 group-hover:border-accent group-hover:text-accent">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>
