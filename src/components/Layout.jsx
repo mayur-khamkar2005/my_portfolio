@@ -3,27 +3,31 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "../lib/gsap";
-import { dropdownNavigation, primaryNavigation } from "../lib/siteNavigation";
-import { socialLinks } from "../lib/siteContent";
+import { primaryNavigation } from "../lib/siteNavigation";
+import { skillMenuGroups, socialLinks } from "../lib/siteContent";
 
 function Layout() {
   const location = useLocation();
   const pageRef = useRef(null);
   const topGlowRef = useRef(null);
   const sideGlowRef = useRef(null);
+  const isSkillsRoute = location.pathname === "/skills" || location.pathname.startsWith("/skills/");
 
   const safeNavigation = primaryNavigation.filter(
     (item) => typeof item?.label === "string" && typeof item?.link === "string",
   );
-  const safeDropdownNavigation = dropdownNavigation.filter(
-    (item) => typeof item?.label === "string" && typeof item?.link === "string",
+  const safeSkillMenuGroups = skillMenuGroups.filter(
+    (group) =>
+      typeof group?.label === "string" &&
+      typeof group?.link === "string" &&
+      Array.isArray(group?.items),
   );
   const safeSocialLinks = socialLinks.filter(
     (item) => typeof item?.label === "string" && typeof item?.href === "string",
   );
 
   useIsomorphicLayoutEffect(() => {
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || isSkillsRoute) {
       return undefined;
     }
 
@@ -70,34 +74,44 @@ function Layout() {
     }, scope);
 
     return () => ctx.revert();
-  }, []);
+  }, [isSkillsRoute]);
 
   useEffect(() => {
     const behavior = prefersReducedMotion() ? "auto" : "smooth";
     const frameId = window.requestAnimationFrame(() => {
+      const hashId = location.hash ? decodeURIComponent(location.hash.replace("#", "")) : "";
+      const target = hashId ? document.getElementById(hashId) : null;
+
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior });
+        return;
+      }
+
       window.scrollTo({ top: 0, behavior });
     });
 
     return () => window.cancelAnimationFrame(frameId);
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   return (
     <div ref={pageRef} className="page-shell">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-      >
+      {isSkillsRoute ? null : (
         <div
-          ref={topGlowRef}
-          className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
-        />
-        <div
-          ref={sideGlowRef}
-          className="absolute right-[-8%] top-[36rem] h-80 w-80 rounded-full bg-accent-soft blur-3xl"
-        />
-      </div>
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        >
+          <div
+            ref={topGlowRef}
+            className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
+          />
+          <div
+            ref={sideGlowRef}
+            className="absolute right-[-8%] top-[36rem] h-80 w-80 rounded-full bg-accent-soft blur-3xl"
+          />
+        </div>
+      )}
 
-      <Navbar navigation={safeNavigation} dropdownOptions={safeDropdownNavigation} />
+      <Navbar navigation={safeNavigation} skillMenuGroups={safeSkillMenuGroups} />
 
       <main>
         <Outlet />

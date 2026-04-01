@@ -41,7 +41,7 @@ function CloseIcon() {
   );
 }
 
-function Navbar({ navigation, dropdownOptions = [] }) {
+function Navbar({ navigation, skillMenuGroups = [] }) {
   const [isOpen, setIsOpen] = useState(false);
   const headerRef = useRef(null);
   const surfaceRef = useRef(null);
@@ -53,9 +53,12 @@ function Navbar({ navigation, dropdownOptions = [] }) {
         (item) => typeof item?.label === "string" && typeof item?.link === "string",
       )
     : [];
-  const safeDropdownOptions = Array.isArray(dropdownOptions)
-    ? dropdownOptions.filter(
-        (item) => typeof item?.label === "string" && typeof item?.link === "string",
+  const safeSkillMenuGroups = Array.isArray(skillMenuGroups)
+    ? skillMenuGroups.filter(
+        (group) =>
+          typeof group?.label === "string" &&
+          typeof group?.link === "string" &&
+          Array.isArray(group?.items),
       )
     : [];
 
@@ -250,13 +253,13 @@ function Navbar({ navigation, dropdownOptions = [] }) {
       cleanupFns.forEach((cleanup) => cleanup());
       ctx.revert();
     };
-  }, [navItems.length, safeDropdownOptions.length]);
+  }, [navItems.length, safeSkillMenuGroups.length]);
 
   useIsomorphicLayoutEffect(() => {
     const panel = mobilePanelRef.current;
     const inner = mobileInnerRef.current;
 
-    if (!panel || !inner || (!navItems.length && !safeDropdownOptions.length)) {
+    if (!panel || !inner || !navItems.length) {
       return undefined;
     }
 
@@ -325,7 +328,7 @@ function Navbar({ navigation, dropdownOptions = [] }) {
     );
 
     return () => tl.kill();
-  }, [isOpen, navItems.length, safeDropdownOptions.length]);
+  }, [isOpen, navItems.length]);
 
   return (
     <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
@@ -359,28 +362,33 @@ function Navbar({ navigation, dropdownOptions = [] }) {
               </span>
             </Link>
 
-            {navItems.length || safeDropdownOptions.length ? (
+            {navItems.length ? (
               <nav className="hidden items-center gap-1 md:flex">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.link}
-                    to={item.link}
-                    end={item.link === "/"}
-                    className={({ isActive }) =>
-                      `rounded-lg px-4 py-2 text-sm font-medium transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:text-text-primary ${
-                        isActive ? "text-text-primary" : "text-text-muted"
-                      }`
-                    }
-                    data-nav-link
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-                {safeDropdownOptions.length ? (
-                  <div data-nav-link>
-                    <DropdownMenu label="Explore" options={safeDropdownOptions} />
-                  </div>
-                ) : null}
+                {navItems.map((item) =>
+                  item.hasDropdown ? (
+                    <div key={item.link} data-nav-link>
+                      <DropdownMenu
+                        label={item.label}
+                        to={item.link}
+                        groups={safeSkillMenuGroups}
+                      />
+                    </div>
+                  ) : (
+                    <NavLink
+                      key={item.link}
+                      to={item.link}
+                      end={item.link === "/"}
+                      className={({ isActive }) =>
+                        `rounded-lg px-4 py-2 text-sm font-medium transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:text-text-primary ${
+                          isActive ? "text-text-primary" : "text-text-muted"
+                        }`
+                      }
+                      data-nav-link
+                    >
+                      {item.label}
+                    </NavLink>
+                  ),
+                )}
               </nav>
             ) : null}
 
@@ -388,7 +396,7 @@ function Navbar({ navigation, dropdownOptions = [] }) {
               <div className="hidden md:block">
                 <ThemeToggle />
               </div>
-              {navItems.length || safeDropdownOptions.length ? (
+              {navItems.length ? (
                 <button
                   type="button"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent md:hidden"
@@ -404,7 +412,7 @@ function Navbar({ navigation, dropdownOptions = [] }) {
           </div>
         </div>
 
-        {navItems.length || safeDropdownOptions.length ? (
+        {navItems.length ? (
           <div
             ref={mobilePanelRef}
             className="h-0 overflow-hidden opacity-0 md:hidden"
@@ -413,32 +421,34 @@ function Navbar({ navigation, dropdownOptions = [] }) {
             <div ref={mobileInnerRef} className="mt-3">
               <div className="surface-card space-y-4 px-4 py-4">
                 <nav className="flex flex-col gap-2">
-                  {navItems.map((item) => (
-                    <NavLink
-                      key={item.link}
-                      to={item.link}
-                      end={item.link === "/"}
-                      className={({ isActive }) =>
-                        `rounded-xl px-4 py-3 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out ${
-                          isActive
-                            ? "bg-accent-soft text-text-primary"
-                            : "text-text-primary hover:bg-accent-soft"
-                        }`
-                      }
-                      data-mobile-link
-                    >
-                      {item.label}
-                    </NavLink>
-                  ))}
-                  {safeDropdownOptions.length ? (
-                    <div data-mobile-link>
-                      <DropdownMenu
-                        label="Explore"
-                        options={safeDropdownOptions}
-                        className="w-full"
-                      />
-                    </div>
-                  ) : null}
+                  {navItems.map((item) =>
+                    item.hasDropdown ? (
+                      <div key={item.link} data-mobile-link>
+                        <DropdownMenu
+                          label={item.label}
+                          to={item.link}
+                          groups={safeSkillMenuGroups}
+                          className="w-full"
+                        />
+                      </div>
+                    ) : (
+                      <NavLink
+                        key={item.link}
+                        to={item.link}
+                        end={item.link === "/"}
+                        className={({ isActive }) =>
+                          `rounded-xl px-4 py-3 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out ${
+                            isActive
+                              ? "bg-accent-soft text-text-primary"
+                              : "text-text-primary hover:bg-accent-soft"
+                          }`
+                        }
+                        data-mobile-link
+                      >
+                        {item.label}
+                      </NavLink>
+                    ),
+                  )}
                 </nav>
                 <ThemeToggle fullWidth tabIndex={isOpen ? 0 : -1} />
               </div>

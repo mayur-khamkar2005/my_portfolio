@@ -5,6 +5,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
+import SkillDetailPage from "./pages/SkillDetailPage";
 import SkillsPage from "./pages/SkillsPage";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="skills" element={<SkillsPage />} />
+          <Route path="skills/:skillSlug" element={<SkillDetailPage />} />
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="contact" element={<ContactPage />} />
         </Route>
