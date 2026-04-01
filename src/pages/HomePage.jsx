@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import resumePdf from "../assets/Mayur_Khamkar_FullStack_Developer_Resume.pdf";
 import About from "../components/About";
 import Contact from "../components/Contact";
@@ -6,9 +7,10 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
+import { gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "../lib/gsap";
 
 const primaryEmail = "mayurkhambkar@gmail.com";
-const primaryEmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(primaryEmail)}&su=${encodeURIComponent("Portfolio Inquiry")}`;
+const primaryEmailHref = `mailto:${primaryEmail}?subject=${encodeURIComponent("Portfolio Inquiry")}`;
 
 const navigation = [
   { label: "Home", href: "#home" },
@@ -141,7 +143,7 @@ const contactMethods = [
     description: "Best for hiring conversations, freelance work, and project discussions.",
     actionLabel: "Send Email",
     href: primaryEmailHref,
-    external: true,
+    external: false,
   },
   {
     label: "Phone",
@@ -184,28 +186,117 @@ const socialLinks = [
 ];
 
 function HomePage() {
+  const pageRef = useRef(null);
+  const topGlowRef = useRef(null);
+  const sideGlowRef = useRef(null);
+
+  const safeNavigation = navigation.filter(
+    (item) => typeof item?.label === "string" && typeof item?.href === "string",
+  );
+  const safeHighlights = heroHighlights.filter(
+    (item) => typeof item?.label === "string" && typeof item?.value === "string",
+  );
+  const safeFocusAreas = focusAreas.filter(
+    (item) =>
+      typeof item?.tag === "string" &&
+      typeof item?.title === "string" &&
+      typeof item?.description === "string",
+  );
+  const safeSkills = skills.filter(
+    (item) => typeof item?.name === "string" && typeof item?.description === "string",
+  );
+  const safeProjects = projects.filter((item) => item && typeof item === "object");
+  const safeContactMethods = contactMethods.filter(
+    (item) =>
+      typeof item?.label === "string" &&
+      typeof item?.value === "string" &&
+      typeof item?.description === "string",
+  );
+  const safeSocialLinks = socialLinks.filter(
+    (item) => typeof item?.label === "string" && typeof item?.href === "string",
+  );
+
+  useIsomorphicLayoutEffect(() => {
+    if (prefersReducedMotion()) {
+      return undefined;
+    }
+
+    const scope = pageRef.current;
+
+    if (!scope) {
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      if (topGlowRef.current) {
+        gsap.to(topGlowRef.current, {
+          xPercent: 12,
+          yPercent: -12,
+          scale: 1.1,
+          duration: 6.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
+
+      if (sideGlowRef.current) {
+        gsap.to(sideGlowRef.current, {
+          xPercent: -10,
+          scale: 1.08,
+          duration: 7.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(sideGlowRef.current, {
+          yPercent: -22,
+          ease: "none",
+          scrollTrigger: {
+            trigger: scope,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.8,
+          },
+        });
+      }
+    }, scope);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="page-shell">
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl" />
-        <div className="absolute right-[-8%] top-[36rem] h-80 w-80 rounded-full bg-accent-soft blur-3xl" />
+    <div ref={pageRef} className="page-shell">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      >
+        <div
+          ref={topGlowRef}
+          className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
+        />
+        <div
+          ref={sideGlowRef}
+          className="absolute right-[-8%] top-[36rem] h-80 w-80 rounded-full bg-accent-soft blur-3xl"
+        />
       </div>
 
-      <Navbar navigation={navigation} />
+      <Navbar navigation={safeNavigation} />
 
       <main>
-        <Hero resumeUrl={resumePdf} highlights={heroHighlights} />
-        <About focusAreas={focusAreas} />
-        <Skills skills={skills} />
-        <Projects projects={projects} />
+        <Hero resumeUrl={resumePdf} highlights={safeHighlights} />
+        <About focusAreas={safeFocusAreas} />
+        <Skills skills={safeSkills} />
+        <Projects projects={safeProjects} />
         <Contact
-          contactMethods={contactMethods}
+          contactMethods={safeContactMethods}
           resumeUrl={resumePdf}
           primaryEmailHref={primaryEmailHref}
         />
       </main>
 
-      <Footer socialLinks={socialLinks} />
+      <Footer socialLinks={safeSocialLinks} />
     </div>
   );
 }
