@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-const OPEN_DELAY = 60;
-const CLOSE_DELAY = 140;
+const OPEN_DELAY = 70;
+const CLOSE_DELAY = 160;
 
 function ChevronIcon({ open }) {
   return (
@@ -21,7 +21,25 @@ function ChevronIcon({ open }) {
   );
 }
 
-function DropdownMenu({ label, options, className = "" }) {
+function isMatchingPath(pathname, link) {
+  if (typeof link !== "string" || !link) {
+    return false;
+  }
+
+  const [routePath] = link.split("#");
+
+  if (!routePath) {
+    return false;
+  }
+
+  if (routePath === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === routePath || pathname.startsWith(`${routePath}/`);
+}
+
+function DropdownMenu({ label, to = "", options = [], groups = [], className = "" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
@@ -35,11 +53,42 @@ function DropdownMenu({ label, options, className = "" }) {
   const openTimerRef = useRef(null);
   const location = useLocation();
   const menuId = useId();
+
   const safeOptions = Array.isArray(options)
     ? options.filter(
         (option) => typeof option?.label === "string" && typeof option?.link === "string",
       )
     : [];
+
+  const safeGroups = Array.isArray(groups)
+    ? groups
+        .map((group) => ({
+          label: typeof group?.label === "string" ? group.label : "",
+          link: typeof group?.link === "string" ? group.link : "",
+          items: Array.isArray(group?.items)
+            ? group.items.filter(
+                (item) => typeof item?.label === "string" && typeof item?.link === "string",
+              )
+            : [],
+        }))
+        .filter((group) => group.label && group.items.length)
+    : [];
+
+  const menuGroups = safeGroups.length
+    ? safeGroups
+    : safeOptions.length
+      ? [{ label, link: to, items: safeOptions }]
+      : [];
+  const hasMenu = menuGroups.length > 0;
+  const desktopColumnsClass =
+    menuGroups.length >= 6 ? "md:grid-cols-2 xl:grid-cols-3" : "md:grid-cols-2";
+  const isActive =
+    isMatchingPath(location.pathname, to) ||
+    menuGroups.some(
+      (group) =>
+        isMatchingPath(location.pathname, group.link) ||
+        group.items.some((item) => isMatchingPath(location.pathname, item.link)),
+    );
 
   const clearTimers = () => {
     if (openTimerRef.current) {
@@ -54,6 +103,10 @@ function DropdownMenu({ label, options, className = "" }) {
   };
 
   const openMenu = (withDelay = false) => {
+    if (!hasMenu) {
+      return;
+    }
+
     clearTimers();
 
     if (withDelay) {
@@ -107,7 +160,7 @@ function DropdownMenu({ label, options, className = "" }) {
   useEffect(() => {
     clearTimers();
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -137,101 +190,174 @@ function DropdownMenu({ label, options, className = "" }) {
 
   useEffect(() => clearTimers, []);
 
-  if (!label || !safeOptions.length) {
+  if (!label) {
     return null;
   }
+
+  const triggerBaseClass = `inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-[color,background-color,transform,border-color,box-shadow] duration-200 ease-out ${
+    isActive || isOpen
+      ? "bg-accent-soft text-text-primary shadow-[0_8px_24px_rgba(37,99,235,0.08)]"
+      : "text-text-muted hover:-translate-y-0.5 hover:bg-accent-soft hover:text-text-primary"
+  }`;
 
   return (
     <div
       ref={menuRef}
       className={`relative ${className}`}
       onPointerEnter={() => {
-        if (isDesktop) {
+        if (isDesktop && hasMenu) {
           openMenu(true);
         }
       }}
       onPointerLeave={() => {
-        if (isDesktop) {
+        if (isDesktop && hasMenu) {
           closeMenu(true);
         }
       }}
-      onFocusCapture={() => openMenu()}
+      onFocusCapture={() => {
+        if (hasMenu) {
+          openMenu();
+        }
+      }}
       onBlurCapture={(event) => {
         if (!menuRef.current?.contains(event.relatedTarget)) {
           closeMenu();
         }
       }}
     >
-      <button
-        type="button"
-        className={`inline-flex w-full items-center justify-between gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-[color,background-color,transform,box-shadow] duration-200 ease-out md:w-auto md:justify-center ${
-          isOpen
-            ? "bg-accent-soft text-text-primary shadow-[0_6px_18px_rgba(37,99,235,0.08)]"
-            : "text-text-muted hover:-translate-y-0.5 hover:bg-accent-soft hover:text-text-primary"
+      <div
+        className={`inline-flex w-full items-center rounded-xl border border-transparent transition-[border-color,background-color,box-shadow] duration-200 ease-out md:w-auto ${
+          isActive || isOpen
+            ? "bg-accent-soft/90 shadow-[0_8px_24px_rgba(37,99,235,0.08)]"
+            : "hover:bg-accent-soft/80"
         }`}
-        onClick={() => {
-          if (isDesktop) {
-            setIsOpen((currentState) => !currentState);
-            clearTimers();
-            return;
-          }
-
-          setIsOpen((currentState) => !currentState);
-        }}
-        aria-expanded={isOpen}
-        aria-haspopup="menu"
-        aria-controls={menuId}
       >
-        <span>{label}</span>
-        <ChevronIcon open={isOpen} />
-      </button>
+        {to ? (
+          <NavLink
+            to={to}
+            end={false}
+            className={`min-w-0 flex-1 rounded-l-xl px-4 py-2 text-sm font-medium transition-[color,transform] duration-200 ease-out focus:outline-none ${triggerBaseClass}`}
+            onClick={() => closeMenu()}
+          >
+            {label}
+          </NavLink>
+        ) : (
+          <button
+            type="button"
+            className={`min-w-0 flex-1 rounded-l-xl text-left ${triggerBaseClass}`}
+            onClick={() => {
+              if (hasMenu) {
+                setIsOpen((currentState) => !currentState);
+              }
+            }}
+          >
+            {label}
+          </button>
+        )}
 
-      {isDesktop ? (
+        {hasMenu ? (
+          <button
+            type="button"
+            className={`inline-flex h-10 shrink-0 items-center justify-center rounded-r-xl px-3 text-text-muted transition-[color,transform] duration-200 ease-out focus:outline-none ${
+              isActive || isOpen
+                ? "text-text-primary"
+                : "hover:-translate-y-0.5 hover:text-text-primary"
+            }`}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              clearTimers();
+              setIsOpen((currentState) => !currentState);
+            }}
+            aria-expanded={isOpen}
+            aria-haspopup="true"
+            aria-controls={menuId}
+            aria-label={`${isOpen ? "Close" : "Open"} ${label} menu`}
+          >
+            <ChevronIcon open={isOpen} />
+          </button>
+        ) : null}
+      </div>
+
+      {isDesktop && hasMenu ? (
         <div
           aria-hidden="true"
-          className={`absolute left-0 right-0 top-full h-4 ${isOpen ? "block" : "hidden"}`}
+          className={`absolute inset-x-0 top-full h-4 ${isOpen ? "block" : "hidden"}`}
         />
       ) : null}
 
-      <div
-        id={menuId}
-        role="menu"
-        className={`rounded-2xl border border-line bg-panel/95 shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-[opacity,transform,max-height,box-shadow,border-color] duration-220 ease-[cubic-bezier(0.22,1,0.36,1)] dark:shadow-[0_18px_45px_rgba(0,0,0,0.28)] ${
-          isDesktop
-            ? `absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 origin-top ${
-                isOpen
-                  ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-                  : "pointer-events-none -translate-y-1.5 scale-[0.98] opacity-0"
-              }`
-            : `mt-3 w-full overflow-hidden origin-top ${
-                isOpen
-                  ? "max-h-80 translate-y-0 opacity-100"
-                  : "pointer-events-none max-h-0 -translate-y-1 border-transparent opacity-0 shadow-none"
-              }`
-        }`}
-      >
-        <div className="space-y-1 p-2">
-          {safeOptions.map((option) => (
-            <NavLink
-              key={option.link}
-              to={option.link}
-              end={option.link === "/"}
-              role="menuitem"
-              className={({ isActive }) =>
-                `group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out hover:bg-accent-soft hover:text-text-primary ${
-                  isActive ? "bg-accent-soft text-text-primary" : "text-text-muted"
+      {hasMenu ? (
+        <div
+          id={menuId}
+          className={`rounded-[1.5rem] border border-line bg-panel-strong transition-[opacity,transform,max-height,box-shadow,border-color] duration-220 ease-[cubic-bezier(0.22,1,0.36,1)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.28)] ${
+            isDesktop
+              ? `absolute left-1/2 top-full z-50 mt-2 w-[min(96vw,62rem)] -translate-x-1/2 origin-top ${
+                  isOpen
+                    ? "pointer-events-auto translate-y-0 scale-100 opacity-100 shadow-[0_18px_44px_rgba(15,23,42,0.16)]"
+                    : "pointer-events-none -translate-y-1.5 scale-[0.98] opacity-0 shadow-none"
                 }`
-              }
-              onClick={() => closeMenu()}
-            >
-              <span>{option.label}</span>
-              <span className="text-xs uppercase tracking-[0.18em] text-accent transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-                Go
-              </span>
-            </NavLink>
-          ))}
+              : `mt-3 w-full overflow-hidden origin-top ${
+                  isOpen
+                    ? "max-h-[32rem] translate-y-0 opacity-100"
+                    : "pointer-events-none max-h-0 -translate-y-1 border-transparent opacity-0 shadow-none"
+                }`
+          }`}
+        >
+          <div className="max-h-[min(72vh,30rem)] overflow-y-auto overscroll-contain p-3 sm:p-4">
+            <div className={`grid gap-3 ${isDesktop ? desktopColumnsClass : ""}`}>
+              {menuGroups.map((group) => (
+                <div
+                  key={`${group.label}-${group.link || group.items[0]?.link || "group"}`}
+                  className="rounded-2xl border border-line bg-background p-4 shadow-sm"
+                >
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div>
+                      {group.link ? (
+                        <Link
+                          to={group.link}
+                          className="font-display text-sm font-semibold text-text-primary transition-colors duration-200 hover:text-accent"
+                          onClick={() => closeMenu()}
+                        >
+                          {group.label}
+                        </Link>
+                      ) : (
+                        <p className="font-display text-sm font-semibold text-text-primary">
+                          {group.label}
+                        </p>
+                      )}
+                      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-text-muted">
+                        {group.items.length} skill{group.items.length > 1 ? "s" : ""}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    {group.items.map((option) => (
+                      <NavLink
+                        key={option.link}
+                        to={option.link}
+                        className={({ isActive: isOptionActive }) =>
+                          `group flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-[background-color,color] duration-150 ease-out hover:bg-accent-soft hover:text-text-primary ${
+                            isOptionActive
+                              ? "bg-accent-soft text-text-primary"
+                              : "text-text-muted"
+                          }`
+                        }
+                        onClick={() => closeMenu()}
+                      >
+                        <span className="min-w-0 truncate">{option.label}</span>
+                        <span className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-accent">
+                          View
+                        </span>
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
