@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   gsap,
   hasFinePointer,
@@ -239,10 +240,10 @@ function Hero({ resumeUrl, highlights }) {
                 Resume Available On Request
               </span>
             )}
-            <a href="#projects" className="ghost-link">
+            <Link to="/projects" className="ghost-link">
               View Projects
               <ArrowIcon />
-            </a>
+            </Link>
           </div>
 
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
