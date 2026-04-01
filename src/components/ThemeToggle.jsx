@@ -35,7 +35,7 @@ function MoonIcon() {
   );
 }
 
-function ThemeToggle({ fullWidth = false }) {
+function ThemeToggle({ fullWidth = false, tabIndex, className = "" }) {
   const { theme, toggleTheme } = useTheme();
   const nextTheme = theme === "dark" ? "light" : "dark";
 
@@ -43,11 +43,12 @@ function ThemeToggle({ fullWidth = false }) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-text-primary transition-all duration-300 hover:border-accent hover:text-accent ${
+      className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-text-primary transition-[border-color,color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent ${
         fullWidth ? "w-full" : ""
-      }`}
+      } ${className}`}
       aria-label={`Switch to ${nextTheme} mode`}
       title={`Switch to ${nextTheme} mode`}
+      tabIndex={tabIndex}
     >
       <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-soft text-accent">
         {theme === "dark" ? <SunIcon /> : <MoonIcon />}
