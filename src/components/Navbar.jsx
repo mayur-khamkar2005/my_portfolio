@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   gsap,
   hasFinePointer,
   prefersReducedMotion,
   useIsomorphicLayoutEffect,
 } from "../lib/gsap";
+import DropdownMenu from "./DropdownMenu";
 import ThemeToggle from "./ThemeToggle";
 
 function MenuIcon() {
@@ -39,25 +41,27 @@ function CloseIcon() {
   );
 }
 
-function Navbar({ navigation }) {
+function Navbar({ navigation, dropdownOptions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
   const headerRef = useRef(null);
   const surfaceRef = useRef(null);
   const mobilePanelRef = useRef(null);
   const mobileInnerRef = useRef(null);
+  const location = useLocation();
   const navItems = Array.isArray(navigation)
     ? navigation.filter(
-        (item) => typeof item?.label === "string" && typeof item?.href === "string",
+        (item) => typeof item?.label === "string" && typeof item?.link === "string",
+      )
+    : [];
+  const safeDropdownOptions = Array.isArray(dropdownOptions)
+    ? dropdownOptions.filter(
+        (item) => typeof item?.label === "string" && typeof item?.link === "string",
       )
     : [];
 
   useEffect(() => {
-    const closeMenu = () => setIsOpen(false);
-
-    window.addEventListener("hashchange", closeMenu);
-
-    return () => window.removeEventListener("hashchange", closeMenu);
-  }, []);
+    setIsOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") {
@@ -246,13 +250,13 @@ function Navbar({ navigation }) {
       cleanupFns.forEach((cleanup) => cleanup());
       ctx.revert();
     };
-  }, [navItems.length]);
+  }, [navItems.length, safeDropdownOptions.length]);
 
   useIsomorphicLayoutEffect(() => {
     const panel = mobilePanelRef.current;
     const inner = mobileInnerRef.current;
 
-    if (!panel || !inner || !navItems.length) {
+    if (!panel || !inner || (!navItems.length && !safeDropdownOptions.length)) {
       return undefined;
     }
 
@@ -321,25 +325,21 @@ function Navbar({ navigation }) {
     );
 
     return () => tl.kill();
-  }, [isOpen, navItems.length]);
+  }, [isOpen, navItems.length, safeDropdownOptions.length]);
 
   return (
     <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
       <div className="mx-auto max-w-6xl">
-        <div
-          ref={surfaceRef}
-          className="surface-card motion-plane relative overflow-hidden px-4 py-3 sm:px-6"
-          data-nav-shell
-        >
+        <div ref={surfaceRef} className="surface-card motion-plane relative px-4 py-3 sm:px-6">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-10 top-0 h-px origin-center bg-gradient-to-r from-transparent via-accent to-transparent opacity-70"
             data-nav-beam
           />
 
-          <div className="relative flex items-center justify-between">
-            <a
-              href="#home"
+          <div className="relative flex items-center justify-between gap-4">
+            <Link
+              to="/"
               className="group flex min-w-0 flex-1 items-center gap-3"
               data-nav-brand
             >
@@ -357,20 +357,30 @@ function Navbar({ navigation }) {
                   Full Stack Developer
                 </span>
               </span>
-            </a>
+            </Link>
 
-            {navItems.length ? (
+            {navItems.length || safeDropdownOptions.length ? (
               <nav className="hidden items-center gap-1 md:flex">
                 {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="rounded-lg px-4 py-2 text-sm font-medium text-text-muted transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:text-text-primary"
+                  <NavLink
+                    key={item.link}
+                    to={item.link}
+                    end={item.link === "/"}
+                    className={({ isActive }) =>
+                      `rounded-lg px-4 py-2 text-sm font-medium transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:text-text-primary ${
+                        isActive ? "text-text-primary" : "text-text-muted"
+                      }`
+                    }
                     data-nav-link
                   >
                     {item.label}
-                  </a>
+                  </NavLink>
                 ))}
+                {safeDropdownOptions.length ? (
+                  <div data-nav-link>
+                    <DropdownMenu label="Explore" options={safeDropdownOptions} />
+                  </div>
+                ) : null}
               </nav>
             ) : null}
 
@@ -378,7 +388,7 @@ function Navbar({ navigation }) {
               <div className="hidden md:block">
                 <ThemeToggle />
               </div>
-              {navItems.length ? (
+              {navItems.length || safeDropdownOptions.length ? (
                 <button
                   type="button"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent md:hidden"
@@ -394,7 +404,7 @@ function Navbar({ navigation }) {
           </div>
         </div>
 
-        {navItems.length ? (
+        {navItems.length || safeDropdownOptions.length ? (
           <div
             ref={mobilePanelRef}
             className="h-0 overflow-hidden opacity-0 md:hidden"
@@ -404,17 +414,31 @@ function Navbar({ navigation }) {
               <div className="surface-card space-y-4 px-4 py-4">
                 <nav className="flex flex-col gap-2">
                   {navItems.map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="rounded-xl px-4 py-3 text-sm font-medium text-text-primary transition-[background-color,color,transform] duration-200 ease-out hover:bg-accent-soft"
+                    <NavLink
+                      key={item.link}
+                      to={item.link}
+                      end={item.link === "/"}
+                      className={({ isActive }) =>
+                        `rounded-xl px-4 py-3 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out ${
+                          isActive
+                            ? "bg-accent-soft text-text-primary"
+                            : "text-text-primary hover:bg-accent-soft"
+                        }`
+                      }
                       data-mobile-link
-                      tabIndex={isOpen ? 0 : -1}
                     >
                       {item.label}
-                    </a>
+                    </NavLink>
                   ))}
+                  {safeDropdownOptions.length ? (
+                    <div data-mobile-link>
+                      <DropdownMenu
+                        label="Explore"
+                        options={safeDropdownOptions}
+                        className="w-full"
+                      />
+                    </div>
+                  ) : null}
                 </nav>
                 <ThemeToggle fullWidth tabIndex={isOpen ? 0 : -1} />
               </div>

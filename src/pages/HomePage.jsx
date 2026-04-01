@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import resumePdf from "../assets/Mayur_Khamkar_FullStack_Developer_Resume.pdf";
 import About from "../components/About";
 import Contact from "../components/Contact";
@@ -8,17 +9,14 @@ import Navbar from "../components/Navbar";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
 import { gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "../lib/gsap";
+import {
+  dropdownNavigation,
+  primaryNavigation,
+  sectionRouteMap,
+} from "../lib/siteNavigation";
 
 const primaryEmail = "mayurkhambkar@gmail.com";
 const primaryEmailHref = `mailto:${primaryEmail}?subject=${encodeURIComponent("Portfolio Inquiry")}`;
-
-const navigation = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
 
 const heroHighlights = [
   { label: "Specialty", value: "REST APIs and backend workflows" },
@@ -186,12 +184,16 @@ const socialLinks = [
 ];
 
 function HomePage() {
+  const location = useLocation();
   const pageRef = useRef(null);
   const topGlowRef = useRef(null);
   const sideGlowRef = useRef(null);
 
-  const safeNavigation = navigation.filter(
-    (item) => typeof item?.label === "string" && typeof item?.href === "string",
+  const safeNavigation = primaryNavigation.filter(
+    (item) => typeof item?.label === "string" && typeof item?.link === "string",
+  );
+  const safeDropdownNavigation = dropdownNavigation.filter(
+    (item) => typeof item?.label === "string" && typeof item?.link === "string",
   );
   const safeHighlights = heroHighlights.filter(
     (item) => typeof item?.label === "string" && typeof item?.value === "string",
@@ -266,6 +268,24 @@ function HomePage() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const targetSectionId = sectionRouteMap[location.pathname] ?? "home";
+    const scrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
+
+    const frameId = window.requestAnimationFrame(() => {
+      if (targetSectionId === "home") {
+        window.scrollTo({ top: 0, behavior: scrollBehavior });
+        return;
+      }
+
+      document
+        .getElementById(targetSectionId)
+        ?.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [location.pathname]);
+
   return (
     <div ref={pageRef} className="page-shell">
       <div
@@ -282,7 +302,7 @@ function HomePage() {
         />
       </div>
 
-      <Navbar navigation={safeNavigation} />
+      <Navbar navigation={safeNavigation} dropdownOptions={safeDropdownNavigation} />
 
       <main>
         <Hero resumeUrl={resumePdf} highlights={safeHighlights} />
