@@ -1,15 +1,23 @@
-import HomePage from "./pages/HomePage";
-import { ThemeProvider } from "./context/ThemeContext";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { sectionRoutes } from "./lib/siteNavigation";
+import { ThemeProvider } from "./context/ThemeContext";
+import Layout from "./components/Layout";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
+import SkillsPage from "./pages/SkillsPage";
 
 function App() {
   return (
     <ThemeProvider>
       <Routes>
-        {sectionRoutes.map((route) => (
-          <Route key={route} path={route} element={<HomePage />} />
-        ))}
+        <Route element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="skills" element={<SkillsPage />} />
+          <Route path="projects" element={<ProjectsPage />} />
+          <Route path="contact" element={<ContactPage />} />
+        </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ThemeProvider>
