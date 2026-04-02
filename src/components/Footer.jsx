@@ -1,7 +1,10 @@
+import { isSafeExternalHref } from "../lib/url";
+
 function Footer({ socialLinks }) {
   const links = Array.isArray(socialLinks)
     ? socialLinks.filter(
-        (link) => typeof link?.label === "string" && typeof link?.href === "string",
+        (link) =>
+          typeof link?.label === "string" && isSafeExternalHref(link?.href),
       )
     : [];
 

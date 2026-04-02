@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   gsap,
-  hasFinePointer,
   prefersReducedMotion,
+  supportsInteractiveMotion,
   useIsomorphicLayoutEffect,
 } from "../lib/gsap";
 import DropdownMenu from "./DropdownMenu";
@@ -48,6 +48,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
   const mobilePanelRef = useRef(null);
   const mobileInnerRef = useRef(null);
   const location = useLocation();
+  const mobilePanelId = useId();
   const navItems = Array.isArray(navigation)
     ? navigation.filter(
         (item) => typeof item?.label === "string" && typeof item?.link === "string",
@@ -64,14 +65,14 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   useEffect(() => {
-    if (typeof window.matchMedia !== "function") {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
       return undefined;
     }
 
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const handleChange = (event) => {
       if (event.matches) {
         setIsOpen(false);
@@ -198,7 +199,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
         });
       }
 
-      if (hasFinePointer()) {
+      if (supportsInteractiveMotion()) {
         const rotateXTo = gsap.quickTo(surface, "rotateX", {
           duration: 0.4,
           ease: "power3.out",
@@ -363,7 +364,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
             </Link>
 
             {navItems.length ? (
-              <nav className="hidden items-center gap-1 md:flex">
+              <nav className="hidden items-center gap-1 lg:flex">
                 {navItems.map((item) =>
                   item.hasDropdown ? (
                     <div key={item.link} data-nav-link>
@@ -393,16 +394,17 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
             ) : null}
 
             <div className="flex items-center gap-2" data-nav-actions>
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <ThemeToggle />
               </div>
               {navItems.length ? (
                 <button
                   type="button"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent md:hidden"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent lg:hidden"
                   onClick={() => setIsOpen((currentState) => !currentState)}
                   aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                   aria-expanded={isOpen}
+                  aria-controls={mobilePanelId}
                   data-mobile-toggle
                 >
                   {isOpen ? <CloseIcon /> : <MenuIcon />}
@@ -415,7 +417,8 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
         {navItems.length ? (
           <div
             ref={mobilePanelRef}
-            className="h-0 overflow-hidden opacity-0 md:hidden"
+            id={mobilePanelId}
+            className="h-0 overflow-hidden opacity-0 lg:hidden"
             aria-hidden={!isOpen}
           >
             <div ref={mobileInnerRef} className="mt-3">

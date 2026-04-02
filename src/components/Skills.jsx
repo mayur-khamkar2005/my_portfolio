@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { decodeHashFragment } from "../lib/url";
 
 function normalizeSkill(skill, fallbackCategory = {}) {
   if (!skill || typeof skill?.name !== "string") {
@@ -73,25 +74,27 @@ function SkillItem({ skill }) {
   );
 }
 
-function CategoryButton({ category, isActive, onSelect }) {
+function CategoryButton({ category, isActive, onSelect, panelId }) {
   return (
     <button
       type="button"
       id={category.slug}
-      className={`w-full rounded-2xl border px-5 py-4 text-left transition-[border-color,background-color,color] duration-200 ${
+      className={`h-full w-full rounded-2xl border px-5 py-4 text-left transition-[border-color,background-color,color,transform] duration-200 ${
         isActive
           ? "border-accent bg-accent-soft text-text-primary"
-          : "border-line bg-background text-text-primary hover:border-accent"
+          : "border-line bg-background text-text-primary hover:-translate-y-0.5 hover:border-accent"
       }`}
       onClick={() => onSelect(category.slug)}
       onMouseEnter={() => onSelect(category.slug)}
+      onFocus={() => onSelect(category.slug)}
       aria-pressed={isActive}
+      aria-controls={panelId}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <p className="text-sm font-semibold text-text-primary">{category.label}</p>
           <p className="mt-2 text-sm leading-6 text-text-muted">
-            {category.description || "Select to view related skills."}
+            {category.description || "Open this group to see the tools inside it."}
           </p>
         </div>
 
@@ -109,6 +112,7 @@ function CategoryButton({ category, isActive, onSelect }) {
 
 function Skills({ skills = [], categories = [] }) {
   const location = useLocation();
+  const panelId = useId();
   const safeCategories = useMemo(() => {
     const normalizedCategories = Array.isArray(categories)
       ? categories
@@ -157,7 +161,7 @@ function Skills({ skills = [], categories = [] }) {
   const [activeCategorySlug, setActiveCategorySlug] = useState("");
 
   useEffect(() => {
-    const hashSlug = location.hash ? decodeURIComponent(location.hash.replace("#", "")) : "";
+    const hashSlug = decodeHashFragment(location.hash);
     const matchedCategory = safeCategories.find((category) => category.slug === hashSlug);
 
     if (matchedCategory) {
@@ -165,42 +169,57 @@ function Skills({ skills = [], categories = [] }) {
       return;
     }
 
-    setActiveCategorySlug("");
+    setActiveCategorySlug((currentSlug) => {
+      if (safeCategories.some((category) => category.slug === currentSlug)) {
+        return currentSlug;
+      }
+
+      return safeCategories[0]?.slug ?? "";
+    });
   }, [location.hash, safeCategories]);
 
   const activeCategory = safeCategories.find((category) => category.slug === activeCategorySlug);
+  const handleSelectCategory = (categorySlug) => {
+    setActiveCategorySlug((currentSlug) =>
+      currentSlug === categorySlug ? currentSlug : categorySlug,
+    );
+  };
 
   return (
     <section id="skills" className="section-shell py-16 sm:py-20">
       <div className="max-w-3xl">
         <p className="eyebrow">Skills</p>
-        <h1 className="section-title mt-4">Skills organized by category for a cleaner experience.</h1>
+        <h1 className="section-title mt-4">The tools I use in real projects, grouped by area.</h1>
         <p className="mt-4 text-base leading-7 text-text-muted">
-          Choose a category to view only the related skills. This keeps the page simple,
-          readable, and easy to browse without showing everything at once.
+          This is a simple overview of the tools and concepts I work with most often.
+          Grouping them by area makes the page easier to scan and easier to revisit.
         </p>
       </div>
 
       {safeCategories.length ? (
         <>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {safeCategories.map((category) => (
               <CategoryButton
                 key={category.slug}
                 category={category}
                 isActive={category.slug === activeCategorySlug}
-                onSelect={setActiveCategorySlug}
+                onSelect={handleSelectCategory}
+                panelId={panelId}
               />
             ))}
           </div>
 
-          <div className="mt-8 rounded-2xl border border-line bg-background p-6 shadow-sm transition-[opacity,transform] duration-200">
+          <div
+            id={panelId}
+            className="surface-card-strong mt-8 rounded-2xl p-5 shadow-sm transition-[opacity,transform] duration-200 sm:p-6"
+          >
             {activeCategory ? (
               <div className="transition-opacity duration-200">
                 <div className="flex flex-col gap-3 border-b border-line pb-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="max-w-3xl">
                     <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-                      Active Category
+                      Now Viewing
                     </p>
                     <h2 className="mt-3 font-display text-2xl font-semibold text-text-primary">
                       {activeCategory.label}
@@ -223,10 +242,9 @@ function Skills({ skills = [], categories = [] }) {
               </div>
             ) : (
               <div className="rounded-xl border border-dashed border-line px-5 py-10 text-center">
-                <p className="text-lg font-medium text-text-primary">Select a category</p>
+                <p className="text-lg font-medium text-text-primary">Choose a category</p>
                 <p className="mt-3 text-sm leading-6 text-text-muted">
-                  Click or hover on a category above to view only the skills inside that
-                  group.
+                  Pick one above to see the tools and topics inside it.
                 </p>
               </div>
             )}
@@ -235,11 +253,10 @@ function Skills({ skills = [], categories = [] }) {
       ) : (
         <div className="mt-10 rounded-2xl border border-line bg-background p-6 shadow-sm">
           <p className="font-display text-lg font-medium text-text-primary">
-            Skills are being refreshed.
+            This section is being updated.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-text-muted">
-            Category data is not available yet, so the structured skills view cannot be
-            shown right now.
+            The skill categories are not ready yet, so the full list is not visible right now.
           </p>
         </div>
       )}

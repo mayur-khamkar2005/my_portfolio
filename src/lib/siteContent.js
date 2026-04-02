@@ -4,9 +4,9 @@ const primaryEmail = "mayurkhambkar@gmail.com";
 const primaryEmailHref = `mailto:${primaryEmail}?subject=${encodeURIComponent("Portfolio Inquiry")}`;
 
 const heroHighlights = [
-  { label: "Specialty", value: "REST APIs and backend workflows" },
-  { label: "Security", value: "JWT auth and protected routes" },
-  { label: "Structure", value: "MVC architecture and clean components" },
+  { label: "Focus", value: "Backend-heavy apps and clean APIs" },
+  { label: "Security", value: "JWT auth, protected routes, and access control" },
+  { label: "Approach", value: "Simple structure and practical UI" },
 ];
 
 const focusAreas = [
@@ -14,19 +14,19 @@ const focusAreas = [
     tag: "API",
     title: "REST API Design",
     description:
-      "Designing clear request and response flows, validation layers, and maintainable endpoints for practical product features.",
+      "I like building APIs that stay easy to read, test, and extend as a project grows.",
   },
   {
     tag: "JWT",
     title: "Authentication & Access",
     description:
-      "Implementing JWT-based auth, protected routes, and role-aware experiences so applications feel secure and production-minded.",
+      "A lot of my backend work includes JWT auth, protected routes, and role checks that keep user flows clear.",
   },
   {
     tag: "MVC",
     title: "Scalable Architecture",
     description:
-      "Structuring MERN apps with MVC patterns, modular services, and code organization that supports growth over time.",
+      "I care about structure. Clear folders, reusable modules, and patterns that still make sense later are important to me.",
   },
 ];
 
@@ -35,19 +35,19 @@ const skillCategories = [
     slug: "languages",
     label: "Languages",
     description:
-      "Core programming languages I use for application logic, problem solving, and understanding runtime behavior.",
+      "The languages I use most for application logic, problem solving, and understanding how code behaves.",
     skills: [
       {
         slug: "javascript",
         name: "JavaScript",
         summary:
-          "My primary language for building React interfaces, Node.js APIs, and async application flows.",
+          "The language I use most for React apps, Node.js APIs, and day-to-day product work.",
         description:
-          "JavaScript powers most of my frontend and backend work. I use it to build interactive UIs, structure server-side logic, and connect applications through clean data flows.",
+          "JavaScript sits at the center of most of my work. I use it to build interfaces, handle backend logic, and keep the flow between client and server easy to follow.",
         highlights: [
-          "ES6+ syntax, modules, destructuring, and array/object transformations",
-          "Async workflows with promises and async/await",
-          "Reusable logic across React components and Node.js services",
+          "Modern ES6+ syntax for cleaner, reusable code",
+          "Async work with promises and async/await",
+          "Shared logic across React components and Node.js services",
         ],
         stack: ["ES6+", "Async/Await", "Modules", "DOM", "Node.js"],
       },
@@ -55,13 +55,13 @@ const skillCategories = [
         slug: "cpp",
         name: "C++",
         summary:
-          "Used for strengthening problem-solving, data structure practice, and low-level programming fundamentals.",
+          "I use C++ mainly to strengthen problem-solving and core programming fundamentals.",
         description:
-          "C++ helps me think more carefully about performance, memory, and algorithmic efficiency. It supports my understanding of how software behaves under the hood.",
+          "C++ helped me get better at thinking about memory, performance, and algorithmic trade-offs. It gave me a stronger base for writing better code in general.",
         highlights: [
-          "Data structures and algorithms practice",
-          "Stronger understanding of memory and performance tradeoffs",
-          "Sharper problem-solving approach for technical interviews and core logic",
+          "Practice with data structures and algorithms",
+          "Better understanding of memory and performance",
+          "Stronger problem-solving for core logic and interviews",
         ],
         stack: ["STL", "DSA", "Pointers", "OOP"],
       },
@@ -71,19 +71,19 @@ const skillCategories = [
     slug: "frontend",
     label: "Frontend",
     description:
-      "Frontend tools I use to build responsive interfaces, route-driven experiences, and maintainable stateful UI.",
+      "Frontend tools I use to build responsive interfaces, routed pages, and UI that stays manageable as a project grows.",
     skills: [
       {
         slug: "react-js",
         name: "React.js",
         summary:
-          "My main frontend library for building component-based pages, dashboards, and reusable UI systems.",
+          "My go-to library for building UI that stays modular as features grow.",
         description:
-          "I use React to create modular interfaces that stay easy to extend as features grow. My workflow focuses on readable component structure, prop clarity, and state that scales cleanly.",
+          "I use React to build pages and components that are easy to read, reuse, and extend. I try to keep state simple and component structure clear.",
         highlights: [
-          "Composable component architecture with modern hooks",
-          "Reusable section-based UI for portfolio and app screens",
-          "Clean separation of layout, data, and interactive behavior",
+          "Component-based UI built with modern hooks",
+          "Reusable sections for apps, dashboards, and landing pages",
+          "Clear separation between layout, data, and interactions",
         ],
         stack: ["Hooks", "JSX", "Components", "State", "Props"],
       },
@@ -91,13 +91,13 @@ const skillCategories = [
         slug: "react-router",
         name: "React Router",
         summary:
-          "Used for client-side routing, nested layouts, and smooth multi-page navigation inside React apps.",
+          "I use it to build clear navigation, nested layouts, and proper page structure inside React apps.",
         description:
-          "React Router lets me structure applications with proper routes instead of overloading a single page. I use it for layouts, detail pages, and keeping navigation fast without reloads.",
+          "React Router helps me turn a group of components into a real app with pages, layouts, and detail views. It keeps navigation fast without full reloads.",
         highlights: [
-          "Nested layouts with shared Navbar and Footer",
-          "Dynamic routes for detail pages and page-specific content",
-          "Smooth SPA navigation with route-driven rendering",
+          "Shared layouts with consistent navigation",
+          "Dynamic routes for detail pages and content views",
+          "Fast client-side page transitions",
         ],
         stack: ["Routes", "Outlet", "NavLink", "useParams"],
       },
@@ -105,13 +105,13 @@ const skillCategories = [
         slug: "zustand",
         name: "Zustand",
         summary:
-          "A lightweight state management option I use when app state needs to stay simple and scalable.",
+          "A lightweight option I use when shared state starts to outgrow local component state.",
         description:
-          "Zustand is useful when component-local state starts to spread across screens. I like it for keeping shared state straightforward without excessive setup.",
+          "I like Zustand when I need shared state without adding too much setup. It helps keep stores simple and easy to work with.",
         highlights: [
-          "Lightweight global state for UI and app-level data",
-          "Cleaner state sharing than prop drilling for some flows",
-          "Readable store patterns for growing React apps",
+          "Lightweight shared state for UI and app data",
+          "A cleaner option than prop drilling for some flows",
+          "Readable store patterns for growing apps",
         ],
         stack: ["Stores", "Selectors", "Shared State"],
       },
@@ -119,13 +119,13 @@ const skillCategories = [
         slug: "context-api",
         name: "Context API",
         summary:
-          "Used for app-wide state like theming, auth context, and lightweight shared UI data.",
+          "A good fit for app-wide state like theme, auth, and shared UI behavior.",
         description:
-          "I use Context API when state needs to be shared across multiple components but does not require a heavier state-management layer. Theme toggles and auth-aware UI are common use cases.",
+          "I use Context API when data needs to be shared across the app without bringing in a heavier state library. Theme and auth are the most common examples.",
         highlights: [
-          "Shared theme and UI state",
-          "Clean provider-based composition",
-          "Good fit for lightweight cross-app state",
+          "Shared theme and interface state",
+          "Simple provider-based setup",
+          "Useful for lightweight app-wide data",
         ],
         stack: ["Providers", "useContext", "Shared UI State"],
       },
@@ -133,13 +133,13 @@ const skillCategories = [
         slug: "html5",
         name: "HTML5",
         summary:
-          "The semantic foundation I use to build accessible, structured, and SEO-friendly interfaces.",
+          "The markup foundation I rely on for clear structure and better accessibility.",
         description:
-          "HTML5 is where clean UI structure starts. I focus on semantic sections, meaningful hierarchy, and markup that supports accessibility and maintainability.",
+          "I treat HTML as the structure of the interface, not just a wrapper. Clean markup makes styling, accessibility, and maintenance much easier.",
         highlights: [
-          "Semantic page structure with accessible hierarchy",
-          "Forms, sections, headings, and interactive content",
-          "Markup that supports responsive and maintainable styling",
+          "Semantic structure with a clear content hierarchy",
+          "Forms, sections, headings, and interactive elements",
+          "Markup that supports accessibility and maintainability",
         ],
         stack: ["Semantic Markup", "Accessibility", "Forms"],
       },
@@ -147,13 +147,13 @@ const skillCategories = [
         slug: "css3",
         name: "CSS3",
         summary:
-          "Used for responsive layouts, motion, spacing systems, and visual polish beyond utility classes alone.",
+          "I use CSS for layout, spacing, responsive behavior, and the small details that make a UI feel finished.",
         description:
-          "CSS3 helps me build layout systems and refined interaction details that make interfaces feel finished. I use it alongside Tailwind for responsive behavior and custom visual treatment.",
+          "CSS helps me fine-tune the parts of a UI that need more control. I use it alongside Tailwind for layout, responsiveness, and visual polish.",
         highlights: [
-          "Flexbox and Grid layouts",
-          "Transitions, transforms, and responsive design",
-          "Custom styling for reusable UI patterns",
+          "Flexbox and Grid for page layout",
+          "Responsive styling and transitions",
+          "Custom styles for reusable UI patterns",
         ],
         stack: ["Flexbox", "Grid", "Animations", "Media Queries"],
       },
@@ -161,13 +161,13 @@ const skillCategories = [
         slug: "tailwind-css",
         name: "Tailwind CSS",
         summary:
-          "My default styling system for building modern, responsive, and maintainable interfaces quickly.",
+          "My default styling setup for building responsive interfaces quickly without losing control of the design.",
         description:
-          "Tailwind lets me build custom UI rapidly while keeping spacing, typography, and layout decisions consistent. I use it to move fast without giving up design control.",
+          "I use Tailwind to move fast while keeping spacing, typography, and layout consistent. It works well for both quick builds and larger interfaces.",
         highlights: [
-          "Rapid UI implementation with utility-first styling",
-          "Consistent spacing, sizing, and responsive breakpoints",
-          "Easy reuse of design tokens and component patterns",
+          "Fast UI work with utility-first classes",
+          "Consistent spacing and responsive breakpoints",
+          "Easy reuse of patterns across components",
         ],
         stack: ["Utility Classes", "Responsive Design", "Design Tokens"],
       },
@@ -177,19 +177,19 @@ const skillCategories = [
     slug: "backend",
     label: "Backend",
     description:
-      "Backend tools I use to build secure APIs, organize business logic, and structure production-minded services.",
+      "Backend tools I use to build APIs, organize business logic, and keep services clean and reliable.",
     skills: [
       {
         slug: "node-js",
         name: "Node.js",
         summary:
-          "My primary runtime for building backend services, API workflows, and server-side business logic.",
+          "The runtime I use most for backend work, APIs, and server-side application logic.",
         description:
-          "I use Node.js to build backend applications that handle authentication, routing, and app-level logic with JavaScript across the stack.",
+          "I use Node.js to build backend apps that handle auth, routing, and app logic with JavaScript across the stack.",
         highlights: [
           "Server-side logic for MERN applications",
-          "Async handling for API workflows and integrations",
-          "Strong fit for JavaScript-based full stack development",
+          "Async handling for APIs and integrations",
+          "A smooth fit for full stack JavaScript projects",
         ],
         stack: ["Runtime", "Async IO", "API Services"],
       },
@@ -197,13 +197,13 @@ const skillCategories = [
         slug: "express-js",
         name: "Express.js",
         summary:
-          "Used for route handling, middleware structure, controller organization, and scalable API architecture.",
+          "I use Express for routing, middleware, and clean API structure.",
         description:
-          "Express helps me structure backend applications with clean request handling and modular middleware. I use it for REST APIs, auth workflows, and controller-based app design.",
+          "Express helps me keep backend code organized. I use it for REST APIs, auth flows, middleware, and controller-based structure.",
         highlights: [
-          "Controller and route organization",
-          "Middleware-driven request handling",
-          "Clean API structure for real product flows",
+          "Clear route and controller organization",
+          "Middleware-based request handling",
+          "API structure that stays readable as features grow",
         ],
         stack: ["Routing", "Middleware", "Controllers", "REST"],
       },
@@ -213,19 +213,19 @@ const skillCategories = [
     slug: "database",
     label: "Database",
     description:
-      "Database skills focused on document modeling, schema decisions, and performance-aware data access.",
+      "Database skills focused on schema design, data modeling, and practical query decisions.",
     skills: [
       {
         slug: "mongodb",
         name: "MongoDB",
         summary:
-          "Used for schema design, document modeling, indexing decisions, and practical CRUD-driven apps.",
+          "My usual database choice for MERN projects and CRUD-heavy applications.",
         description:
-          "MongoDB is my go-to database for MERN projects. I use it to model application data, design schemas that fit real workflows, and improve query performance with indexing where needed.",
+          "I use MongoDB to model app data in a way that matches real user flows. I also pay attention to schema shape and indexing when queries need to stay fast.",
         highlights: [
-          "Schema design that reflects app relationships and workflows",
-          "Indexing awareness for faster lookup-heavy operations",
-          "Practical CRUD, validation, and collection organization",
+          "Schema design based on real app workflows",
+          "Indexing for better lookup performance",
+          "Practical CRUD, validation, and collection structure",
         ],
         stack: ["Schema Design", "Indexing", "CRUD", "Collections"],
       },
@@ -235,19 +235,19 @@ const skillCategories = [
     slug: "api-security",
     label: "API & Security",
     description:
-      "API and security concepts I use to build trustworthy backend flows, protected routes, and role-aware systems.",
+      "API and security topics I use when building protected routes, auth flows, and role-based systems.",
     skills: [
       {
         slug: "rest-apis",
         name: "REST APIs",
         summary:
-          "I design API endpoints around clear request-response structure and practical product workflows.",
+          "I build APIs around clear endpoints, predictable responses, and practical product flows.",
         description:
-          "REST APIs are central to how I connect frontend interfaces with backend systems. I focus on clean endpoint structure, readable payloads, and maintainable request handling.",
+          "REST APIs are a big part of my work. I focus on readable routes, simple payloads, and request handling that stays easy to maintain.",
         highlights: [
           "Resource-based route structure",
-          "Readable request and response contracts",
-          "Practical integration between frontend and backend layers",
+          "Clear request and response contracts",
+          "Smooth integration between frontend and backend",
         ],
         stack: ["Endpoints", "CRUD", "HTTP", "JSON"],
       },
@@ -255,13 +255,13 @@ const skillCategories = [
         slug: "jwt",
         name: "JWT",
         summary:
-          "Used for token-based authentication, protected routes, and session-aware user flows.",
+          "I use JWT for token-based auth, protected routes, and user session flows.",
         description:
-          "JWT is a key part of how I implement authentication in MERN apps. I use it to protect routes, verify users, and support secure client-server communication.",
+          "JWT is one of the main tools I use for auth in MERN apps. It helps me protect routes, verify users, and manage access between client and server.",
         highlights: [
           "Token creation and verification",
           "Protected frontend and backend routes",
-          "Session-aware user access flows",
+          "User access flows based on auth state",
         ],
         stack: ["Tokens", "Auth Headers", "Protected Routes"],
       },
@@ -269,13 +269,13 @@ const skillCategories = [
         slug: "rbac",
         name: "RBAC",
         summary:
-          "Role-based access control for restricting features and data by user responsibility.",
+          "Role-based access control for deciding which users can see or do what.",
         description:
-          "RBAC helps me build systems where different users see different capabilities. I use it to create admin vs user flows and keep access aligned with application roles.",
+          "I use RBAC when different users need different permissions. It is useful for admin dashboards, protected actions, and safer multi-user systems.",
         highlights: [
           "Role-aware dashboards and actions",
           "Access rules across frontend and backend",
-          "Safer feature exposure for multi-user apps",
+          "Safer feature control in multi-user apps",
         ],
         stack: ["Roles", "Permissions", "Protected Actions"],
       },
@@ -283,13 +283,13 @@ const skillCategories = [
         slug: "authentication",
         name: "Authentication",
         summary:
-          "Focused on identifying users securely through login, token issuance, and verification flows.",
+          "The part of an app that confirms who the user is through login and verification.",
         description:
-          "Authentication is where application trust begins. I work with login systems, token generation, and secure session logic so users can access the right parts of an app safely.",
+          "I work with login flows, token generation, and user verification so the right people can get into the right parts of an app.",
         highlights: [
           "Login and credential flow design",
           "User verification and session handling",
-          "Secure route access for authenticated users",
+          "Protected access for signed-in users",
         ],
         stack: ["Login", "Verification", "Sessions", "Security"],
       },
@@ -297,13 +297,13 @@ const skillCategories = [
         slug: "authorization",
         name: "Authorization",
         summary:
-          "Used to decide what authenticated users can access after identity has been verified.",
+          "The logic that decides what an authenticated user is allowed to access.",
         description:
-          "Authorization helps me control what users are allowed to do after login. I apply it through permission checks, role validation, and feature gating across routes and APIs.",
+          "After login, authorization decides what a user can actually do. I use it for permission checks, role validation, and feature gating.",
         highlights: [
           "Permission checks after authentication",
-          "Feature and action gating by user role",
-          "Safer business logic enforcement",
+          "Feature and action gating by role",
+          "Safer control over business logic",
         ],
         stack: ["Permissions", "Roles", "Access Checks"],
       },
@@ -311,13 +311,13 @@ const skillCategories = [
         slug: "middleware",
         name: "Middleware",
         summary:
-          "A core Express pattern I use for auth checks, validation, logging, and shared backend behavior.",
+          "A core Express pattern I use for auth checks, validation, and shared request logic.",
         description:
-          "Middleware keeps backend code organized by separating shared concerns from route handlers. I use it to verify tokens, validate requests, and centralize repeated logic.",
+          "Middleware helps me move repeated backend logic out of controllers. I use it for auth, validation, logging, and cleaner request flow.",
         highlights: [
           "Reusable auth and validation layers",
-          "Cleaner controller code through separation of concerns",
-          "Better request lifecycle control",
+          "Cleaner controllers through separation of concerns",
+          "Better control over the request lifecycle",
         ],
         stack: ["Express Middleware", "Validation", "Auth Guards"],
       },
@@ -327,18 +327,18 @@ const skillCategories = [
     slug: "tools",
     label: "Tools",
     description:
-      "Tools that support version control, testing, deployment, cloud services, and productive day-to-day development.",
+      "Tools I use for version control, testing, deployment, and day-to-day development work.",
     skills: [
       {
         slug: "git",
         name: "Git",
         summary:
-          "Used daily for version control, branching, safer iteration, and tracking code changes cleanly.",
+          "I use Git every day to track changes, work in branches, and iterate safely.",
         description:
-          "Git is essential to how I manage work across features and fixes. I use it to maintain history, isolate changes, and keep development workflows safe and traceable.",
+          "Git is part of my normal workflow for features, fixes, and experiments. It helps me keep history clean and changes easy to manage.",
         highlights: [
           "Feature branches and commit-based workflow",
-          "Clean history while iterating on changes",
+          "Clean history while iterating",
           "Reliable rollback and collaboration support",
         ],
         stack: ["Version Control", "Branches", "Commits"],
@@ -347,13 +347,13 @@ const skillCategories = [
         slug: "github",
         name: "GitHub",
         summary:
-          "Used for repository hosting, pull requests, branching workflows, and collaboration around code.",
+          "Where I host projects, manage repos, and share work publicly.",
         description:
-          "GitHub is where I organize repositories, share work, and collaborate through branch-based workflows. I use it to manage code history and present projects professionally.",
+          "I use GitHub to manage repositories, share project work, and keep code organized through branch-based workflows.",
         highlights: [
           "Repository organization and code sharing",
           "Branching and pull request workflow",
-          "Portfolio visibility for public project work",
+          "A clear place to present project work",
         ],
         stack: ["Repos", "Pull Requests", "Branches"],
       },
@@ -361,12 +361,12 @@ const skillCategories = [
         slug: "postman",
         name: "Postman",
         summary:
-          "Used for testing endpoints, verifying payloads, and debugging API behavior during development.",
+          "A tool I use to test endpoints, inspect payloads, and debug APIs while building them.",
         description:
-          "Postman helps me inspect and validate backend APIs before wiring them into the frontend. I use it to test endpoints, auth headers, and response formats quickly.",
+          "I use Postman to test routes before connecting them to the frontend. It helps me quickly verify payloads, headers, and response shape.",
         highlights: [
           "Manual API testing and debugging",
-          "Header, token, and payload validation",
+          "Header, token, and payload checks",
           "Faster backend verification before UI integration",
         ],
         stack: ["API Testing", "Collections", "Requests"],
@@ -375,12 +375,12 @@ const skillCategories = [
         slug: "vs-code",
         name: "VS Code",
         summary:
-          "My primary editor for writing, debugging, organizing, and navigating full stack codebases.",
+          "My main editor for writing, debugging, and navigating full stack codebases.",
         description:
-          "VS Code is the main environment I use for development. It supports my day-to-day workflow through extensions, integrated debugging, and quick navigation across project files.",
+          "VS Code is where most of my day-to-day work happens. It gives me quick navigation, useful extensions, and a smooth debugging setup.",
         highlights: [
           "Fast navigation through multi-file projects",
-          "Extension-driven productivity for React and Node.js work",
+          "Helpful extensions for React and Node.js work",
           "Integrated debugging and terminal workflow",
         ],
         stack: ["Editor", "Extensions", "Debugging"],
@@ -389,13 +389,13 @@ const skillCategories = [
         slug: "mongodb-atlas",
         name: "MongoDB Atlas",
         summary:
-          "Used for hosted MongoDB deployments, cloud access, and managing development and production databases.",
+          "I use it when MongoDB needs to move from local development to the cloud.",
         description:
-          "MongoDB Atlas helps me move MongoDB projects from local development to cloud-hosted environments. I use it for managed clusters and deployment-friendly database access.",
+          "MongoDB Atlas makes it easier to host databases without managing everything manually. I use it for managed clusters and deployment-friendly setups.",
         highlights: [
           "Managed cloud database hosting",
           "Easy connection from deployed MERN apps",
-          "Practical support for development-to-production flow",
+          "A practical step from development to production",
         ],
         stack: ["Cloud DB", "Clusters", "Connections"],
       },
@@ -403,13 +403,13 @@ const skillCategories = [
         slug: "render",
         name: "Render",
         summary:
-          "Used for deploying backend services and full stack applications with a straightforward cloud workflow.",
+          "A hosting option I use for backend services and full stack projects.",
         description:
-          "Render gives me a simple path to deploy backend APIs and supporting services. I use it when I want reliable hosting with minimal infrastructure overhead.",
+          "I use Render when I want a simple way to deploy backend APIs and supporting services without a lot of infrastructure setup.",
         highlights: [
-          "Deployment of Node.js backends and services",
-          "Environment variable and service-based hosting setup",
-          "Simple workflow for bringing projects online",
+          "Deployment for Node.js backends and services",
+          "Environment variable and service-based setup",
+          "A straightforward path to getting projects online",
         ],
         stack: ["Deployment", "Hosting", "Environment Variables"],
       },
@@ -417,13 +417,13 @@ const skillCategories = [
         slug: "vercel",
         name: "Vercel",
         summary:
-          "Used to deploy frontend applications quickly with strong support for modern React projects.",
+          "My usual choice for deploying frontend projects quickly.",
         description:
-          "Vercel is my preferred platform for deploying React frontends and polished portfolio work. It makes preview and production deployment fast and convenient.",
+          "I like Vercel for React frontends and portfolio work because the deployment flow is simple and the preview setup is easy to use.",
         highlights: [
           "Fast deployment for frontend projects",
-          "Smooth hosting workflow for React applications",
-          "Good fit for portfolio and client-facing UI delivery",
+          "Smooth workflow for React applications",
+          "A good fit for portfolio and client-facing UI",
         ],
         stack: ["Frontend Hosting", "Deployments", "Preview Builds"],
       },
@@ -431,13 +431,13 @@ const skillCategories = [
         slug: "cloudinary",
         name: "Cloudinary",
         summary:
-          "Used for image hosting, media delivery, and cleaner asset management in full stack applications.",
+          "A useful service for handling uploads and media delivery in full stack apps.",
         description:
-          "Cloudinary helps manage uploaded media without storing everything directly in the app itself. I use it for image workflows and serving media efficiently.",
+          "I use Cloudinary when a project needs image uploads or hosted media. It keeps asset handling cleaner than storing everything directly in the app.",
         highlights: [
-          "Cloud-based image and media management",
-          "Cleaner handling of uploads in full stack apps",
-          "Useful for scalable media delivery",
+          "Cloud-based image and media handling",
+          "Cleaner upload flows in full stack apps",
+          "Reliable delivery for hosted media",
         ],
         stack: ["Media Hosting", "Uploads", "Asset Delivery"],
       },
@@ -458,6 +458,7 @@ const skillLookup = Object.fromEntries(skills.map((skill) => [skill.slug, skill]
 
 const skillMenuGroups = skillCategories.map((category) => ({
   label: category.label,
+  description: category.description,
   link: `/skills#${category.slug}`,
   items: category.skills.map((skill) => ({
     label: skill.name,
@@ -487,51 +488,99 @@ function getRelatedSkills(skillSlug) {
 
 const projects = [
   {
-    category: "Admin Platform",
-    title: "AccessHub Dashboard",
-    year: "MERN",
+    category: "Full Stack Commerce",
+    title: "NovaCart Commerce",
+    year: "2026",
     description:
-      "A role-aware admin platform for managing users, permissions, and protected application flows from a centralized dashboard.",
-    techStack: ["React", "Node.js", "Express", "MongoDB", "JWT", "Tailwind"],
+      "A full stack e-commerce build with customer browsing, checkout, admin tools, and secure account flows.",
+    techStack: ["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"],
     features: [
-      "JWT authentication with protected frontend and backend routes",
-      "Role-based access for admin and user-specific dashboards",
-      "REST APIs for user management, analytics, and activity workflows",
-      "MVC backend structure for readable, scalable code organization",
+      "JWT auth with role-based access and protected routes",
+      "Product browsing with search, filters, pagination, reviews, and wishlist support",
+      "Cart, checkout, and order history across the full app",
+      "Admin tools for product management and order updates",
     ],
-    githubUrl: "https://github.com/Mayur-Khamker",
+    githubUrl: "https://github.com/mayur-khamkar2005/full-stack-e-commerce-app",
     liveUrl: "",
   },
   {
-    category: "Operations Suite",
-    title: "OrderStack Manager",
-    year: "API",
+    category: "Frontend Commerce",
+    title: "ShopSmart E-commerce Frontend",
+    year: "2026",
     description:
-      "A backend-focused inventory and order management system designed to handle CRUD-heavy operations without losing clarity in the UI.",
-    techStack: ["React", "Node.js", "Express", "MongoDB", "REST API", "JWT"],
+      "A React storefront focused on browsing, filtering, protected actions, and a smoother shopping flow.",
+    techStack: ["React", "Vite", "Tailwind CSS", "React Router", "Context API", "REST API"],
     features: [
-      "Token-secured login and session-aware navigation",
-      "API-driven order, product, and inventory workflows",
-      "Search, filtering, and role-aware actions across operational screens",
-      "Clean controller and model separation following MVC principles",
+      "Protected cart and wishlist flows after login",
+      "API-driven product fetching with search, filters, and sorting",
+      "Persistent cart and wishlist state with localStorage",
+      "Reusable layout and component structure with custom hooks",
     ],
-    githubUrl: "https://github.com/Mayur-Khamker",
+    githubUrl: "https://github.com/mayur-khamkar2005/ShopSmart-E-commerce",
     liveUrl: "",
   },
   {
-    category: "Full Stack Portal",
-    title: "TeamPulse Workspace",
-    year: "RBAC",
+    category: "Backend API",
+    title: "Ecommerce Backend API",
+    year: "2026",
     description:
-      "A collaborative workspace concept that combines a modern React interface with secure backend logic for teams and internal tools.",
-    techStack: ["React", "Express", "MongoDB", "JWT", "Role Access", "Tailwind"],
+      "An e-commerce backend covering auth, products, orders, and admin actions with a clean controller-based structure.",
+    techStack: ["Node.js", "Express", "MongoDB Atlas", "JWT", "bcrypt", "Render"],
     features: [
-      "Authentication and authorization for team-based workflows",
-      "Protected APIs for managing workspace data and user actions",
-      "Responsive UI with clean information hierarchy and reusable components",
-      "Modular architecture built to support feature growth and maintenance",
+      "JWT auth with user and admin access flows",
+      "Product CRUD, order handling, and protected endpoints",
+      "MVC plus service-layer structure for cleaner backend code",
+      "MongoDB Atlas setup with deployment on Render",
     ],
-    githubUrl: "https://github.com/Mayur-Khamker",
+    githubUrl: "https://github.com/mayur-khamkar2005/ecommerce-backend",
+    liveUrl: "",
+  },
+  {
+    category: "Authentication System",
+    title: "Full Stack Authentication Starter",
+    year: "2026",
+    description:
+      "A compact starter project that brings together React, Express, MongoDB, and JWT for protected user flows.",
+    techStack: ["React", "Vite", "Express", "MongoDB", "JWT", "Axios"],
+    features: [
+      "Register, login, and role-based access with JWT",
+      "Protected profile and admin routes",
+      "Backend structure with controllers, middleware, models, and utilities",
+      "A clean starting point for protected MERN apps",
+    ],
+    githubUrl: "https://github.com/mayur-khamkar2005/auth_test_project",
+    liveUrl: "",
+  },
+  {
+    category: "MERN Analytics App",
+    title: "Wine Quality Analyzer",
+    year: "2026",
+    description:
+      "A MERN app for predicting wine quality, tracking history, and showing trends through charts and dashboards.",
+    techStack: ["React", "Vite", "Express", "MongoDB", "JWT", "Recharts"],
+    features: [
+      "JWT auth with protected routes and admin-only access",
+      "Prediction flow with saved history, filters, and pagination",
+      "Charts and dashboard views for trends and recent activity",
+      "Responsive light and dark UI with a custom visual style",
+    ],
+    githubUrl: "https://github.com/mayur-khamkar2005/wine-test-site",
+    liveUrl: "",
+  },
+  {
+    category: "Portfolio Website",
+    title: "Personal Developer Portfolio",
+    year: "2026",
+    description:
+      "This portfolio site, built to present my work clearly without overcomplicating the experience.",
+    techStack: ["React", "Vite", "Tailwind CSS", "React Router", "GSAP", "Context API"],
+    features: [
+      "Dark and light theme support with shared design tokens",
+      "Animated multi-page layout with project and skill sections",
+      "Structured content for projects, skills, and contact details",
+      "Responsive design built for portfolio use",
+    ],
+    githubUrl: "https://github.com/mayur-khamkar2005/my_portfolio",
     liveUrl: "",
   },
 ];
@@ -540,7 +589,7 @@ const contactMethods = [
   {
     label: "Email",
     value: primaryEmail,
-    description: "Best for hiring conversations, freelance work, and project discussions.",
+    description: "The easiest way to reach me for jobs, freelance work, or project discussions.",
     actionLabel: "Send Email",
     href: primaryEmailHref,
     external: false,
@@ -548,23 +597,23 @@ const contactMethods = [
   {
     label: "Phone",
     value: "+91 98923 58717",
-    description: "Reach out directly for recruiter follow-up or quick project discussion.",
+    description: "Good for quick follow-up or a direct conversation about work.",
     actionLabel: "Call Now",
     href: "tel:+919892358717",
     external: false,
   },
   {
     label: "GitHub",
-    value: "Mayur-Khamker",
-    description: "Explore repositories, MERN code samples, and backend-focused project work.",
+    value: "mayur-khamkar2005",
+    description: "You can find my public repos, experiments, and project work here.",
     actionLabel: "Open GitHub",
-    href: "https://github.com/Mayur-Khamker",
+    href: "https://github.com/mayur-khamkar2005",
     external: true,
   },
   {
     label: "LinkedIn",
     value: "Mayur Khamkar",
-    description: "View professional profile, experience summary, and recruiter-facing details.",
+    description: "A simple place to see my background and connect professionally.",
     actionLabel: "Open LinkedIn",
     href: "https://www.linkedin.com/in/mayur-khamkar-bb5aa0318/",
     external: true,
@@ -572,7 +621,7 @@ const contactMethods = [
   {
     label: "X / Twitter",
     value: "@mayurkhamker",
-    description: "Follow updates, developer thoughts, and public-facing tech activity.",
+    description: "Where I occasionally share updates, thoughts, and things I am building.",
     actionLabel: "Open X",
     href: "https://x.com/mayurkhamker",
     external: true,
@@ -580,7 +629,7 @@ const contactMethods = [
 ];
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/Mayur-Khamker" },
+  { label: "GitHub", href: "https://github.com/mayur-khamkar2005" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/mayur-khamkar-bb5aa0318/" },
   { label: "X", href: "https://x.com/mayurkhamker" },
 ];

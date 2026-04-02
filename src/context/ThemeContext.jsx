@@ -1,22 +1,32 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(undefined);
 const STORAGE_KEY = "mayur-portfolio-theme";
+const canUseDOM = typeof window !== "undefined";
 
-const getInitialTheme = () => {
-  if (typeof window === "undefined") {
+function readStoredTheme() {
+  if (!canUseDOM) {
+    return null;
+  }
+
+  try {
+    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
+    return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+  } catch {
+    return null;
+  }
+}
+
+function getSystemTheme() {
+  if (!canUseDOM || typeof window.matchMedia !== "function") {
     return "dark";
   }
 
-  const storedTheme = window.localStorage.getItem(STORAGE_KEY);
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
-  if (storedTheme === "light" || storedTheme === "dark") {
-    return storedTheme;
-  }
-
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+const getInitialTheme = () => {
+  return readStoredTheme() ?? getSystemTheme();
 };
 
 export function ThemeProvider({ children }) {
@@ -27,17 +37,29 @@ export function ThemeProvider({ children }) {
 
     root.classList.toggle("dark", theme === "dark");
     root.dataset.theme = theme;
-    window.localStorage.setItem(STORAGE_KEY, theme);
+    root.style.colorScheme = theme;
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      // Ignore storage errors so theme toggling still works in restricted browsers.
+    }
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
   };
 
+  const value = useMemo(
+    () => ({
+      theme,
+      toggleTheme,
+    }),
+    [theme],
+  );
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 

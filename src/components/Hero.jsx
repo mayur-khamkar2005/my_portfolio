@@ -2,8 +2,8 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   gsap,
-  hasFinePointer,
   prefersReducedMotion,
+  supportsInteractiveMotion,
   useIsomorphicLayoutEffect,
 } from "../lib/gsap";
 
@@ -135,7 +135,7 @@ function Hero({ resumeUrl, highlights }) {
         });
       }
 
-      if (panel && hasFinePointer()) {
+      if (panel && supportsInteractiveMotion()) {
         const layers = gsap.utils.toArray("[data-hero-depth]", panel);
         const rotateXTo = gsap.quickTo(panel, "rotateX", {
           duration: 0.38,
@@ -205,7 +205,7 @@ function Hero({ resumeUrl, highlights }) {
       <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
           <p className="eyebrow" data-hero-copy>
-            Backend-Driven MERN Portfolio
+            Full Stack Developer
           </p>
           <h1
             className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary min-[420px]:text-5xl sm:text-6xl lg:text-7xl"
@@ -220,9 +220,9 @@ function Hero({ resumeUrl, highlights }) {
             className="mt-6 max-w-2xl text-lg leading-8 text-text-muted sm:text-xl"
             data-hero-copy
           >
-            I build backend-focused web products with secure JWT auth, clean API
-            layers, and scalable system design that still feels polished on the
-            frontend.
+            I build full stack web apps with most of my attention on the backend.
+            A lot of my work goes into APIs, auth, and clean structure, while
+            keeping the frontend clear and easy to use.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-copy>
@@ -261,11 +261,10 @@ function Hero({ resumeUrl, highlights }) {
             ) : (
               <div className="surface-card p-4 sm:col-span-3" data-hero-stat>
                 <p className="text-sm font-medium text-text-primary">
-                  Current portfolio highlights are being refreshed.
+                  A quick summary will show up here.
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  Core strengths, security focus, and backend specialties can be
-                  highlighted here as project data grows.
+                  It is meant for the parts of development I spend the most time on.
                 </p>
               </div>
             )}
@@ -289,7 +288,7 @@ function Hero({ resumeUrl, highlights }) {
               className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent"
               data-hero-depth
             >
-              Current Focus
+              What I&apos;m Building
             </div>
 
             <div className="mt-6 rounded-xl border bg-background/60 p-5" data-hero-depth>
@@ -305,18 +304,18 @@ function Hero({ resumeUrl, highlights }) {
                   <span className="text-text-primary">{"{"}</span>
                 </p>
                 <p className="pl-4">
-                  focus: <span className="text-text-primary">"Scalable APIs"</span>,
+                  focus: <span className="text-text-primary">"Practical APIs"</span>,
                 </p>
                 <p className="pl-4">
-                  auth: <span className="text-text-primary">"JWT + RBAC"</span>,
+                  auth: <span className="text-text-primary">"JWT + role checks"</span>,
                 </p>
                 <p className="pl-4">
                   architecture:{" "}
-                  <span className="text-text-primary">"MVC patterns"</span>,
+                  <span className="text-text-primary">"Clean MVC structure"</span>,
                 </p>
                 <p className="pl-4">
                   stack:{" "}
-                  <span className="text-text-primary">["React", "Node", "MongoDB"]</span>
+                  <span className="text-text-primary">["React", "Node.js", "MongoDB"]</span>
                 </p>
                 <p>
                   <span className="text-text-primary">{"}"}</span>;
@@ -330,16 +329,15 @@ function Hero({ resumeUrl, highlights }) {
                   Backend-first thinking
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  I enjoy turning business logic into reliable APIs and protected
-                  workflows.
+                  I like turning product requirements into APIs, auth flows, and backend features that stay manageable.
                 </p>
               </div>
               <div className="surface-card p-5" data-hero-depth>
                 <p className="text-sm font-medium text-text-primary">
-                  Recruiter-ready presentation
+                  Frontend that stays simple
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  Clean UI, clear communication, and practical project storytelling.
+                  I care about clean layout, readable content, and interfaces that feel straightforward to use.
                 </p>
               </div>
             </div>
