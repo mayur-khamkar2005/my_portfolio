@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import {
   gsap,
-  hasFinePointer,
   prefersReducedMotion,
+  supportsInteractiveMotion,
   useIsomorphicLayoutEffect,
 } from "../lib/gsap";
+import { isSafeExternalHref } from "../lib/url";
 
 function ArrowUpRightIcon() {
   return (
@@ -38,24 +39,20 @@ function ProjectCard({ project }) {
   const description =
     typeof project?.description === "string" && project.description.trim()
       ? project.description
-      : "Project details will be added here shortly.";
+      : "More details will be added here.";
   const techStack = Array.isArray(project?.techStack)
     ? project.techStack.filter((tech) => typeof tech === "string" && tech.trim())
     : [];
   const features = Array.isArray(project?.features)
     ? project.features.filter((feature) => typeof feature === "string" && feature.trim())
     : [];
-  const githubUrl =
-    typeof project?.githubUrl === "string" && project.githubUrl.trim()
-      ? project.githubUrl
-      : "";
-  const liveUrl =
-    typeof project?.liveUrl === "string" && project.liveUrl.trim() ? project.liveUrl : "";
+  const githubUrl = isSafeExternalHref(project?.githubUrl) ? project.githubUrl.trim() : "";
+  const liveUrl = isSafeExternalHref(project?.liveUrl) ? project.liveUrl.trim() : "";
 
   useIsomorphicLayoutEffect(() => {
     const card = cardRef.current;
 
-    if (!card || prefersReducedMotion() || !hasFinePointer()) {
+    if (!card || prefersReducedMotion() || !supportsInteractiveMotion()) {
       return undefined;
     }
 
@@ -221,7 +218,7 @@ function ProjectCard({ project }) {
           ))
         ) : (
           <span className="rounded-lg border px-2.5 py-1 text-xs font-medium text-text-muted">
-            Tech stack details coming soon
+            Stack details coming soon
           </span>
         )}
       </div>
@@ -244,7 +241,7 @@ function ProjectCard({ project }) {
           </ul>
         ) : (
           <p className="mt-4 text-sm leading-relaxed text-text-muted">
-            Feature highlights for this project will be added soon.
+            Feature notes will be added here.
           </p>
         )}
       </div>
@@ -265,7 +262,7 @@ function ProjectCard({ project }) {
           </a>
         ) : (
           <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
-            Code Access On Request
+            Code Link On Request
           </span>
         )}
         {liveUrl ? (
@@ -280,7 +277,7 @@ function ProjectCard({ project }) {
           </a>
         ) : (
           <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
-            Live Demo Soon
+            Demo Not Added Yet
           </span>
         )}
       </div>

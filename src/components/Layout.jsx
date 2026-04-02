@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import { gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "../lib/gsap";
 import { primaryNavigation } from "../lib/siteNavigation";
 import { skillMenuGroups, socialLinks } from "../lib/siteContent";
+import { decodeHashFragment } from "../lib/url";
 
 function Layout() {
   const location = useLocation();
@@ -77,17 +78,17 @@ function Layout() {
   }, [isSkillsRoute]);
 
   useEffect(() => {
-    const behavior = prefersReducedMotion() ? "auto" : "smooth";
     const frameId = window.requestAnimationFrame(() => {
-      const hashId = location.hash ? decodeURIComponent(location.hash.replace("#", "")) : "";
+      const hashId = decodeHashFragment(location.hash);
       const target = hashId ? document.getElementById(hashId) : null;
 
       if (target) {
+        const behavior = prefersReducedMotion() ? "auto" : "smooth";
         target.scrollIntoView({ block: "start", behavior });
         return;
       }
 
-      window.scrollTo({ top: 0, behavior });
+      window.scrollTo({ top: 0, behavior: "auto" });
     });
 
     return () => window.cancelAnimationFrame(frameId);

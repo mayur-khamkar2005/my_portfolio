@@ -1,4 +1,5 @@
 import useRevealAnimation from "../hooks/useRevealAnimation";
+import { isSafeHref } from "../lib/url";
 
 function ArrowUpRightIcon() {
   return (
@@ -47,12 +48,12 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           <div className="relative">
             <p className="eyebrow">Contact</p>
             <h2 className="section-title mt-4 max-w-lg">
-              Let&apos;s build secure, scalable products together.
+              Open to work, freelance, and good conversations.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-8 text-text-muted sm:text-lg">
-              If you&apos;re hiring for backend, MERN, or full stack roles, I&apos;d
-              love to connect. I care about dependable APIs, clean architecture,
-              and interfaces that make the product feel complete.
+              If you&apos;re hiring, building something new, or just want to connect,
+              feel free to reach out. I enjoy working on full stack products with a
+              strong backend foundation and a clean user experience.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -87,7 +88,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           {methods.length ? (
             methods.map((item) => {
               const href =
-                typeof item.href === "string" && item.href.trim() ? item.href : "";
+                isSafeHref(item?.href) ? item.href.trim() : "";
 
               return (
                 <article
@@ -116,7 +117,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                     </a>
                   ) : (
                     <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-fit">
-                      Contact Detail Coming Soon
+                      No link added yet
                     </span>
                   )}
                 </article>
@@ -125,11 +126,10 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           ) : (
             <article className="surface-card p-6 sm:col-span-2 lg:col-span-1" data-reveal>
               <p className="font-display text-lg font-medium text-text-primary">
-                Contact details are being updated.
+                Contact details will be added here.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                Email, phone, and social actions can be listed here cleanly even if
-                only part of the contact data is available.
+                This area is ready for email, phone, and social links when needed.
               </p>
             </article>
           )}

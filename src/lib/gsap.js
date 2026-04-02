@@ -27,10 +27,19 @@ function hasFinePointer() {
   );
 }
 
+function supportsInteractiveMotion(minWidth = 1200) {
+  return (
+    canUseDOM &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia(`(pointer: fine) and (min-width: ${minWidth}px)`).matches
+  );
+}
+
 export {
   gsap,
   ScrollTrigger,
   hasFinePointer,
   prefersReducedMotion,
+  supportsInteractiveMotion,
   useIsomorphicLayoutEffect,
 };

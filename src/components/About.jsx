@@ -21,7 +21,7 @@ function About({ focusAreas }) {
         <div data-reveal>
           <p className="eyebrow">About Me</p>
           <h2 className="section-title mt-4">
-            A full stack developer with a strong backend core.
+            I like building full stack apps that feel solid and stay easy to work on.
           </h2>
         </div>
 
@@ -30,15 +30,14 @@ function About({ focusAreas }) {
           data-reveal
         >
           <p>
-            My work is centered on building dependable MERN applications where the
-            backend carries real weight. I enjoy structuring clean Node.js and
-            Express services, designing REST APIs, and keeping application logic
-            organized through MVC architecture.
+            Most of my work starts from the backend. I like building Node.js and
+            Express services, designing REST APIs, and keeping business logic easy
+            to follow.
           </p>
           <p>
-            Security and maintainability matter to me, so I pay close attention to
-            JWT authentication flows, protected routes, role-based access, and the
-            kind of code structure that stays readable as a product grows.
+            I also care a lot about structure and security. That means thinking
+            through JWT auth, protected routes, role-based access, and code that
+            still makes sense when a project gets bigger.
           </p>
         </div>
       </div>
@@ -61,11 +60,10 @@ function About({ focusAreas }) {
         ) : (
           <article className="surface-card p-6 md:col-span-3" data-reveal>
             <h3 className="font-display text-lg font-medium text-text-primary">
-              Focus areas are being updated.
+              This section is being updated.
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
-              This section is ready to show backend specialties, architecture
-              strengths, and delivery priorities as more profile details are added.
+              It will highlight the parts of development I spend the most time on.
             </p>
           </article>
         )}

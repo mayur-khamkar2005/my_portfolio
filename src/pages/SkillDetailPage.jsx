@@ -14,17 +14,16 @@ function SkillDetailPage() {
         <section ref={sectionRef} className="section-shell py-16 sm:py-24">
           <div className="surface-card-strong p-8 sm:p-10" data-reveal>
             <p className="eyebrow">Skill Not Found</p>
-            <h1 className="section-title mt-4">That skill page is not available right now.</h1>
+            <h1 className="section-title mt-4">This skill page could not be found.</h1>
             <p className="section-copy mt-4">
-              The selected skill may have moved or the link may be outdated. You can
-              still browse the full Skills page from here.
+              The link may be outdated, or the page may have moved. You can still browse the full skills section from here.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/skills" className="primary-link">
-                Back to Skills
+                Browse Skills
               </Link>
               <Link to="/" className="ghost-link">
-                Return Home
+                Go Home
               </Link>
             </div>
           </div>
@@ -66,10 +65,10 @@ function SkillDetailPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/skills" className="primary-link">
-                Explore All Skills
+                View All Skills
               </Link>
               <Link to="/projects" className="ghost-link">
-                View Projects
+                See Projects
               </Link>
             </div>
           </div>
@@ -121,7 +120,7 @@ function SkillDetailPage() {
               ) : (
                 <div className="rounded-2xl border border-line/80 bg-background/45 px-4 py-4">
                   <p className="text-sm leading-relaxed text-text-muted">
-                    Highlights for this skill are being updated.
+                    More notes for this skill will be added here.
                   </p>
                 </div>
               )}
@@ -142,7 +141,7 @@ function SkillDetailPage() {
                 ))
               ) : (
                 <p className="text-sm leading-relaxed text-text-muted">
-                  Stack details for this skill are being refreshed.
+                  Core topics for this skill will be listed here.
                 </p>
               )}
             </div>
@@ -159,8 +158,7 @@ function SkillDetailPage() {
                 </h2>
               </div>
               <p className="section-copy" data-reveal>
-                These tools and concepts usually show up alongside {skill.name} in my full
-                stack workflow.
+                These are a few related tools and concepts that often show up alongside {skill.name} in my work.
               </p>
             </div>
 
@@ -179,9 +177,9 @@ function SkillDetailPage() {
                     {relatedSkill.summary}
                   </p>
                   <div className="mt-5 flex items-center justify-between text-sm">
-                    <span className="text-text-muted">Open detail page</span>
+                    <span className="text-text-muted">Open skill</span>
                     <span className="font-medium text-accent transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-                      View
+                      Open
                     </span>
                   </div>
                 </Link>

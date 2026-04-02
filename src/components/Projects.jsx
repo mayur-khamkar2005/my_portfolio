@@ -17,13 +17,12 @@ function Projects({ projects }) {
         <div data-reveal>
           <p className="eyebrow">Projects</p>
           <h2 className="section-title mt-4">
-            Backend-heavy product work built around real app patterns.
+            Projects built around real product flows, not just demo screens.
           </h2>
         </div>
         <p className="section-copy" data-reveal>
-          These cards highlight the kind of MERN projects I enjoy building:
-          authentication flows, secure APIs, structured architecture, and polished
-          user-facing experiences.
+          These are the kinds of problems I like working on: auth flows, APIs,
+          dashboards, storefronts, and user-facing features that feel complete.
         </p>
       </div>
 
@@ -38,11 +37,10 @@ function Projects({ projects }) {
         ) : (
           <article className="surface-card p-6 xl:col-span-3" data-reveal>
             <h3 className="font-display text-lg font-medium text-text-primary">
-              Project case studies are on the way.
+              More projects will be added here.
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
-              This section will gracefully hold product stories, feature lists, and
-              shipping details once more portfolio entries are added.
+              This section is ready for more project stories, features, and links as the portfolio grows.
             </p>
           </article>
         )}

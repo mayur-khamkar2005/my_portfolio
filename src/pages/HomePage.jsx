@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import HomeMiniGames from "../components/HomeMiniGames";
 import { heroHighlights, resumePdf } from "../lib/siteContent";
 
 function HomePage() {
@@ -6,7 +7,12 @@ function HomePage() {
     (item) => typeof item?.label === "string" && typeof item?.value === "string",
   );
 
-  return <Hero resumeUrl={resumePdf} highlights={safeHighlights} />;
+  return (
+    <>
+      <Hero resumeUrl={resumePdf} highlights={safeHighlights} />
+      <HomeMiniGames />
+    </>
+  );
 }
 
 export default HomePage;
