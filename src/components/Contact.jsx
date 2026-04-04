@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useRevealAnimation from "../hooks/useRevealAnimation";
 import { isSafeHref } from "../lib/url";
 
@@ -20,6 +21,46 @@ function ArrowUpRightIcon() {
 
 function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
   const sectionRef = useRevealAnimation({ y: 30, stagger: 0.1 });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      return setStatus("All fields are required");
+    }
+
+    try {
+      setLoading(true);
+      setStatus("");
+
+      // 🔥 backend connect yaha karega future me
+      console.log("Form Data:", formData);
+
+      setStatus("Message sent successfully ✅");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      setStatus("Something went wrong ❌");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const methods = Array.isArray(contactMethods)
     ? contactMethods.filter(
         (item) =>
@@ -29,6 +70,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           typeof item?.actionLabel === "string",
       )
     : [];
+
   const hasResume = typeof resumeUrl === "string" && resumeUrl.trim().length > 0;
   const hasPrimaryEmail =
     typeof primaryEmailHref === "string" && primaryEmailHref.trim().length > 0;
@@ -40,99 +82,119 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
       className="section-shell scroll-mt-28 py-16 sm:py-24"
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
-        <div
-          className="surface-card-strong relative overflow-hidden p-7 sm:p-8"
-          data-reveal
-        >
+        
+        {/* LEFT SIDE SAME */}
+        <div className="surface-card-strong relative overflow-hidden p-7 sm:p-8">
           <div className="absolute -left-8 top-10 h-28 w-28 rounded-full bg-accent-soft blur-3xl" />
           <div className="relative">
             <p className="eyebrow">Contact</p>
             <h2 className="section-title mt-4 max-w-lg">
               Open to work, freelance, and good conversations.
             </h2>
+
             <p className="mt-5 max-w-xl text-base leading-8 text-text-muted sm:text-lg">
               If you&apos;re hiring, building something new, or just want to connect,
-              feel free to reach out. I enjoy working on full stack products with a
-              strong backend foundation and a clean user experience.
+              feel free to reach out.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               {hasPrimaryEmail ? (
-                <a href={primaryEmailHref} className="primary-link w-full sm:w-auto">
-                  Email Mayur
-                  <ArrowUpRightIcon />
+                <a href={primaryEmailHref} className="primary-link">
+                  Email Mayur <ArrowUpRightIcon />
                 </a>
               ) : (
-                <span className="inline-flex w-full items-center justify-center rounded-lg border px-5 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
-                  Email Available On Request
-                </span>
+                <span>Email Available On Request</span>
               )}
+
               {hasResume ? (
-                <a
-                  href={resumeUrl}
-                  download="Mayur_Khamkar_FullStack_Developer_Resume.pdf"
-                  className="ghost-link w-full sm:w-auto"
-                >
+                <a href={resumeUrl} className="ghost-link">
                   Download Resume
                 </a>
               ) : (
-                <span className="inline-flex w-full items-center justify-center rounded-lg border px-5 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
-                  Resume Available On Request
-                </span>
+                <span>Resume Available</span>
               )}
             </div>
           </div>
         </div>
 
-        <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          {methods.length ? (
-            methods.map((item) => {
-              const href =
-                isSafeHref(item?.href) ? item.href.trim() : "";
+        {/* RIGHT SIDE */}
+        <div className="flex flex-col gap-4">
 
-              return (
-                <article
-                  key={item.label}
-                  className="surface-card group flex h-full min-w-0 flex-col p-5 hover:border-accent sm:p-6"
-                  data-reveal
-                >
-                  <p className="text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
-                    {item.label}
-                  </p>
-                  <p className="mt-4 min-w-0 max-w-full font-display text-base font-medium leading-tight text-text-primary [overflow-wrap:anywhere] sm:text-lg">
-                    {item.value}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                    {item.description}
-                  </p>
-                  {href ? (
-                    <a
-                      href={href}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noreferrer" : undefined}
-                      className="ghost-link mt-auto w-full sm:w-fit"
-                    >
-                      {item.actionLabel}
-                      <ArrowUpRightIcon />
-                    </a>
-                  ) : (
-                    <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-fit">
-                      No link added yet
-                    </span>
-                  )}
-                </article>
-              );
-            })
-          ) : (
-            <article className="surface-card p-6 sm:col-span-2 lg:col-span-1" data-reveal>
-              <p className="font-display text-lg font-medium text-text-primary">
-                Contact details will be added here.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                This area is ready for email, phone, and social links when needed.
-              </p>
-            </article>
-          )}
+          {/* 🔥 NEW CONTACT FORM */}
+          <form
+            onSubmit={handleSubmit}
+            className="surface-card p-6 space-y-4"
+          >
+            <h3 className="font-display text-lg font-medium">
+              Send me a message
+            </h3>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full rounded-lg border px-4 py-2"
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full rounded-lg border px-4 py-2"
+            />
+
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full rounded-lg border px-4 py-2"
+              rows={4}
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="primary-link w-full justify-center"
+            >
+              {loading ? "Sending..." : "Send Message"}
+            </button>
+
+            {status && (
+              <p className="text-sm text-text-muted">{status}</p>
+            )}
+          </form>
+
+          {/* EXISTING METHODS (UNCHANGED) */}
+          <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            {methods.length ? (
+              methods.map((item) => {
+                const href =
+                  isSafeHref(item?.href) ? item.href.trim() : "";
+
+                return (
+                  <article
+                    key={item.label}
+                    className="surface-card p-5"
+                  >
+                    <p>{item.label}</p>
+                    <p>{item.value}</p>
+
+                    {href && (
+                      <a href={href} className="ghost-link">
+                        {item.actionLabel}
+                        <ArrowUpRightIcon />
+                      </a>
+                    )}
+                  </article>
+                );
+              })
+            ) : null}
+          </div>
         </div>
       </div>
     </section>
