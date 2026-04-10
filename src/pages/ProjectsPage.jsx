@@ -1,5 +1,5 @@
 import Projects from "../components/Projects";
-import { projects } from "../lib/siteContent";
+import { projects } from "../lib/content/projects";
 
 function ProjectsPage() {
   return (

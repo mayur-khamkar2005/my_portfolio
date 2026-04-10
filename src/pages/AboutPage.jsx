@@ -1,5 +1,5 @@
 import About from "../components/About";
-import { focusAreas } from "../lib/siteContent";
+import { focusAreas } from "../lib/content/siteMeta";
 
 function AboutPage() {
   return (

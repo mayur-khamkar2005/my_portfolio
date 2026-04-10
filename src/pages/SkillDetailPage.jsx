@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import useRevealAnimation from "../hooks/useRevealAnimation";
-import { getRelatedSkills, getSkillBySlug } from "../lib/siteContent";
+import { getRelatedSkills, getSkillBySlug } from "../lib/content/skills";
 
 function SkillDetailPage() {
   const { skillSlug } = useParams();
@@ -14,13 +14,13 @@ function SkillDetailPage() {
         <section ref={sectionRef} className="section-shell py-16 sm:py-24">
           <div className="surface-card-strong p-8 sm:p-10" data-reveal>
             <p className="eyebrow">Skill Not Found</p>
-            <h1 className="section-title mt-4">This skill page could not be found.</h1>
+            <h1 className="section-title mt-4">This skill page was not found.</h1>
             <p className="section-copy mt-4">
-              The link may be outdated, or the page may have moved. You can still browse the full skills section from here.
+              The link may be wrong, or I may not have added this page yet. You can still check the full skills section from here.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/skills" className="primary-link">
-                Browse Skills
+                Back To Skills
               </Link>
               <Link to="/" className="ghost-link">
                 Go Home
@@ -65,10 +65,10 @@ function SkillDetailPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/skills" className="primary-link">
-                View All Skills
+                Back To Skills
               </Link>
               <Link to="/projects" className="ghost-link">
-                See Projects
+                View Projects
               </Link>
             </div>
           </div>
@@ -97,7 +97,7 @@ function SkillDetailPage() {
                   Related Topics
                 </p>
                 <p className="mt-2 font-display text-lg font-medium text-text-primary">
-                  {safeStack.length}
+                  {safeStack.length} items
                 </p>
               </div>
             </div>
@@ -120,7 +120,7 @@ function SkillDetailPage() {
               ) : (
                 <div className="rounded-2xl border border-line/80 bg-background/45 px-4 py-4">
                   <p className="text-sm leading-relaxed text-text-muted">
-                    More notes for this skill will be added here.
+                    I will add more notes for this skill later.
                   </p>
                 </div>
               )}
@@ -141,7 +141,7 @@ function SkillDetailPage() {
                 ))
               ) : (
                 <p className="text-sm leading-relaxed text-text-muted">
-                  Core topics for this skill will be listed here.
+                  I will add more related topics here later.
                 </p>
               )}
             </div>
@@ -154,11 +154,11 @@ function SkillDetailPage() {
               <div data-reveal>
                 <p className="eyebrow">Related Skills</p>
                 <h2 className="mt-3 font-display text-2xl font-semibold text-text-primary sm:text-3xl">
-                  More from {skill.category}
+                  More in {skill.category}
                 </h2>
               </div>
               <p className="section-copy" data-reveal>
-                These are a few related tools and concepts that often show up alongside {skill.name} in my work.
+                These are a few related tools that I have also used or learned with {skill.name}.
               </p>
             </div>
 
@@ -177,9 +177,9 @@ function SkillDetailPage() {
                     {relatedSkill.summary}
                   </p>
                   <div className="mt-5 flex items-center justify-between text-sm">
-                    <span className="text-text-muted">Open skill</span>
+                    <span className="text-text-muted">View skill</span>
                     <span className="font-medium text-accent transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-                      Open
+                      View
                     </span>
                   </div>
                 </Link>
