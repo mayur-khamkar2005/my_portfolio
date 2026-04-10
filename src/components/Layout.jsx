@@ -1,17 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { gsap, prefersReducedMotion, useIsomorphicLayoutEffect } from "../lib/gsap";
 import { primaryNavigation } from "../lib/siteNavigation";
-import { skillMenuGroups, socialLinks } from "../lib/siteContent";
+import { skillMenuGroups } from "../lib/content/skillMenu";
+import { primaryEmailHref, resumePdf, socialLinks } from "../lib/content/siteMeta";
 import { decodeHashFragment } from "../lib/url";
+import { prefersReducedMotion } from "../lib/motion";
 
 function Layout() {
   const location = useLocation();
-  const pageRef = useRef(null);
-  const topGlowRef = useRef(null);
-  const sideGlowRef = useRef(null);
   const isSkillsRoute = location.pathname === "/skills" || location.pathname.startsWith("/skills/");
 
   const safeNavigation = primaryNavigation.filter(
@@ -26,56 +24,6 @@ function Layout() {
   const safeSocialLinks = socialLinks.filter(
     (item) => typeof item?.label === "string" && typeof item?.href === "string",
   );
-
-  useIsomorphicLayoutEffect(() => {
-    if (prefersReducedMotion() || isSkillsRoute) {
-      return undefined;
-    }
-
-    const scope = pageRef.current;
-
-    if (!scope) {
-      return undefined;
-    }
-
-    const ctx = gsap.context(() => {
-      if (topGlowRef.current) {
-        gsap.to(topGlowRef.current, {
-          xPercent: 12,
-          yPercent: -12,
-          scale: 1.1,
-          duration: 6.4,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-
-      if (sideGlowRef.current) {
-        gsap.to(sideGlowRef.current, {
-          xPercent: -10,
-          scale: 1.08,
-          duration: 7.2,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(sideGlowRef.current, {
-          yPercent: -22,
-          ease: "none",
-          scrollTrigger: {
-            trigger: scope,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.8,
-          },
-        });
-      }
-    }, scope);
-
-    return () => ctx.revert();
-  }, [isSkillsRoute]);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -95,30 +43,27 @@ function Layout() {
   }, [location.hash, location.pathname]);
 
   return (
-    <div ref={pageRef} className="page-shell">
+    <div className="page-shell">
       {isSkillsRoute ? null : (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-        >
-          <div
-            ref={topGlowRef}
-            className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
-          />
-          <div
-            ref={sideGlowRef}
-            className="absolute right-[-8%] top-[36rem] h-80 w-80 rounded-full bg-accent-soft blur-3xl"
-          />
+        <div aria-hidden="true" className="page-backdrop">
+          <div className="ambient-grid" />
+          <div className="ambient-orb ambient-orb-top" />
+          <div className="ambient-orb ambient-orb-side" />
         </div>
       )}
 
       <Navbar navigation={safeNavigation} skillMenuGroups={safeSkillMenuGroups} />
 
-      <main>
+      <main className="relative z-10">
         <Outlet />
       </main>
 
-      <Footer socialLinks={safeSocialLinks} />
+      <Footer
+        navigation={safeNavigation}
+        primaryEmailHref={primaryEmailHref}
+        resumeUrl={resumePdf}
+        socialLinks={safeSocialLinks}
+      />
     </div>
   );
 }

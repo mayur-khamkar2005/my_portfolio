@@ -416,7 +416,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       {hasMenu ? (
         <div
           id={menuId}
-          className={`rounded-2xl sm:rounded-3xl border border-line bg-panel-strong backdrop-blur-xl transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
+          className={`rounded-2xl sm:rounded-3xl border border-line bg-panel-strong transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
             isDesktop
               ? `${getPositionClasses} ${
                   isOpen

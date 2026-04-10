@@ -330,12 +330,12 @@ function HomeMiniGames() {
       <div className="max-w-3xl" data-reveal>
         <p className="eyebrow">For Fun</p>
         <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[2.8rem]">
-          A couple of small games, just for fun.
+          A couple of small games I added for fun.
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-7 text-text-muted sm:text-lg">
-          I wanted the home page to feel a little more personal, so I added two
-          quick games you can try while browsing. They are lightweight,
-          responsive, and simple enough to enjoy without getting in the way.
+          I did not want the home page to feel too plain, so I added two simple
+          games here. They are small and just meant to make the page feel a bit
+          more personal.
         </p>
       </div>
 

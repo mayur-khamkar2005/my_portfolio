@@ -10,9 +10,24 @@ const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const SkillDetailPage = lazy(() => import("./pages/SkillDetailPage"));
 const SkillsPage = lazy(() => import("./pages/SkillsPage"));
 
+function RouteFallback() {
+  return (
+    <div className="section-shell pt-32 pb-16 sm:pt-36">
+      <div
+        className="surface-card-strong flex items-center gap-4 px-5 py-5 sm:px-6"
+        role="status"
+        aria-live="polite"
+      >
+        <span className="h-2.5 w-2.5 rounded-full bg-accent animate-pulse" />
+        <span className="text-sm font-medium text-text-muted">Loading page...</span>
+      </div>
+    </div>
+  );
+}
+
 function renderPage(PageComponent) {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<RouteFallback />}>
       <PageComponent />
     </Suspense>
   );

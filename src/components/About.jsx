@@ -21,7 +21,7 @@ function About({ focusAreas }) {
         <div data-reveal>
           <p className="eyebrow">About Me</p>
           <h2 className="section-title mt-4">
-            I like building full stack apps that feel solid and stay easy to work on.
+            I am still early in my journey, but I really enjoy building full stack projects.
           </h2>
         </div>
 
@@ -30,14 +30,13 @@ function About({ focusAreas }) {
           data-reveal
         >
           <p>
-            Most of my work starts from the backend. I like building Node.js and
-            Express services, designing REST APIs, and keeping business logic easy
-            to follow.
+            I spend more time on the backend side of projects. I like working with
+            Node.js, Express, APIs, and database-related features.
           </p>
           <p>
-            I also care a lot about structure and security. That means thinking
-            through JWT auth, protected routes, role-based access, and code that
-            still makes sense when a project gets bigger.
+            I also try to write code in a clean way. Things like JWT auth,
+            protected routes, and proper folder structure are areas I keep
+            practicing in real projects.
           </p>
         </div>
       </div>
@@ -63,7 +62,7 @@ function About({ focusAreas }) {
               This section is being updated.
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
-              It will highlight the parts of development I spend the most time on.
+              I will add more about my learning and project work here soon.
             </p>
           </article>
         )}

@@ -1,10 +1,5 @@
-import { useRef } from "react";
-import {
-  gsap,
-  ScrollTrigger,
-  prefersReducedMotion,
-  useIsomorphicLayoutEffect,
-} from "../lib/gsap";
+import { useEffect, useRef } from "react";
+import { canUseDOM, prefersReducedMotion } from "../lib/motion";
 
 function useRevealAnimation({
   selector = "[data-reveal]",
@@ -15,62 +10,65 @@ function useRevealAnimation({
   duration = 0.5,
   stagger = 0.06,
   start = "top 88%",
-  ease = "power3.out",
 } = {}) {
   const scopeRef = useRef(null);
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const scope = scopeRef.current;
 
     if (!scope) {
       return undefined;
     }
 
-    const targets = gsap.utils.toArray(selector, scope);
+    const targets = Array.from(scope.querySelectorAll(selector));
 
     if (!targets.length) {
       return undefined;
     }
 
+    const rootMargin = start === "top 88%" ? "0px 0px -12% 0px" : "0px 0px -10% 0px";
+
+    targets.forEach((target, index) => {
+      target.setAttribute("data-reveal-ready", "true");
+      target.style.setProperty("--reveal-x", `${x}px`);
+      target.style.setProperty("--reveal-y", `${y}px`);
+      target.style.setProperty("--reveal-scale", `${scale}`);
+      target.style.setProperty("--reveal-rotate-x", `${rotateX}deg`);
+      target.style.setProperty("--reveal-duration", `${Math.max(duration, 0.24) * 1000}ms`);
+      target.style.setProperty("--reveal-delay", `${index * stagger * 1000}ms`);
+    });
+
     if (prefersReducedMotion()) {
-      gsap.set(targets, { autoAlpha: 1, x: 0, y: 0, scale: 1, rotateX: 0 });
+      targets.forEach((target) => target.setAttribute("data-reveal-visible", "true"));
       return undefined;
     }
 
-    const ctx = gsap.context(() => {
-      gsap.set(targets, {
-        autoAlpha: 0,
-        x,
-        y,
-        scale,
-        rotateX,
-        force3D: true,
-        transformOrigin: "50% 100%",
-        willChange: "transform, opacity",
-      });
+    if (!canUseDOM || typeof window.IntersectionObserver !== "function") {
+      targets.forEach((target) => target.setAttribute("data-reveal-visible", "true"));
+      return undefined;
+    }
 
-      ScrollTrigger.batch(targets, {
-        start,
-        once: true,
-        onEnter: (elements) => {
-          gsap.to(elements, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            duration,
-            stagger,
-            ease,
-            overwrite: true,
-            clearProps: "opacity,visibility,transform,willChange",
-          });
-        },
-      });
-    }, scope);
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-    return () => ctx.revert();
-  }, [duration, ease, rotateX, scale, selector, stagger, start, x, y]);
+          entry.target.setAttribute("data-reveal-visible", "true");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin,
+        threshold: 0.12,
+      },
+    );
+
+    targets.forEach((target) => observer.observe(target));
+
+    return () => observer.disconnect();
+  }, [duration, rotateX, scale, selector, stagger, start, x, y]);
 
   return scopeRef;
 }

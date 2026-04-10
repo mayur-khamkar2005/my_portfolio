@@ -17,12 +17,12 @@ function Projects({ projects }) {
         <div data-reveal>
           <p className="eyebrow">Projects</p>
           <h2 className="section-title mt-4">
-            Projects built around real product flows, not just demo screens.
+            Projects I built while learning and practicing full stack development.
           </h2>
         </div>
         <p className="section-copy" data-reveal>
-          These are the kinds of problems I like working on: auth flows, APIs,
-          dashboards, storefronts, and user-facing features that feel complete.
+          Most of these projects are based on things I wanted to practice more,
+          like auth flow, APIs, dashboards, e-commerce features, and CRUD work.
         </p>
       </div>
 
@@ -40,7 +40,7 @@ function Projects({ projects }) {
               More projects will be added here.
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
-              This section is ready for more project stories, features, and links as the portfolio grows.
+              I will keep adding more project work here over time.
             </p>
           </article>
         )}

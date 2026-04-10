@@ -1,6 +1,6 @@
 import Hero from "../components/Hero";
 import HomeMiniGames from "../components/HomeMiniGames";
-import { heroHighlights, resumePdf } from "../lib/siteContent";
+import { heroHighlights, resumePdf } from "../lib/content/siteMeta";
 
 function HomePage() {
   const safeHighlights = heroHighlights.filter(

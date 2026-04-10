@@ -94,7 +94,7 @@ function CategoryButton({ category, isActive, onSelect, panelId }) {
         <div className="min-w-0">
           <p className="text-sm font-semibold text-text-primary">{category.label}</p>
           <p className="mt-2 text-sm leading-6 text-text-muted">
-            {category.description || "Open this group to see the tools inside it."}
+            {category.description || "Open this group to see the tools I use here."}
           </p>
         </div>
 
@@ -189,10 +189,10 @@ function Skills({ skills = [], categories = [] }) {
     <section id="skills" className="section-shell py-16 sm:py-20">
       <div className="max-w-3xl">
         <p className="eyebrow">Skills</p>
-        <h1 className="section-title mt-4">The tools I use in real projects, grouped by area.</h1>
+        <h1 className="section-title mt-4">Skills and tools I use in my projects.</h1>
         <p className="mt-4 text-base leading-7 text-text-muted">
-          This is a simple overview of the tools and concepts I work with most often.
-          Grouping them by area makes the page easier to scan and easier to revisit.
+          This is a simple list of the tools I have used while learning and building
+          full stack projects. I grouped them by area to keep the page easier to read.
         </p>
       </div>
 
@@ -219,7 +219,7 @@ function Skills({ skills = [], categories = [] }) {
                 <div className="flex flex-col gap-3 border-b border-line pb-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="max-w-3xl">
                     <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-                      Now Viewing
+                      Selected
                     </p>
                     <h2 className="mt-3 font-display text-2xl font-semibold text-text-primary">
                       {activeCategory.label}
@@ -244,7 +244,7 @@ function Skills({ skills = [], categories = [] }) {
               <div className="rounded-xl border border-dashed border-line px-5 py-10 text-center">
                 <p className="text-lg font-medium text-text-primary">Choose a category</p>
                 <p className="mt-3 text-sm leading-6 text-text-muted">
-                  Pick one above to see the tools and topics inside it.
+                  Pick one above to see the tools and topics in that group.
                 </p>
               </div>
             )}
@@ -256,7 +256,7 @@ function Skills({ skills = [], categories = [] }) {
             This section is being updated.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-text-muted">
-            The skill categories are not ready yet, so the full list is not visible right now.
+            I am still updating this part, so the full list is not visible yet.
           </p>
         </div>
       )}

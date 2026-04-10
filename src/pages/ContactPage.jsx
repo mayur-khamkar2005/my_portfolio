@@ -1,5 +1,5 @@
 import Contact from "../components/Contact";
-import { contactMethods, primaryEmailHref, resumePdf } from "../lib/siteContent";
+import { contactMethods, primaryEmailHref, resumePdf } from "../lib/content/siteMeta";
 
 function ContactPage() {
   return (

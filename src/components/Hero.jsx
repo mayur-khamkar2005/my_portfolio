@@ -1,11 +1,5 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  gsap,
-  prefersReducedMotion,
-  supportsInteractiveMotion,
-  useIsomorphicLayoutEffect,
-} from "../lib/gsap";
+import useRevealAnimation from "../hooks/useRevealAnimation";
 
 function ArrowIcon() {
   return (
@@ -42,159 +36,13 @@ function DownloadIcon() {
 }
 
 function Hero({ resumeUrl, highlights }) {
-  const sectionRef = useRef(null);
-  const panelRef = useRef(null);
+  const sectionRef = useRevealAnimation({ y: 28, stagger: 0.08, scale: 0.985, rotateX: 1.4 });
   const highlightItems = Array.isArray(highlights)
     ? highlights.filter(
         (item) => typeof item?.label === "string" && typeof item?.value === "string",
       )
     : [];
   const hasResume = typeof resumeUrl === "string" && resumeUrl.trim().length > 0;
-
-  useIsomorphicLayoutEffect(() => {
-    if (prefersReducedMotion()) {
-      return undefined;
-    }
-
-    const scope = sectionRef.current;
-    const panel = panelRef.current;
-
-    if (!scope) {
-      return undefined;
-    }
-
-    const cleanupFns = [];
-    const ctx = gsap.context(() => {
-      gsap
-        .timeline()
-        .fromTo(
-          "[data-hero-copy]",
-          { y: 24, autoAlpha: 0, scale: 0.985 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.46,
-            stagger: 0.06,
-            ease: "power3.out",
-            clearProps: "opacity,visibility,transform",
-          },
-        )
-        .fromTo(
-          "[data-hero-stat]",
-          { y: 18, autoAlpha: 0, scale: 0.975 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.3,
-            stagger: 0.04,
-            ease: "power3.out",
-            clearProps: "opacity,visibility,transform",
-          },
-          0.2,
-        )
-        .fromTo(
-          "[data-hero-panel]",
-          { y: 28, autoAlpha: 0, rotateY: -6, rotateX: 3, scale: 0.985 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            rotateY: 0,
-            rotateX: 0,
-            scale: 1,
-            duration: 0.5,
-            ease: "power3.out",
-            clearProps: "opacity,visibility,transform",
-          },
-          0.1,
-        );
-
-      gsap.to("[data-hero-float]", {
-        yPercent: -1.8,
-        duration: 4.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      gsap.to("[data-hero-glow]", {
-        xPercent: 8,
-        scale: 1.06,
-        duration: 7.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      if (panel) {
-        gsap.set(panel, {
-          transformPerspective: 1200,
-          transformStyle: "preserve-3d",
-          transformOrigin: "50% 50%",
-        });
-      }
-
-      if (panel && supportsInteractiveMotion()) {
-        const layers = gsap.utils.toArray("[data-hero-depth]", panel);
-        const rotateXTo = gsap.quickTo(panel, "rotateX", {
-          duration: 0.38,
-          ease: "power3.out",
-        });
-        const rotateYTo = gsap.quickTo(panel, "rotateY", {
-          duration: 0.38,
-          ease: "power3.out",
-        });
-        const layerSetters = layers.map((layer, index) => {
-          const factor = 4 + index * 1.5;
-
-          return {
-            x: gsap.quickTo(layer, "x", { duration: 0.42, ease: "power3.out" }),
-            y: gsap.quickTo(layer, "y", { duration: 0.42, ease: "power3.out" }),
-            factor,
-          };
-        });
-
-        const handlePointerMove = (event) => {
-          const bounds = panel.getBoundingClientRect();
-          const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
-          const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-          rotateYTo(horizontal * 3.2);
-          rotateXTo(vertical * -3.2);
-
-          layerSetters.forEach(({ x, y, factor }) => {
-            x(horizontal * factor);
-            y(vertical * factor * 0.75);
-          });
-        };
-
-        const resetPointer = () => {
-          rotateXTo(0);
-          rotateYTo(0);
-          layerSetters.forEach(({ x, y }) => {
-            x(0);
-            y(0);
-          });
-        };
-
-        panel.addEventListener("pointermove", handlePointerMove);
-        panel.addEventListener("pointerleave", resetPointer);
-        panel.addEventListener("pointercancel", resetPointer);
-
-        cleanupFns.push(() => {
-          panel.removeEventListener("pointermove", handlePointerMove);
-          panel.removeEventListener("pointerleave", resetPointer);
-          panel.removeEventListener("pointercancel", resetPointer);
-        });
-      }
-    }, scope);
-
-    return () => {
-      cleanupFns.forEach((cleanup) => cleanup());
-      ctx.revert();
-    };
-  }, [highlightItems.length]);
 
   return (
     <section
@@ -204,12 +52,12 @@ function Hero({ resumeUrl, highlights }) {
     >
       <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
-          <p className="eyebrow" data-hero-copy>
+          <p className="eyebrow" data-reveal>
             Full Stack Developer
           </p>
           <h1
             className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary min-[420px]:text-5xl sm:text-6xl lg:text-7xl"
-            data-hero-copy
+            data-reveal
           >
             Mayur Khamkar
             <span className="mt-3 block text-2xl font-normal text-text-muted sm:text-3xl">
@@ -218,19 +66,19 @@ function Hero({ resumeUrl, highlights }) {
           </h1>
           <p
             className="mt-6 max-w-2xl text-lg leading-8 text-text-muted sm:text-xl"
-            data-hero-copy
+            data-reveal
           >
-            I build full stack web apps with most of my attention on the backend.
-            A lot of my work goes into APIs, auth, and clean structure, while
-            keeping the frontend clear and easy to use.
+            I am a fresher developer who enjoys full stack development, especially
+            backend work. Most of my project time goes into APIs, auth, and keeping
+            the code structure simple and clean.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-copy>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal>
             {hasResume ? (
               <a
                 href={resumeUrl}
                 download="Mayur_Khamkar_FullStack_Developer_Resume.pdf"
-                className="primary-link"
+                className="primary-link w-full sm:w-auto"
               >
                 <DownloadIcon />
                 Download Resume
@@ -240,7 +88,7 @@ function Hero({ resumeUrl, highlights }) {
                 Resume Available On Request
               </span>
             )}
-            <Link to="/projects" className="ghost-link">
+            <Link to="/projects" className="ghost-link w-full sm:w-auto">
               View Projects
               <ArrowIcon />
             </Link>
@@ -249,7 +97,7 @@ function Hero({ resumeUrl, highlights }) {
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
             {highlightItems.length ? (
               highlightItems.map((item) => (
-                <div key={item.label} className="surface-card p-4" data-hero-stat>
+                <div key={item.label} className="surface-card p-4" data-reveal>
                   <p className="text-xs font-medium uppercase tracking-[0.15em] text-text-muted">
                     {item.label}
                   </p>
@@ -259,7 +107,7 @@ function Hero({ resumeUrl, highlights }) {
                 </div>
               ))
             ) : (
-              <div className="surface-card p-4 sm:col-span-3" data-hero-stat>
+              <div className="surface-card p-4 sm:col-span-3" data-reveal>
                 <p className="text-sm font-medium text-text-primary">
                   A quick summary will show up here.
                 </p>
@@ -271,27 +119,16 @@ function Hero({ resumeUrl, highlights }) {
           </div>
         </div>
 
-        <div
-          ref={panelRef}
-          className="surface-card-strong motion-plane relative overflow-hidden p-6 will-change-transform sm:p-8"
-          data-hero-panel
-          data-hero-float
-        >
+        <div className="surface-card-strong hero-panel relative overflow-hidden p-6 sm:p-8" data-reveal>
           <div className="grid-outline absolute inset-0" />
-          <div
-            className="absolute inset-x-10 top-0 h-24 rounded-full bg-accent-soft blur-3xl"
-            data-hero-glow
-          />
+          <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-accent-soft opacity-75 blur-[72px]" />
 
           <div className="relative">
-            <div
-              className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent"
-              data-hero-depth
-            >
-              What I&apos;m Building
+            <div className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent">
+              What I Work On
             </div>
 
-            <div className="mt-6 rounded-xl border bg-background/60 p-5" data-hero-depth>
+            <div className="mt-6 rounded-xl border bg-background/70 p-5">
               <div className="mb-5 flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -304,14 +141,14 @@ function Hero({ resumeUrl, highlights }) {
                   <span className="text-text-primary">{"{"}</span>
                 </p>
                 <p className="pl-4">
-                  focus: <span className="text-text-primary">"Practical APIs"</span>,
+                  focus: <span className="text-text-primary">"Backend and APIs"</span>,
                 </p>
                 <p className="pl-4">
-                  auth: <span className="text-text-primary">"JWT + role checks"</span>,
+                  auth: <span className="text-text-primary">"JWT auth"</span>,
                 </p>
                 <p className="pl-4">
                   architecture:{" "}
-                  <span className="text-text-primary">"Clean MVC structure"</span>,
+                  <span className="text-text-primary">"Simple project structure"</span>,
                 </p>
                 <p className="pl-4">
                   stack:{" "}
@@ -324,20 +161,20 @@ function Hero({ resumeUrl, highlights }) {
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="surface-card p-5" data-hero-depth>
+              <div className="surface-card p-5">
                 <p className="text-sm font-medium text-text-primary">
-                  Backend-first thinking
+                  Backend side
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  I like turning product requirements into APIs, auth flows, and backend features that stay manageable.
+                  I enjoy working on routes, auth flow, controllers, and database-related parts of a project.
                 </p>
               </div>
-              <div className="surface-card p-5" data-hero-depth>
+              <div className="surface-card p-5">
                 <p className="text-sm font-medium text-text-primary">
-                  Frontend that stays simple
+                  Frontend side
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  I care about clean layout, readable content, and interfaces that feel straightforward to use.
+                  On the frontend, I try to keep the UI clean, responsive, and easy to use.
                 </p>
               </div>
             </div>

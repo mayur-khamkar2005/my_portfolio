@@ -1,5 +1,5 @@
 import Skills from "../components/Skills";
-import { skillCategories, skills } from "../lib/siteContent";
+import { skillCategories, skills } from "../lib/content/skills";
 
 function SkillsPage() {
   return (
