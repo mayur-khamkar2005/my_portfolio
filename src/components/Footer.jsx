@@ -32,8 +32,7 @@ function Footer({ navigation, primaryEmailHref, resumeUrl, socialLinks }) {
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-7 text-text-muted sm:text-[15px]">
               Fresher full-stack developer working with MERN stack projects, backend APIs,
-              auth flow, and responsive UI. Open to internships, junior roles, and freelance
-              work.
+              auth flow, and responsive UI. Open to internships, junior roles.
             </p>
           </div>
 
@@ -100,8 +99,7 @@ function Footer({ navigation, primaryEmailHref, resumeUrl, socialLinks }) {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-line/80 px-5 py-3 text-xs text-text-muted sm:px-7 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {new Date().getFullYear()} Mayur Khamkar. Built with React and Vite.</p>
-          <p>Designed to stay clean, responsive, and easy to use on every screen.</p>
+          <p>&copy; {new Date().getFullYear()} Mayur Khamkar.</p>
         </div>
       </div>
     </footer>
