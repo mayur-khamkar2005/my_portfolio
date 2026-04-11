@@ -130,7 +130,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
               {hasResume ? (
                 <a
                   href={resumeUrl}
-                  download="Mayur_Khamkar_FullStack_Developer_Resume.pdf"
+                  download="Mayur_Khamkar_resume.pdf"
                   className="ghost-link w-full sm:w-auto"
                 >
                   Download Resume

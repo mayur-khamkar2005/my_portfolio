@@ -77,7 +77,7 @@ function Hero({ resumeUrl, highlights }) {
             {hasResume ? (
               <a
                 href={resumeUrl}
-                download="Mayur_Khamkar_FullStack_Developer_Resume.pdf"
+                download="Mayur_Khamkar_resume.pdf"
                 className="primary-link w-full sm:w-auto"
               >
                 <DownloadIcon />

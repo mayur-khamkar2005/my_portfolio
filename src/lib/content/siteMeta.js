@@ -1,4 +1,4 @@
-import resumePdf from "../../assets/Mayur_Khamkar_FullStack_Developer_Resume.pdf";
+import resumePdf from "../../assets/Mayur_Khamkar_resume.pdf";
 
 const primaryEmail = "mayurkhambkar@gmail.com";
 const primaryEmailHref = `mailto:${primaryEmail}?subject=${encodeURIComponent("Portfolio Inquiry")}`;
