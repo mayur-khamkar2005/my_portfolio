@@ -31,8 +31,9 @@ function Footer({ navigation, primaryEmailHref, resumeUrl, socialLinks }) {
               Mayur Khamkar
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-7 text-text-muted sm:text-[15px]">
-              Fresher full-stack developer working with MERN stack projects, backend APIs,
-              auth flow, and responsive UI. Open to internships, junior roles.
+              I'm a fresher full stack developer. I enjoy backend work more, but
+              I also like building clean frontend pages. Right now I'm looking
+              for internships and junior roles.
             </p>
           </div>
 

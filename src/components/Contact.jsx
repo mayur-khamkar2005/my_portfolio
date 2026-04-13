@@ -26,56 +26,98 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
     email: "",
     message: "",
   });
-  const [status, setStatus] = useState({ tone: "", message: "" });
+  const [formStatus, setFormStatus] = useState({ tone: "", message: "" });
+  const [actionStatus, setActionStatus] = useState({ tone: "", message: "" });
 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
+    if (formStatus.message) {
+      setFormStatus({ tone: "", message: "" });
+    }
   };
+
+  const contactEmail =
+    typeof primaryEmailHref === "string" && primaryEmailHref.startsWith("mailto:")
+      ? primaryEmailHref.replace(/^mailto:/, "").split("?")[0]
+      : "";
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
-      setStatus({
+    const trimmedFormData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    if (!trimmedFormData.name || !trimmedFormData.email || !trimmedFormData.message) {
+      setFormStatus({
         tone: "error",
         message: "Please fill in your name, email, and message before sending.",
       });
       return;
     }
 
-    const targetEmail =
-      typeof primaryEmailHref === "string" && primaryEmailHref.startsWith("mailto:")
-        ? primaryEmailHref.replace(/^mailto:/, "").split("?")[0]
-        : "";
-
-    if (!targetEmail) {
-      setStatus({
+    if (!contactEmail) {
+      setFormStatus({
         tone: "error",
         message: "The portfolio email link is missing right now. Please use the contact cards below instead.",
       });
       return;
     }
 
-    const subject = encodeURIComponent(`Portfolio message from ${formData.name}`);
+    const subject = encodeURIComponent(`Portfolio message from ${trimmedFormData.name}`);
     const body = encodeURIComponent(
       [
-        `Name: ${formData.name}`,
-        `Email: ${formData.email}`,
+        `Name: ${trimmedFormData.name}`,
+        `Email: ${trimmedFormData.email}`,
         "",
-        formData.message,
+        trimmedFormData.message,
       ].join("\n"),
     );
 
-    window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
 
-    setStatus({
+    setFormStatus({
       tone: "success",
-      message: "Opening your email app with the message filled in.",
+      message: "Opening your email app with the message pre-filled.",
     });
     setFormData({ name: "", email: "", message: "" });
+  };
+
+  const handleCopyEmail = async () => {
+    if (!contactEmail) {
+      setActionStatus({
+        tone: "error",
+        message: "The email address is not available right now.",
+      });
+      return;
+    }
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(contactEmail);
+        setActionStatus({
+          tone: "success",
+          message: `Copied ${contactEmail} to your clipboard.`,
+        });
+        return;
+      }
+
+      setActionStatus({
+        tone: "info",
+        message: `Copy this email address manually: ${contactEmail}`,
+      });
+    } catch {
+      setActionStatus({
+        tone: "info",
+        message: `Copy this email address manually: ${contactEmail}`,
+      });
+    }
   };
 
   const methods = Array.isArray(contactMethods)
@@ -91,12 +133,18 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
   const hasResume = typeof resumeUrl === "string" && resumeUrl.trim().length > 0;
   const hasPrimaryEmail =
     typeof primaryEmailHref === "string" && primaryEmailHref.trim().length > 0;
+  const showFieldErrors = formStatus.tone === "error";
+  const nameInvalid = showFieldErrors && !formData.name.trim();
+  const emailInvalid = showFieldErrors && !formData.email.trim();
+  const messageInvalid = showFieldErrors && !formData.message.trim();
   const inputClassName =
     "sketch-input w-full px-4 py-3 text-sm text-text-primary outline-none placeholder:text-text-muted";
-  const statusClassName =
-    status.tone === "success"
+  const getStatusClassName = (tone) =>
+    tone === "success"
       ? "sketch-status border-accent/20 bg-accent-soft text-text-primary"
-      : "sketch-status border-rose-500/20 bg-rose-500/10 text-text-primary";
+      : tone === "info"
+        ? "sketch-status border-sky-500/20 bg-sky-500/10 text-text-primary"
+        : "sketch-status border-rose-500/20 bg-rose-500/10 text-text-primary";
 
   return (
     <section
@@ -114,14 +162,14 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           <div className="relative">
             <p className="eyebrow">Contact</p>
             <h2 className="section-title mt-4 max-w-lg">
-              Open to jobs, internships, freelance work, and new connections.
+              I'm open to internships, junior roles, freelance work, and new connections.
             </h2>
 
             <p className="mt-5 max-w-xl text-base leading-8 text-text-muted sm:text-lg">
-              If you want to discuss a role, project, or just connect, feel free to message me.
+              If you want to talk about a job, project, or just connect, feel free to message me.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {hasPrimaryEmail ? (
                 <a href={primaryEmailHref} className="primary-link w-full sm:w-auto">
                   Email Mayur <ArrowUpRightIcon />
@@ -145,19 +193,39 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                   Resume Available
                 </span>
               )}
+
+              {contactEmail ? (
+                <button
+                  type="button"
+                  className="ghost-link w-full sm:w-auto"
+                  onClick={handleCopyEmail}
+                >
+                  Copy Email
+                </button>
+              ) : null}
             </div>
+
+            {actionStatus.message ? (
+              <p
+                className={`mt-4 rounded-2xl border px-4 py-3 text-sm leading-6 ${getStatusClassName(actionStatus.tone)}`}
+                role="status"
+                aria-live="polite"
+              >
+                {actionStatus.message}
+              </p>
+            ) : null}
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               <div className="surface-card sketch-card-lift sketch-tilt-left p-4">
                 <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Response Style</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
-                  Friendly, direct, and easy to reach.
+                  I try to reply in a simple and clear way.
                 </p>
               </div>
               <div className="surface-card sketch-card-lift sketch-tilt-right p-4">
                 <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Work Setup</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
-                  Open to remote work, junior roles, and freelance projects.
+                  Open to remote internships, junior roles, and freelance projects.
                 </p>
               </div>
             </div>
@@ -175,7 +243,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                 Send me a message
               </h3>
               <p className="mt-2 text-sm leading-6 text-text-muted">
-                This will open your email app with the message already filled in.
+                This opens your email app with the message already filled in.
               </p>
             </div>
 
@@ -189,6 +257,8 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                 onChange={handleChange}
                 className={inputClassName}
                 autoComplete="name"
+                required
+                aria-invalid={nameInvalid}
               />
             </label>
 
@@ -202,6 +272,8 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                 onChange={handleChange}
                 className={inputClassName}
                 autoComplete="email"
+                required
+                aria-invalid={emailInvalid}
               />
             </label>
 
@@ -214,6 +286,8 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                 onChange={handleChange}
                 className={`${inputClassName} min-h-32 resize-y`}
                 rows={5}
+                required
+                aria-invalid={messageInvalid}
               />
             </label>
 
@@ -221,9 +295,13 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
               Send Message
             </button>
 
-            {status.message ? (
-              <p className={`rounded-2xl border px-4 py-3 text-sm leading-6 ${statusClassName}`}>
-                {status.message}
+            {formStatus.message ? (
+              <p
+                className={`rounded-2xl border px-4 py-3 text-sm leading-6 ${getStatusClassName(formStatus.tone)}`}
+                role="status"
+                aria-live="polite"
+              >
+                {formStatus.message}
               </p>
             ) : null}
           </form>

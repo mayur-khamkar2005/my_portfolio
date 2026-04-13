@@ -21,7 +21,6 @@ function Layout() {
     if (typeof window === "undefined") return false;
 
     try {
-      // ✅ sessionStorage use kiya (correct behavior)
       return window.sessionStorage.getItem(NOTICE_STORAGE_KEY) === null;
     } catch {
       return false;
@@ -29,25 +28,20 @@ function Layout() {
   });
 
   const safeNavigation = primaryNavigation.filter(
-    (item) =>
-      typeof item?.label === "string" &&
-      typeof item?.link === "string"
+    (item) => typeof item?.label === "string" && typeof item?.link === "string",
   );
 
   const safeSkillMenuGroups = skillMenuGroups.filter(
     (group) =>
       typeof group?.label === "string" &&
       typeof group?.link === "string" &&
-      Array.isArray(group?.items)
+      Array.isArray(group?.items),
   );
 
   const safeSocialLinks = socialLinks.filter(
-    (item) =>
-      typeof item?.label === "string" &&
-      typeof item?.href === "string"
+    (item) => typeof item?.label === "string" && typeof item?.href === "string",
   );
 
-  // ✅ Scroll handling (unchanged)
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
       const hashId = decodeHashFragment(location.hash);
@@ -65,24 +59,11 @@ function Layout() {
     return () => window.cancelAnimationFrame(frameId);
   }, [location.hash, location.pathname]);
 
-  // ✅ Body scroll lock
-  useEffect(() => {
-    if (!isNoticeOpen) return;
-
-    const { overflow } = document.body.style;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = overflow;
-    };
-  }, [isNoticeOpen]);
-
-  // ✅ Close handler (sessionStorage set)
   function handleNoticeContinue() {
     try {
       window.sessionStorage.setItem(NOTICE_STORAGE_KEY, "true");
     } catch {
-      // ignore
+      // Ignore storage issues so the banner can still close.
     }
 
     setIsNoticeOpen(false);
@@ -98,10 +79,7 @@ function Layout() {
         </div>
       )}
 
-      <Navbar
-        navigation={safeNavigation}
-        skillMenuGroups={safeSkillMenuGroups}
-      />
+      <Navbar navigation={safeNavigation} skillMenuGroups={safeSkillMenuGroups} />
 
       <main className="relative z-10">
         <Outlet />
@@ -114,7 +92,6 @@ function Layout() {
         socialLinks={safeSocialLinks}
       />
 
-      {/* ✅ Notice Modal */}
       {isNoticeOpen ? (
         <FirstVisitNotice onContinue={handleNoticeContinue} />
       ) : null}

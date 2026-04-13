@@ -14,9 +14,10 @@ function SkillDetailPage() {
         <section ref={sectionRef} className="section-shell py-16 sm:py-24">
           <div className="surface-card-strong p-8 sm:p-10" data-reveal>
             <p className="eyebrow">Skill Not Found</p>
-            <h1 className="section-title mt-4">This skill page was not found.</h1>
+            <h1 className="section-title mt-4">This skill page is not ready yet.</h1>
             <p className="section-copy mt-4">
-              The link may be wrong, or I may not have added this page yet. You can still check the full skills section from here.
+              The link may be wrong, or I may not have added the details for
+              this skill yet. You can still go back to the full skills page.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/skills" className="primary-link">
@@ -158,7 +159,7 @@ function SkillDetailPage() {
                 </h2>
               </div>
               <p className="section-copy" data-reveal>
-                These are a few related tools that I have also used or learned with {skill.name}.
+                These are a few related tools that I have also used or practiced with {skill.name}.
               </p>
             </div>
 
@@ -167,7 +168,7 @@ function SkillDetailPage() {
                 <Link
                   key={relatedSkill.slug}
                   to={`/skills/${relatedSkill.slug}`}
-                  className="surface-card group block p-5 transition-[border-color,transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-accent"
+                  className="related-skill-link surface-card group block p-5"
                   data-reveal
                 >
                   <p className="font-display text-lg font-medium text-text-primary">
@@ -178,7 +179,7 @@ function SkillDetailPage() {
                   </p>
                   <div className="mt-5 flex items-center justify-between text-sm">
                     <span className="text-text-muted">View skill</span>
-                    <span className="font-medium text-accent transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+                    <span className="related-skill-arrow font-medium text-accent">
                       View
                     </span>
                   </div>

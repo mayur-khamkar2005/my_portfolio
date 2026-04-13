@@ -4,9 +4,9 @@ const primaryEmail = "mayurkhambkar@gmail.com";
 const primaryEmailHref = `mailto:${primaryEmail}?subject=${encodeURIComponent("Portfolio Inquiry")}`;
 
 const heroHighlights = [
-  { label: "Main Focus", value: "Backend work and API building" },
-  { label: "What I Use", value: "React, Node.js, Express, MongoDB" },
-  { label: "Current Stage", value: "Fresher building real projects" },
+  { label: "Main Focus", value: "Backend work, APIs, and auth" },
+  { label: "Stack I Use", value: "React, Node.js, Express, MongoDB" },
+  { label: "Looking For", value: "Internships and junior roles" },
 ];
 
 const focusAreas = [
@@ -14,19 +14,19 @@ const focusAreas = [
     tag: "API",
     title: "API Work",
     description:
-      "I enjoy building backend routes, handling requests properly, and keeping the code easy to follow.",
+      "I like working on routes, controllers, and connecting the backend properly with the frontend.",
   },
   {
     tag: "AUTH",
-    title: "Login and Security",
+    title: "Auth Flow",
     description:
-      "A lot of my projects include JWT auth, protected routes, and simple role-based access.",
+      "JWT auth, protected routes, and role checks are things I use a lot in my practice projects.",
   },
   {
     tag: "STRUCT",
     title: "Clean Structure",
     description:
-      "I try to keep my folders, controllers, and reusable code organized so the project does not get messy fast.",
+      "I try to keep folders and code simple so the project stays easier to understand later.",
   },
 ];
 
@@ -34,7 +34,8 @@ const contactMethods = [
   {
     label: "Email",
     value: primaryEmail,
-    description: "Best way to contact me for jobs, internships, freelance work, or any project discussion.",
+    description:
+      "This is the best way to reach me for internships, junior roles, freelance work, or project discussions.",
     actionLabel: "Send Email",
     href: primaryEmailHref,
     external: false,
@@ -42,7 +43,7 @@ const contactMethods = [
   {
     label: "Phone",
     value: "+91 98923 58717",
-    description: "You can also call if you want to talk directly.",
+    description: "You can call if you want to talk directly.",
     actionLabel: "Call Now",
     href: "tel:+919892358717",
     external: false,
@@ -66,7 +67,7 @@ const contactMethods = [
   {
     label: "X / Twitter",
     value: "@mayurkhamker",
-    description: "I sometimes share thoughts and small updates here.",
+    description: "I sometimes share small updates and thoughts here.",
     actionLabel: "Open X",
     href: "https://x.com/mayurkhamker",
     external: true,

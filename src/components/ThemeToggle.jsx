@@ -66,7 +66,8 @@ function ThemeToggle({ fullWidth = false, tabIndex, className = "" }) {
         type="button"
         onClick={toggleTheme}
         className={buttonClassName}
-        aria-label={`Switch to ${nextTheme} theme`}
+        aria-label="Toggle dark theme"
+        aria-pressed={theme === "dark"}
         title={`Switch to ${nextTheme} theme`}
         tabIndex={tabIndex}
       >
@@ -81,7 +82,8 @@ function ThemeToggle({ fullWidth = false, tabIndex, className = "" }) {
         type="button"
         onClick={toggleVisualMode}
         className={buttonClassName}
-        aria-label={`Switch to ${nextVisualMode} mode`}
+        aria-label="Toggle sketch style"
+        aria-pressed={visualMode === "sketch"}
         title={`Switch to ${nextVisualMode} mode`}
         tabIndex={tabIndex}
       >

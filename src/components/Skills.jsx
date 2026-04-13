@@ -79,10 +79,10 @@ function CategoryButton({ category, isActive, onSelect, panelId }) {
     <button
       type="button"
       id={category.slug}
-      className={`h-full w-full rounded-2xl border px-5 py-4 text-left transition-[border-color,background-color,color,transform] duration-200 ${
+      className={`skills-category-button h-full w-full rounded-2xl border px-5 py-4 text-left ${
         isActive
-          ? "border-accent bg-accent-soft text-text-primary"
-          : "border-line bg-background text-text-primary hover:-translate-y-0.5 hover:border-accent"
+          ? "is-active border-accent bg-accent-soft text-text-primary"
+          : "border-line bg-background text-text-primary"
       }`}
       onClick={() => onSelect(category.slug)}
       onMouseEnter={() => onSelect(category.slug)}
@@ -189,10 +189,10 @@ function Skills({ skills = [], categories = [] }) {
     <section id="skills" className="section-shell py-16 sm:py-20">
       <div className="max-w-3xl">
         <p className="eyebrow">Skills</p>
-        <h1 className="section-title mt-4">Skills and tools I use in my projects.</h1>
+        <h1 className="section-title mt-4">Skills and tools I have used in my projects.</h1>
         <p className="mt-4 text-base leading-7 text-text-muted">
-          This is a simple list of the tools I have used while learning and building
-          full stack projects. I grouped them by area to keep the page easier to read.
+          I'm still learning, but these are the tools I feel comfortable using
+          in my projects right now. I grouped them by area to keep this page simple.
         </p>
       </div>
 
