@@ -106,20 +106,18 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
       <div className="mx-auto max-w-6xl">
         <div
-          className={`surface-card relative px-4 py-3 transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out sm:px-6 ${
-            isScrolled
-              ? "border-line bg-panel-strong shadow-[0_18px_42px_-24px_rgba(15,23,42,0.38)]"
-              : "border-line bg-panel"
+          className={`surface-card sketch-nav relative px-4 py-3 transition-[background-color,border-color,box-shadow] duration-200 ease-out sm:px-6 ${
+            isScrolled ? "navbar-scrolled bg-panel-strong" : "bg-panel"
           }`}
         >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-70"
+            className="sketch-nav-divider pointer-events-none absolute inset-x-6 top-0 h-px"
           />
 
           <div className="relative flex items-center justify-between gap-4">
             <Link to="/" className="group flex min-w-0 flex-1 items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-text-primary text-sm font-medium text-white transition-colors duration-200 group-hover:bg-accent">
+              <span className="sketch-logo-mark flex h-10 w-10 items-center justify-center text-sm font-medium text-white transition-colors duration-200 group-hover:bg-accent">
                 MK
               </span>
               <span className="flex min-w-0 flex-col">
@@ -148,11 +146,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
                       to={item.link}
                       end={item.link === "/"}
                       className={({ isActive }) =>
-                        `rounded-lg px-4 py-2 text-sm font-medium transition-[color,background-color,transform] duration-200 ease-out ${
-                          isActive
-                            ? "bg-accent-soft text-text-primary"
-                            : "text-text-muted hover:-translate-y-0.5 hover:bg-accent-soft hover:text-text-primary"
-                        }`
+                        `sketch-nav-link ${isActive ? "is-active" : ""}`
                       }
                     >
                       {item.label}
@@ -169,7 +163,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
               {navItems.length ? (
                 <button
                   type="button"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border text-text-primary transition-[border-color,color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft hover:text-accent lg:hidden"
+                  className="sketch-icon-button inline-flex h-10 w-10 items-center justify-center text-text-primary lg:hidden"
                   onClick={() => setIsOpen((currentState) => !currentState)}
                   aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                   aria-expanded={isOpen}
@@ -192,7 +186,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
             }`}
             aria-hidden={!isOpen}
           >
-            <div className="surface-card space-y-4 px-4 py-4">
+            <div className="surface-card sketch-mobile-panel space-y-4 px-4 py-4">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) =>
                   item.hasDropdown ? (
@@ -209,11 +203,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
                       to={item.link}
                       end={item.link === "/"}
                       className={({ isActive }) =>
-                        `rounded-xl px-4 py-3 text-sm font-medium transition-[background-color,color,transform] duration-200 ease-out ${
-                          isActive
-                            ? "bg-accent-soft text-text-primary"
-                            : "text-text-primary hover:bg-accent-soft"
-                        }`
+                        `sketch-mobile-link ${isActive ? "is-active" : ""}`
                       }
                     >
                       {item.label}

@@ -35,7 +35,10 @@ function Projects({ projects }) {
             />
           ))
         ) : (
-          <article className="surface-card p-6 xl:col-span-3" data-reveal>
+          <article
+            className="surface-card sketch-card-lift sketch-tilt-left p-6 xl:col-span-3"
+            data-reveal
+          >
             <h3 className="font-display text-lg font-medium text-text-primary">
               More projects will be added here.
             </h3>

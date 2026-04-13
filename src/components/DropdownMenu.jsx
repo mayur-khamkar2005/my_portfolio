@@ -301,11 +301,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
   // Memoized class strings for performance
   const triggerBaseClass = useMemo(
     () =>
-      `inline-flex items-center gap-2 rounded-xl px-3 sm:px-4 py-2 text-sm font-medium transition-all duration-200 ease-out will-change-transform ${
-        isActive || isOpen
-          ? "bg-accent-soft text-text-primary shadow-[0_4px_16px_rgba(37,99,235,0.1)]"
-          : "text-text-muted hover:-translate-y-0.5 hover:bg-accent-soft hover:text-text-primary"
-      }`,
+      `sketch-dropdown-trigger ${isActive || isOpen ? "is-active" : ""}`,
     [isActive, isOpen],
   );
 
@@ -353,17 +349,17 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       {/* Trigger Container */}
       <div
         ref={triggerRef}
-        className={`inline-flex w-full items-center rounded-xl border transition-all duration-200 ease-out lg:w-auto ${
+        className={`sketch-dropdown-frame inline-flex w-full items-center lg:w-auto ${
           isActive || isOpen
-            ? "border-accent/20 bg-accent-soft/90 shadow-[0_4px_20px_rgba(37,99,235,0.1)]"
-            : "border-transparent bg-transparent hover:bg-accent-soft/60"
+            ? "is-active"
+            : ""
         }`}
       >
         {to ? (
           <NavLink
             to={to}
             end={false}
-            className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-sm font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
+            className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
             onClick={() => closeMenu()}
           >
             <span className="truncate">{label}</span>
@@ -371,7 +367,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
         ) : (
           <button
             type="button"
-            className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-left transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
+            className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
             onClick={toggleMenu}
             aria-expanded={isOpen}
             aria-haspopup="true"
@@ -384,10 +380,8 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
         {hasMenu ? (
           <button
             type="button"
-            className={`inline-flex h-9 sm:h-10 shrink-0 items-center justify-center rounded-r-xl px-2 sm:px-3 transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${
-              isActive || isOpen
-                ? "text-text-primary"
-                : "text-text-muted hover:-translate-y-0.5 hover:text-text-primary"
+            className={`sketch-dropdown-caret inline-flex h-9 sm:h-10 shrink-0 items-center justify-center rounded-r-xl px-2 sm:px-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${
+              isActive || isOpen ? "is-active" : ""
             }`}
             onClick={(event) => {
               event.preventDefault();
@@ -416,7 +410,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       {hasMenu ? (
         <div
           id={menuId}
-          className={`rounded-2xl sm:rounded-3xl border border-line bg-panel-strong transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
+          className={`sketch-dropdown-panel transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
             isDesktop
               ? `${getPositionClasses} ${
                   isOpen
@@ -441,7 +435,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                 return (
                   <div
                     key={`${group.label}-${group.link || group.items[0]?.link || groupIndex}`}
-                    className="self-start rounded-xl sm:rounded-2xl border border-line bg-background/95 p-3 sm:p-4 md:p-5 shadow-sm transition-all duration-200 hover:border-accent/40 hover:shadow-md"
+                    className="sketch-dropdown-group self-start p-3 sm:p-4 md:p-5"
                     style={{
                       animationDelay: isOpen ? `${groupIndex * 30}ms` : "0ms",
                     }}
@@ -478,7 +472,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                         ) : null}
                       </div>
                       {/* Item count badge */}
-                      <span className="shrink-0 rounded-full border border-line bg-background px-2 py-0.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-wider text-text-muted">
+                      <span className="sketch-badge shrink-0 px-2 py-0.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-wider text-text-muted">
                         {group.items.length}
                       </span>
                     </div>
@@ -490,10 +484,10 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                           key={option.link}
                           to={option.link}
                           className={({ isActive: isOptionActive }) =>
-                            `group/tag inline-flex items-center gap-1 rounded-full border px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium transition-all duration-150 ${
+                            `group/tag sketch-chip inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium transition-all duration-150 ${
                               isOptionActive
-                                ? "border-accent bg-accent-soft text-accent shadow-sm"
-                                : "border-line text-text-muted hover:border-accent/60 hover:text-text-primary hover:bg-accent-soft/30"
+                                ? "is-active"
+                                : "sketch-chip-muted text-text-muted hover:text-text-primary"
                             }`
                           }
                           onClick={() => closeMenu()}
@@ -519,14 +513,14 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                         group.link ? (
                           <Link
                             to={group.link}
-                            className="inline-flex items-center gap-1 rounded-full border border-dashed border-line px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium text-text-muted transition-all duration-150 hover:border-accent hover:text-accent hover:bg-accent-soft/20"
+                            className="sketch-chip sketch-chip-muted inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium text-text-muted transition-all duration-150 hover:text-accent"
                             onClick={() => closeMenu()}
                           >
                             <span>+{remainingCount}</span>
                             <span className="hidden sm:inline">more</span>
                           </Link>
                         ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full border border-dashed border-line px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium text-text-muted">
+                          <span className="sketch-chip sketch-chip-muted inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium text-text-muted">
                             <span>+{remainingCount}</span>
                             <span className="hidden sm:inline">more</span>
                           </span>
