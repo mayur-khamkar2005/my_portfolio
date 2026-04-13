@@ -308,19 +308,11 @@ textarea {
     box-shadow: var(--surface-shadow);
   }
 
-  .surface-card:hover {
-    box-shadow: var(--surface-shadow-hover);
-  }
-
   .surface-card-strong {
     background: var(--bg-panel-strong);
     -webkit-backdrop-filter: blur(var(--surface-blur-strong));
     backdrop-filter: blur(var(--surface-blur-strong));
     box-shadow: var(--surface-shadow-strong);
-  }
-
-  .surface-card-strong:hover {
-    box-shadow: var(--surface-shadow-strong-hover);
   }
 
   html[data-visual-mode="sketch"] .surface-card::after,
@@ -388,12 +380,6 @@ textarea {
     border-color: var(--text);
   }
 
-  .primary-link:hover {
-    background: var(--accent);
-    box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
-  }
-
   .ghost-link {
     --button-rotation: var(--button-rotation-secondary);
     @apply border text-text-primary;
@@ -403,13 +389,6 @@ textarea {
 
   html[data-visual-mode="sketch"] .ghost-link {
     background: var(--bg-panel);
-  }
-
-  .ghost-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
   }
 
   .primary-link:focus-visible,
@@ -457,14 +436,6 @@ textarea {
     background: var(--bg-panel);
   }
 
-  .footer-link:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--text);
-    box-shadow: var(--button-shadow);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation-secondary));
-  }
-
   .theme-toggle-shell {
     display: flex;
     flex-wrap: wrap;
@@ -486,11 +457,10 @@ textarea {
     transform: rotate(var(--button-rotation));
   }
 
-  .theme-toggle-button:hover {
+  .theme-toggle-button[aria-pressed="true"] {
     border-color: var(--accent);
-    color: var(--accent);
+    background: color-mix(in srgb, var(--accent-soft) 76%, var(--bg-panel));
     box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
   }
 
   .theme-toggle-icon {
@@ -550,8 +520,6 @@ textarea {
     transform: rotate(0.45deg);
   }
 
-  .sketch-nav-link:hover,
-  .sketch-mobile-link:hover,
   .sketch-nav-link.is-active,
   .sketch-mobile-link.is-active {
     background: var(--accent-soft);
@@ -561,8 +529,6 @@ textarea {
     transform: translate(-2px, -2px) rotate(0.45deg);
   }
 
-  html[data-visual-mode="clean"] .sketch-nav-link:hover,
-  html[data-visual-mode="clean"] .sketch-mobile-link:hover,
   html[data-visual-mode="clean"] .sketch-nav-link.is-active,
   html[data-visual-mode="clean"] .sketch-mobile-link.is-active {
     transform: translateY(-1px);
@@ -577,14 +543,6 @@ textarea {
     transition-property: border-color, color, background-color, transform, box-shadow;
     transition-duration: 180ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .sketch-icon-button:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent);
-    box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(0.8deg);
   }
 
   .sketch-mobile-panel {
@@ -604,8 +562,7 @@ textarea {
     border-style: var(--button-border-style);
   }
 
-  .sketch-dropdown-frame.is-active,
-  .sketch-dropdown-frame:hover {
+  .sketch-dropdown-frame.is-active {
     border-color: var(--accent);
     background: color-mix(in srgb, var(--accent-soft) 84%, transparent);
     box-shadow: var(--button-shadow);
@@ -623,8 +580,7 @@ textarea {
     @apply text-text-muted transition-colors duration-200 ease-out;
   }
 
-  .sketch-dropdown-caret.is-active,
-  .sketch-dropdown-caret:hover {
+  .sketch-dropdown-caret.is-active {
     color: var(--text);
   }
 
@@ -647,12 +603,6 @@ textarea {
     transition-property: border-color, transform, box-shadow;
     transition-duration: 180ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .sketch-dropdown-group:hover {
-    border-color: var(--accent);
-    box-shadow: var(--surface-shadow-hover);
-    transform: translate(-2px, -2px);
   }
 
   .sketch-pill,
@@ -755,11 +705,6 @@ textarea {
     transition: transform 260ms ease, opacity 260ms ease;
   }
 
-  .group:hover .sketch-project-sheen {
-    opacity: 0.8;
-    transform: translateX(16px);
-  }
-
   .sketch-footer-shell {
     background:
       linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 20%, transparent), transparent 28%),
@@ -786,6 +731,28 @@ textarea {
 
   .sketch-status {
     background: var(--bg-panel);
+  }
+
+  .skills-category-button {
+    transition-property: border-color, background-color, color, transform, box-shadow;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .game-board-cell-idle {
+    transition-property: border-color, color, transform;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .related-skill-link {
+    transition-property: border-color, transform, box-shadow;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .related-skill-arrow {
+    transition: transform 200ms ease, color 200ms ease;
   }
 
   .sketch-card-lift {
@@ -858,12 +825,115 @@ textarea {
   will-change: auto;
 }
 
-html[data-visual-mode="sketch"] .sketch-card-lift:not([data-reveal]):hover {
-  transform: translate(-3px, -3px) rotate(var(--reveal-tilt, 0deg));
-}
+@media (hover: hover) and (pointer: fine) {
+  .surface-card:hover {
+    box-shadow: var(--surface-shadow-hover);
+  }
 
-html[data-visual-mode="sketch"] .sketch-card-lift[data-reveal][data-reveal-ready="true"][data-reveal-visible="true"]:hover {
-  transform: translate3d(-3px, -3px, 0) scale(1) rotateX(0deg) rotate(var(--reveal-tilt, 0deg));
+  .surface-card-strong:hover {
+    box-shadow: var(--surface-shadow-strong-hover);
+  }
+
+  .primary-link:hover {
+    background: var(--accent);
+    box-shadow: var(--button-shadow-hover);
+    transform: translate(-2px, -2px) rotate(var(--button-rotation));
+  }
+
+  .ghost-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--button-shadow-hover);
+    transform: translate(-2px, -2px) rotate(var(--button-rotation));
+  }
+
+  .footer-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--text);
+    box-shadow: var(--button-shadow);
+    transform: translate(-2px, -2px) rotate(var(--button-rotation-secondary));
+  }
+
+  .theme-toggle-button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--button-shadow-hover);
+    transform: translate(-2px, -2px) rotate(var(--button-rotation));
+  }
+
+  .sketch-nav-link:hover,
+  .sketch-mobile-link:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--text);
+    box-shadow: var(--button-shadow);
+    transform: translate(-2px, -2px) rotate(0.45deg);
+  }
+
+  html[data-visual-mode="clean"] .sketch-nav-link:hover,
+  html[data-visual-mode="clean"] .sketch-mobile-link:hover {
+    transform: translateY(-1px);
+  }
+
+  .sketch-icon-button:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    box-shadow: var(--button-shadow-hover);
+    transform: translate(-2px, -2px) rotate(0.8deg);
+  }
+
+  .sketch-dropdown-frame:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent-soft) 84%, transparent);
+    box-shadow: var(--button-shadow);
+  }
+
+  .sketch-dropdown-caret:hover {
+    color: var(--text);
+  }
+
+  .sketch-dropdown-group:hover {
+    border-color: var(--accent);
+    box-shadow: var(--surface-shadow-hover);
+    transform: translate(-2px, -2px);
+  }
+
+  .skills-category-button:not(.is-active):hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--button-shadow);
+  }
+
+  .game-board-cell-idle:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  .related-skill-link:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: var(--surface-shadow-hover);
+  }
+
+  .related-skill-link:hover .related-skill-arrow {
+    transform: translateX(2px);
+  }
+
+  .group:hover .sketch-project-sheen {
+    opacity: 0.8;
+    transform: translateX(16px);
+  }
+
+  html[data-visual-mode="sketch"] .sketch-card-lift:not([data-reveal]):hover {
+    transform: translate(-3px, -3px) rotate(var(--reveal-tilt, 0deg));
+  }
+
+  html[data-visual-mode="sketch"] .sketch-card-lift[data-reveal][data-reveal-ready="true"][data-reveal-visible="true"]:hover {
+    transform: translate3d(-3px, -3px, 0) scale(1) rotateX(0deg) rotate(var(--reveal-tilt, 0deg));
+  }
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 1200px) {
@@ -884,6 +954,16 @@ html[data-visual-mode="sketch"] .sketch-card-lift[data-reveal][data-reveal-ready
 @media (max-width: 1023px) {
   .ambient-grid {
     opacity: 0.24;
+  }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .ambient-grid {
+    opacity: 0.18;
+  }
+
+  .ambient-orb {
+    display: none;
   }
 }
 

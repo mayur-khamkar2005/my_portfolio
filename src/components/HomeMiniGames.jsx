@@ -106,7 +106,9 @@ function TicTacToeGame() {
         </span>
       </div>
 
-      <p className="mt-4 text-sm leading-6 text-text-muted">{statusLabel}</p>
+      <p className="mt-4 text-sm leading-6 text-text-muted" aria-live="polite">
+        {statusLabel}
+      </p>
 
       <div className="mt-6 grid grid-cols-3 gap-2.5 sm:gap-3">
         {squares.map((square, index) => {
@@ -121,7 +123,7 @@ function TicTacToeGame() {
                   ? "border-accent bg-accent-soft text-accent"
                   : square
                     ? "bg-background text-text-primary"
-                    : "bg-background text-text-muted hover:-translate-y-0.5 hover:border-accent hover:text-text-primary"
+                    : "game-board-cell-idle bg-background text-text-muted"
               }`}
               onClick={() => handleSquareClick(index)}
               aria-label={`Play ${currentPlayer} at position ${index + 1}`}
@@ -260,7 +262,9 @@ function ReactionGame() {
         </span>
       </div>
 
-      <p className="mt-4 text-sm leading-6 text-text-muted">{statusMessage}</p>
+      <p className="mt-4 text-sm leading-6 text-text-muted" aria-live="polite">
+        {statusMessage}
+      </p>
 
       <button
         type="button"
@@ -328,14 +332,13 @@ function HomeMiniGames() {
       className="section-shell scroll-mt-28 pb-14 sm:pb-20 lg:pb-24"
     >
       <div className="max-w-3xl" data-reveal>
-        <p className="eyebrow">For Fun</p>
+        <p className="eyebrow">Just For Fun</p>
         <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[2.8rem]">
-          A couple of small games I added for fun.
+          I added a couple of small games here.
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-7 text-text-muted sm:text-lg">
-          I did not want the home page to feel too plain, so I added two simple
-          games here. They are small and just meant to make the page feel a bit
-          more personal.
+          I didn't want the home page to feel too plain, so I added these small
+          games just to make the site feel a little more personal.
         </p>
       </div>
 

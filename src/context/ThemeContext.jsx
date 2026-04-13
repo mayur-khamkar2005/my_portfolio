@@ -4,6 +4,16 @@ const ThemeContext = createContext(undefined);
 const THEME_STORAGE_KEY = "mayur-portfolio-theme";
 const VISUAL_MODE_STORAGE_KEY = "mayur-portfolio-visual-mode";
 const canUseDOM = typeof window !== "undefined";
+const THEME_COLOR_MAP = {
+  light: {
+    clean: "#f5f7fb",
+    sketch: "#fbf7ef",
+  },
+  dark: {
+    clean: "#090c12",
+    sketch: "#171411",
+  },
+};
 
 function readStoredTheme() {
   if (!canUseDOM) {
@@ -55,11 +65,18 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const root = document.documentElement;
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
     root.classList.toggle("dark", theme === "dark");
     root.dataset.theme = theme;
     root.dataset.visualMode = visualMode;
     root.style.colorScheme = theme;
+
+    if (themeColorMeta) {
+      const themeColor =
+        THEME_COLOR_MAP[theme]?.[visualMode] ?? THEME_COLOR_MAP.light.clean;
+      themeColorMeta.setAttribute("content", themeColor);
+    }
 
     try {
       window.localStorage.setItem(THEME_STORAGE_KEY, theme);

@@ -17,12 +17,12 @@ function Projects({ projects }) {
         <div data-reveal>
           <p className="eyebrow">Projects</p>
           <h2 className="section-title mt-4">
-            Projects I built while learning and practicing full stack development.
+            Some projects I made while learning full stack development.
           </h2>
         </div>
         <p className="section-copy" data-reveal>
-          Most of these projects are based on things I wanted to practice more,
-          like auth flow, APIs, dashboards, e-commerce features, and CRUD work.
+          Most of these were built to practice things I wanted to get better at,
+          like auth, APIs, dashboards, e-commerce flow, and CRUD operations.
         </p>
       </div>
 

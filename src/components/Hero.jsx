@@ -53,7 +53,7 @@ function Hero({ resumeUrl, highlights }) {
       <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
           <p className="eyebrow" data-reveal>
-            Full Stack Developer
+            Fresher Full Stack Developer
           </p>
           <h1
             className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary min-[420px]:text-5xl sm:text-6xl lg:text-7xl"
@@ -61,16 +61,16 @@ function Hero({ resumeUrl, highlights }) {
           >
             Mayur Khamkar
             <span className="mt-3 block text-2xl font-normal text-text-muted sm:text-3xl">
-              Full Stack Developer
+              I like building full stack projects and learning by making real things
             </span>
           </h1>
           <p
             className="mt-6 max-w-2xl text-lg leading-8 text-text-muted sm:text-xl"
             data-reveal
           >
-            I am a fresher developer who enjoys full stack development, especially
-            backend work. Most of my project time goes into APIs, auth, and keeping
-            the code structure simple and clean.
+            I'm a fresher full stack developer. I enjoy backend work more, but I
+            also like building clean and responsive frontend pages. Most of my
+            projects are built with React, Node.js, Express, and MongoDB.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal>
@@ -153,18 +153,16 @@ function Hero({ resumeUrl, highlights }) {
                   <span className="text-text-primary">{"{"}</span>
                 </p>
                 <p className="pl-4">
-                  focus: <span className="text-text-primary">"Backend and APIs"</span>,
+                  focus: <span className="text-text-primary">"backend work"</span>,
                 </p>
                 <p className="pl-4">
-                  auth: <span className="text-text-primary">"JWT auth"</span>,
+                  likes: <span className="text-text-primary">"APIs and auth"</span>,
                 </p>
                 <p className="pl-4">
-                  architecture:{" "}
-                  <span className="text-text-primary">"Simple project structure"</span>,
+                  frontend: <span className="text-text-primary">"simple responsive UI"</span>,
                 </p>
                 <p className="pl-4">
-                  stack:{" "}
-                  <span className="text-text-primary">["React", "Node.js", "MongoDB"]</span>
+                  goal: <span className="text-text-primary">"keep learning by building"</span>,
                 </p>
                 <p>
                   <span className="text-text-primary">{"}"}</span>;
@@ -178,7 +176,7 @@ function Hero({ resumeUrl, highlights }) {
                   Backend side
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  I enjoy working on routes, auth flow, controllers, and database-related parts of a project.
+                  I enjoy working more on routes, auth flow, controllers, middleware, and database related features.
                 </p>
               </div>
               <div className="surface-card sketch-card-lift sketch-tilt-right p-5">
@@ -186,7 +184,7 @@ function Hero({ resumeUrl, highlights }) {
                   Frontend side
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  On the frontend, I try to keep the UI clean, responsive, and easy to use.
+                  On the frontend, I try to keep the UI simple, responsive, and easy to use.
                 </p>
               </div>
             </div>
