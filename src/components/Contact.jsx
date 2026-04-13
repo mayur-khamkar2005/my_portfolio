@@ -92,11 +92,11 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
   const hasPrimaryEmail =
     typeof primaryEmailHref === "string" && primaryEmailHref.trim().length > 0;
   const inputClassName =
-    "w-full rounded-2xl border border-line/80 bg-background/70 px-4 py-3 text-sm text-text-primary outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-text-muted focus:border-accent focus:bg-background focus:ring-4 focus:ring-accent/10";
+    "sketch-input w-full px-4 py-3 text-sm text-text-primary outline-none placeholder:text-text-muted";
   const statusClassName =
     status.tone === "success"
-      ? "border-accent/20 bg-accent-soft text-text-primary"
-      : "border-rose-500/20 bg-rose-500/10 text-text-primary";
+      ? "sketch-status border-accent/20 bg-accent-soft text-text-primary"
+      : "sketch-status border-rose-500/20 bg-rose-500/10 text-text-primary";
 
   return (
     <section
@@ -105,7 +105,10 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
       className="section-shell scroll-mt-28 py-16 sm:py-24"
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
-        <div className="surface-card-strong relative overflow-hidden p-7 sm:p-8 lg:p-10" data-reveal>
+        <div
+          className="surface-card-strong sketch-panel sketch-card-lift sketch-tilt-left relative overflow-hidden p-7 sm:p-8 lg:p-10"
+          data-reveal
+        >
           <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent opacity-70" />
           <div className="absolute -left-8 top-10 h-28 w-28 rounded-full bg-accent-soft blur-[72px]" />
           <div className="relative">
@@ -124,7 +127,9 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                   Email Mayur <ArrowUpRightIcon />
                 </a>
               ) : (
-                <span>Email Available On Request</span>
+                <span className="sketch-note inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-text-muted">
+                  Email Available On Request
+                </span>
               )}
 
               {hasResume ? (
@@ -136,18 +141,20 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                   Download Resume
                 </a>
               ) : (
-                <span>Resume Available</span>
+                <span className="sketch-note inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-text-muted">
+                  Resume Available
+                </span>
               )}
             </div>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              <div className="surface-card p-4">
+              <div className="surface-card sketch-card-lift sketch-tilt-left p-4">
                 <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Response Style</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
                   Friendly, direct, and easy to reach.
                 </p>
               </div>
-              <div className="surface-card p-4">
+              <div className="surface-card sketch-card-lift sketch-tilt-right p-4">
                 <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Work Setup</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
                   Open to remote work, junior roles, and freelance projects.
@@ -158,7 +165,11 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
         </div>
 
         <div className="flex flex-col gap-4">
-          <form onSubmit={handleSubmit} className="surface-card-strong space-y-5 p-6 sm:p-7" data-reveal>
+          <form
+            onSubmit={handleSubmit}
+            className="surface-card-strong sketch-card-lift sketch-tilt-right space-y-5 p-6 sm:p-7"
+            data-reveal
+          >
             <div>
               <h3 className="font-display text-lg font-medium text-text-primary">
                 Send me a message
@@ -219,11 +230,16 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
 
           <div className="grid auto-rows-fr gap-4 sm:grid-cols-2" data-reveal>
             {methods.length
-              ? methods.map((item) => {
+              ? methods.map((item, index) => {
                   const href = isSafeHref(item?.href) ? item.href.trim() : "";
 
                   return (
-                    <article key={item.label} className="surface-card flex h-full flex-col p-5">
+                    <article
+                      key={item.label}
+                      className={`surface-card sketch-card-lift flex h-full flex-col p-5 ${
+                        index % 2 === 0 ? "sketch-tilt-left" : "sketch-tilt-right"
+                      }`}
+                    >
                       <p className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
                         {item.label}
                       </p>

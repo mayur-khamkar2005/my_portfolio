@@ -35,26 +35,65 @@ function MoonIcon() {
   );
 }
 
+function PencilIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m4 20 4.5-1 9.7-9.7a2.1 2.1 0 0 0 0-3l-.5-.5a2.1 2.1 0 0 0-3 0L5 15.5 4 20Z" />
+      <path d="m13.5 6.5 4 4" />
+    </svg>
+  );
+}
+
 function ThemeToggle({ fullWidth = false, tabIndex, className = "" }) {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, visualMode, toggleVisualMode } = useTheme();
   const nextTheme = theme === "dark" ? "light" : "dark";
+  const nextVisualMode = visualMode === "sketch" ? "clean" : "sketch";
+  const wrapperClassName = `theme-toggle-shell ${fullWidth ? "w-full" : ""} ${className}`.trim();
+  const buttonClassName = `theme-toggle-button ${fullWidth ? "w-full justify-center" : ""}`;
 
   return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-text-primary transition-[border-color,color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent ${
-        fullWidth ? "w-full" : ""
-      } ${className}`}
-      aria-label={`Switch to ${nextTheme} mode`}
-      title={`Switch to ${nextTheme} mode`}
-      tabIndex={tabIndex}
-    >
-      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-soft text-accent">
-        {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-      </span>
-      <span className="text-xs">{theme === "dark" ? "Light" : "Dark"}</span>
-    </button>
+    <div className={wrapperClassName}>
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className={buttonClassName}
+        aria-label={`Switch to ${nextTheme} theme`}
+        title={`Switch to ${nextTheme} theme`}
+        tabIndex={tabIndex}
+      >
+        <span className="theme-toggle-icon">
+          {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+        </span>
+        <span className="theme-toggle-label">Theme</span>
+        <span className="theme-toggle-value">{theme === "dark" ? "Dark" : "Light"}</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={toggleVisualMode}
+        className={buttonClassName}
+        aria-label={`Switch to ${nextVisualMode} mode`}
+        title={`Switch to ${nextVisualMode} mode`}
+        tabIndex={tabIndex}
+      >
+        <span className="theme-toggle-icon">
+          <PencilIcon />
+        </span>
+        <span className="theme-toggle-label">Style</span>
+        <span className="theme-toggle-value">
+          {visualMode === "sketch" ? "Sketch" : "Clean"}
+        </span>
+      </button>
+    </div>
   );
 }
 

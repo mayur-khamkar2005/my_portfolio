@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(undefined);
-const STORAGE_KEY = "mayur-portfolio-theme";
+const THEME_STORAGE_KEY = "mayur-portfolio-theme";
+const VISUAL_MODE_STORAGE_KEY = "mayur-portfolio-visual-mode";
 const canUseDOM = typeof window !== "undefined";
 
 function readStoredTheme() {
@@ -10,8 +11,23 @@ function readStoredTheme() {
   }
 
   try {
-    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
     return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+  } catch {
+    return null;
+  }
+}
+
+function readStoredVisualMode() {
+  if (!canUseDOM) {
+    return null;
+  }
+
+  try {
+    const storedVisualMode = window.localStorage.getItem(VISUAL_MODE_STORAGE_KEY);
+    return storedVisualMode === "clean" || storedVisualMode === "sketch"
+      ? storedVisualMode
+      : null;
   } catch {
     return null;
   }
@@ -29,33 +45,48 @@ const getInitialTheme = () => {
   return readStoredTheme() ?? getSystemTheme();
 };
 
+const getInitialVisualMode = () => {
+  return readStoredVisualMode() ?? "sketch";
+};
+
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(getInitialTheme);
+  const [visualMode, setVisualMode] = useState(getInitialVisualMode);
 
   useEffect(() => {
     const root = document.documentElement;
 
     root.classList.toggle("dark", theme === "dark");
     root.dataset.theme = theme;
+    root.dataset.visualMode = visualMode;
     root.style.colorScheme = theme;
 
     try {
-      window.localStorage.setItem(STORAGE_KEY, theme);
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+      window.localStorage.setItem(VISUAL_MODE_STORAGE_KEY, visualMode);
     } catch {
-      // Ignore storage errors so theme toggling still works in restricted browsers.
+      // Ignore storage errors so toggling still works in restricted browsers.
     }
-  }, [theme]);
+  }, [theme, visualMode]);
 
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  };
+
+  const toggleVisualMode = () => {
+    setVisualMode((currentVisualMode) =>
+      currentVisualMode === "sketch" ? "clean" : "sketch",
+    );
   };
 
   const value = useMemo(
     () => ({
       theme,
       toggleTheme,
+      visualMode,
+      toggleVisualMode,
     }),
-    [theme],
+    [theme, visualMode],
   );
 
   return (

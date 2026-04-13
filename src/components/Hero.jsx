@@ -84,7 +84,7 @@ function Hero({ resumeUrl, highlights }) {
                 Download Resume
               </a>
             ) : (
-              <span className="inline-flex items-center justify-center rounded-lg border px-5 py-2.5 text-sm font-medium text-text-muted">
+              <span className="sketch-note inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-text-muted">
                 Resume Available On Request
               </span>
             )}
@@ -96,8 +96,14 @@ function Hero({ resumeUrl, highlights }) {
 
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
             {highlightItems.length ? (
-              highlightItems.map((item) => (
-                <div key={item.label} className="surface-card p-4" data-reveal>
+              highlightItems.map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`surface-card sketch-card-lift p-4 ${
+                    index % 2 === 0 ? "sketch-tilt-left" : "sketch-tilt-right"
+                  }`}
+                  data-reveal
+                >
                   <p className="text-xs font-medium uppercase tracking-[0.15em] text-text-muted">
                     {item.label}
                   </p>
@@ -107,7 +113,10 @@ function Hero({ resumeUrl, highlights }) {
                 </div>
               ))
             ) : (
-              <div className="surface-card p-4 sm:col-span-3" data-reveal>
+              <div
+                className="surface-card sketch-card-lift sketch-tilt-left p-4 sm:col-span-3"
+                data-reveal
+              >
                 <p className="text-sm font-medium text-text-primary">
                   A quick summary will show up here.
                 </p>
@@ -119,16 +128,19 @@ function Hero({ resumeUrl, highlights }) {
           </div>
         </div>
 
-        <div className="surface-card-strong hero-panel relative overflow-hidden p-6 sm:p-8" data-reveal>
+        <div
+          className="surface-card-strong hero-panel sketch-panel sketch-card-lift sketch-tilt-right relative overflow-hidden p-6 sm:p-8"
+          data-reveal
+        >
           <div className="grid-outline absolute inset-0" />
           <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-accent-soft opacity-75 blur-[72px]" />
 
           <div className="relative">
-            <div className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent">
+            <div className="sketch-pill inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent">
               What I Work On
             </div>
 
-            <div className="mt-6 rounded-xl border bg-background/70 p-5">
+            <div className="sketch-code-window mt-6 p-5">
               <div className="mb-5 flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -161,7 +173,7 @@ function Hero({ resumeUrl, highlights }) {
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="surface-card p-5">
+              <div className="surface-card sketch-card-lift sketch-tilt-left p-5">
                 <p className="text-sm font-medium text-text-primary">
                   Backend side
                 </p>
@@ -169,7 +181,7 @@ function Hero({ resumeUrl, highlights }) {
                   I enjoy working on routes, auth flow, controllers, and database-related parts of a project.
                 </p>
               </div>
-              <div className="surface-card p-5">
+              <div className="surface-card sketch-card-lift sketch-tilt-right p-5">
                 <p className="text-sm font-medium text-text-primary">
                   Frontend side
                 </p>

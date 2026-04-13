@@ -12,22 +12,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Patrick+Hand&display=swap"
     />
     <title>Mayur Khamkar | Full Stack Developer</title>
     <script>
       (() => {
-        const storageKey = "mayur-portfolio-theme";
-        const storedTheme = localStorage.getItem(storageKey);
+        const themeStorageKey = "mayur-portfolio-theme";
+        const visualModeStorageKey = "mayur-portfolio-visual-mode";
+        const storedTheme = localStorage.getItem(themeStorageKey);
+        const storedVisualMode = localStorage.getItem(visualModeStorageKey);
         const theme =
           storedTheme === "light" || storedTheme === "dark"
             ? storedTheme
             : window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light";
+        const visualMode =
+          storedVisualMode === "clean" || storedVisualMode === "sketch"
+            ? storedVisualMode
+            : "sketch";
 
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.dataset.theme = theme;
+        document.documentElement.dataset.visualMode = visualMode;
         document.documentElement.style.colorScheme = theme;
       })();
     </script>

@@ -43,9 +43,15 @@ function About({ focusAreas }) {
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {areas.length ? (
-          areas.map((area) => (
-            <article key={area.title} className="surface-card h-full p-6" data-reveal>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-sm font-medium text-accent">
+          areas.map((area, index) => (
+            <article
+              key={area.title}
+              className={`surface-card sketch-card-lift h-full p-6 ${
+                index % 2 === 0 ? "sketch-tilt-left" : "sketch-tilt-right"
+              }`}
+              data-reveal
+            >
+              <div className="sketch-mark flex h-10 w-10 items-center justify-center text-sm font-medium text-accent">
                 {area.tag}
               </div>
               <h3 className="mt-5 font-display text-lg font-medium text-text-primary">
@@ -57,7 +63,10 @@ function About({ focusAreas }) {
             </article>
           ))
         ) : (
-          <article className="surface-card p-6 md:col-span-3" data-reveal>
+          <article
+            className="surface-card sketch-card-lift sketch-tilt-left p-6 md:col-span-3"
+            data-reveal
+          >
             <h3 className="font-display text-lg font-medium text-text-primary">
               This section is being updated.
             </h3>

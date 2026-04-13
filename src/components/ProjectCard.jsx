@@ -43,12 +43,12 @@ function ProjectCard({ project }) {
 
   return (
     <article
-      className="surface-card-strong group relative flex h-full flex-col overflow-hidden p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-out hover:-translate-y-1 hover:border-accent"
+      className="surface-card-strong sketch-project-card sketch-card-lift sketch-tilt-right group relative flex h-full flex-col overflow-hidden p-6"
       data-reveal
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-[-45%] w-1/2 translate-x-0 bg-gradient-to-r from-transparent via-white/18 to-transparent opacity-0 blur-2xl transition-[opacity,transform] duration-500 ease-out group-hover:translate-x-[220%] group-hover:opacity-100 dark:via-white/10"
+        className="sketch-project-sheen pointer-events-none absolute inset-x-6 top-5 h-3"
       />
 
       <div className="relative flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
@@ -58,7 +58,7 @@ function ProjectCard({ project }) {
             {title}
           </h3>
         </div>
-        <span className="rounded-lg border px-2.5 py-1 text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
+        <span className="sketch-badge px-2.5 py-1 text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
           {year}
         </span>
       </div>
@@ -70,13 +70,13 @@ function ProjectCard({ project }) {
           techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-lg border border-accent/20 bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent transition-colors duration-200 group-hover:border-accent/35"
+              className="sketch-chip px-2.5 py-1 text-xs font-medium text-accent"
             >
               {tech}
             </span>
           ))
         ) : (
-          <span className="rounded-lg border px-2.5 py-1 text-xs font-medium text-text-muted">
+          <span className="sketch-chip sketch-chip-muted px-2.5 py-1 text-xs font-medium text-text-muted">
             Stack details coming soon
           </span>
         )}
@@ -90,7 +90,7 @@ function ProjectCard({ project }) {
           <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-text-primary">
             {features.map((feature) => (
               <li key={feature} className="flex items-start gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent transition-transform duration-200 group-hover:scale-110" />
+                <span className="sketch-bullet mt-1.5 h-2.5 w-2.5 shrink-0 bg-accent" />
                 <span>{feature}</span>
               </li>
             ))}
@@ -114,7 +114,7 @@ function ProjectCard({ project }) {
             <ArrowUpRightIcon />
           </a>
         ) : (
-          <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
+          <span className="sketch-note inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
             Code Link On Request
           </span>
         )}
@@ -129,7 +129,7 @@ function ProjectCard({ project }) {
             <ArrowUpRightIcon />
           </a>
         ) : (
-          <span className="inline-flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
+          <span className="sketch-note inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-text-muted sm:w-auto">
             Demo Not Added Yet
           </span>
         )}
