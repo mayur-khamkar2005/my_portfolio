@@ -6,7 +6,7 @@ A modern and responsive full stack developer portfolio built with React, Vite, a
 
 This portfolio website is designed to present a strong full stack developer profile with special focus on backend systems, REST APIs, JWT authentication, and scalable MERN application architecture. It includes a modern dark and light theme, responsive layouts, smooth interactions, and clear calls to action for recruiters and collaborators.
 
-## Features
+## Features     
 
 - Modern and professional developer portfolio design
 - Fully responsive layout for mobile, tablet, laptop, and desktop
