@@ -1,6 +1,6 @@
 # Mayur Khamkar Portfolio.............
 
-A modern and responsive full stack developer portfolio built with React, Vite, and Tailwind CSS. This project showcases Mayur Khamkar's MERN stack skills, backend-focused development approach, featured projects, contact details, and downloadable resume in a clean recruiter-friendly UI.
+A modern and responsive full stack developer portfolio built with React, Vite, and Tailwind CSS. This project showcases Mayur Khamkar's MERN stack skills, backend-focused development approach, featured projects, contact details, and downloadable resume in a clean recruiter-friendly UI.              
 
 ## Overview
 
