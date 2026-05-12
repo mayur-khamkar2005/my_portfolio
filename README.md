@@ -13,7 +13,7 @@ This portfolio website is designed to present a strong full stack developer prof
 - Dark and light theme toggle
 - Theme preference saved with `localStorage`
 - Smooth transitions and hover effects
-- Resume download button
+- Resume download button             ...
 - Contact section with direct action buttons
 - Reusable component-based structure
 - Built with React functional components and hooks
