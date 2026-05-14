@@ -35,8 +35,11 @@ function CloseIcon() {
   );
 }
 
+const MOBILE_MENU_TRANSITION_MS = 250;
+
 function Navbar({ navigation, skillMenuGroups = [] }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobilePanelMounted, setIsMobilePanelMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const mobilePanelId = useId();
@@ -62,9 +65,44 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
     [skillMenuGroups],
   );
 
-  useEffect(() => {
+  const openMobileMenu = () => {
+    setIsMobilePanelMounted(true);
+    setIsOpen(true);
+  };
+
+  const closeMobileMenu = () => {
     setIsOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    if (isOpen) {
+      closeMobileMenu();
+      return;
+    }
+
+    openMobileMenu();
+  };
+
+  useEffect(() => {
+    closeMobileMenu();
   }, [location.hash, location.pathname]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsMobilePanelMounted(true);
+      return undefined;
+    }
+
+    if (!isMobilePanelMounted) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setIsMobilePanelMounted(false);
+    }, MOBILE_MENU_TRANSITION_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [isMobilePanelMounted, isOpen]);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
@@ -74,7 +112,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const handleChange = (event) => {
       if (event.matches) {
-        setIsOpen(false);
+        closeMobileMenu();
       }
     };
 
@@ -110,7 +148,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
     const { overflow } = document.body.style;
     const handleEscape = (event) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeMobileMenu();
       }
     };
 
@@ -130,7 +168,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
           type="button"
           className="fixed inset-0 z-40 bg-slate-950/12 backdrop-blur-[2px] lg:hidden"
           aria-label="Close navigation menu"
-          onClick={() => setIsOpen(false)}
+          onClick={closeMobileMenu}
         />
       ) : null}
 
@@ -195,7 +233,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
                   <button
                     type="button"
                     className="sketch-icon-button inline-flex h-10 w-10 items-center justify-center text-text-primary lg:hidden"
-                    onClick={() => setIsOpen((currentState) => !currentState)}
+                    onClick={toggleMobileMenu}
                     aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                     aria-expanded={isOpen}
                     aria-controls={mobilePanelId}
@@ -207,7 +245,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
             </div>
           </div>
 
-          {navItems.length ? (
+          {navItems.length && isMobilePanelMounted ? (
             <div
               id={mobilePanelId}
               className={`mt-3 overflow-hidden transition-[max-height,opacity,transform] duration-250 ease-out lg:hidden ${
@@ -216,6 +254,7 @@ function Navbar({ navigation, skillMenuGroups = [] }) {
                   : "pointer-events-none max-h-0 -translate-y-2 opacity-0"
               }`}
               aria-hidden={!isOpen}
+              inert={isOpen ? undefined : ""}
             >
               <div className="surface-card sketch-mobile-panel space-y-4 px-4 py-4">
                 <nav className="flex flex-col gap-2">
