@@ -56,7 +56,7 @@ const getInitialTheme = () => {
 };
 
 const getInitialVisualMode = () => {
-  return readStoredVisualMode() ?? "sketch";
+  return readStoredVisualMode() ?? "clean";
 };
 
 export function ThemeProvider({ children }) {

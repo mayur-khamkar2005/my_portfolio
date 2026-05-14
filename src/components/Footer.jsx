@@ -21,8 +21,8 @@ function Footer({ navigation, primaryEmailHref, resumeUrl, socialLinks }) {
   return (
     <footer className="section-shell pb-8 pt-6 sm:pb-10 sm:pt-8">
       <div className="surface-card-strong sketch-footer-shell relative overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-70" />
-        <div className="absolute right-[-3rem] top-[-3rem] h-32 w-32 rounded-full bg-accent-soft opacity-70 blur-[70px]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
+        <div className="absolute right-[-3rem] top-[-3rem] h-32 w-32 rounded-full bg-accent-soft opacity-25 blur-[80px]" />
 
         <div className="flex flex-col gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
           <div className="max-w-2xl">

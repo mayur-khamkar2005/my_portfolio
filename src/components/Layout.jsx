@@ -43,20 +43,85 @@ function Layout() {
   );
 
   useEffect(() => {
-    const frameId = window.requestAnimationFrame(() => {
-      const hashId = decodeHashFragment(location.hash);
-      const target = hashId ? document.getElementById(hashId) : null;
+    const hashId = decodeHashFragment(location.hash);
 
-      if (target) {
-        const behavior = prefersReducedMotion() ? "auto" : "smooth";
-        target.scrollIntoView({ block: "start", behavior });
+    if (!hashId) {
+      const frameId = window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
+    let frameId = 0;
+    let timeoutId = 0;
+    let observer = null;
+    let isDone = false;
+
+    const stopWatching = () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+        timeoutId = 0;
+      }
+
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    };
+
+    const scrollToHashTarget = () => {
+      const target = document.getElementById(hashId);
+
+      if (!target) {
+        return false;
+      }
+
+      const behavior = prefersReducedMotion() ? "auto" : "smooth";
+      target.scrollIntoView({ block: "start", behavior });
+      return true;
+    };
+
+    const checkForHashTarget = () => {
+      if (isDone || frameId) {
         return;
       }
 
-      window.scrollTo({ top: 0, behavior: "auto" });
-    });
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
 
-    return () => window.cancelAnimationFrame(frameId);
+        if (isDone) {
+          return;
+        }
+
+        if (scrollToHashTarget()) {
+          isDone = true;
+          stopWatching();
+        }
+      });
+    };
+
+    if (typeof window.MutationObserver === "function") {
+      observer = new window.MutationObserver(checkForHashTarget);
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    checkForHashTarget();
+
+    timeoutId = window.setTimeout(() => {
+      isDone = true;
+      stopWatching();
+    }, 3000);
+
+    return () => {
+      isDone = true;
+      stopWatching();
+    };
   }, [location.hash, location.pathname]);
 
   function handleNoticeContinue() {

@@ -101,7 +101,7 @@ function TicTacToeGame() {
             Tic-Tac-Toe
           </h2>
         </div>
-        <span className="rounded-full border border-line px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
+        <span className="rounded-full border border-line px-3 py-1 text-xs font-medium uppercase tracking-[0.06em] text-text-muted">
           2 Players
         </span>
       </div>
@@ -137,19 +137,19 @@ function TicTacToeGame() {
 
       <div className="mt-6 grid grid-cols-3 gap-3">
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Player X</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Player X</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {scoreboard.X}
           </p>
         </div>
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Player O</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Player O</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {scoreboard.O}
           </p>
         </div>
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Draws</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Draws</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {scoreboard.draws}
           </p>
@@ -257,7 +257,7 @@ function ReactionGame() {
             Reaction Sprint
           </h2>
         </div>
-        <span className="rounded-full border border-line px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
+        <span className="rounded-full border border-line px-3 py-1 text-xs font-medium uppercase tracking-[0.06em] text-text-muted">
           Fastest Tap
         </span>
       </div>
@@ -287,19 +287,19 @@ function ReactionGame() {
 
       <div className="mt-6 grid grid-cols-3 gap-3">
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Best</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Best</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {bestTime === null ? "--" : `${bestTime} ms`}
           </p>
         </div>
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Latest</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Latest</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {lastTime === null ? "--" : `${lastTime} ms`}
           </p>
         </div>
         <div className="surface-card p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Rounds</p>
+          <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Rounds</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text-primary">
             {roundsPlayed}
           </p>
