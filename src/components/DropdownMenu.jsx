@@ -50,11 +50,14 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
   });
   const [dropdownPosition, setDropdownPosition] = useState("center");
   const menuRef = useRef(null);
+  const triggerControlRef = useRef(null);
   const triggerRef = useRef(null);
   const closeTimerRef = useRef(null);
+  const focusResetFrameRef = useRef(null);
   const openTimerRef = useRef(null);
   const rafRef = useRef(null);
   const resizeTimeoutRef = useRef(null);
+  const suppressFocusOpenRef = useRef(false);
   const location = useLocation();
   const menuId = useId();
 
@@ -178,6 +181,20 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
     [clearTimers],
   );
 
+  const focusTriggerAfterClose = useCallback(() => {
+    suppressFocusOpenRef.current = true;
+    triggerControlRef.current?.focus({ preventScroll: true });
+
+    if (focusResetFrameRef.current) {
+      window.cancelAnimationFrame(focusResetFrameRef.current);
+    }
+
+    focusResetFrameRef.current = window.requestAnimationFrame(() => {
+      suppressFocusOpenRef.current = false;
+      focusResetFrameRef.current = null;
+    });
+  }, []);
+
   const toggleMenu = useCallback(() => {
     if (isOpen) {
       closeMenu();
@@ -264,7 +281,9 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
 
     const handleEscape = (event) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         closeMenu();
+        focusTriggerAfterClose();
       }
     };
 
@@ -282,7 +301,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [isOpen, closeMenu, calculatePosition]);
+  }, [isOpen, closeMenu, calculatePosition, focusTriggerAfterClose]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -290,6 +309,9 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       clearTimers();
       if (resizeTimeoutRef.current) {
         clearTimeout(resizeTimeoutRef.current);
+      }
+      if (focusResetFrameRef.current) {
+        window.cancelAnimationFrame(focusResetFrameRef.current);
       }
     };
   }, [clearTimers]);
@@ -320,6 +342,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
         return `${baseClasses} left-1/2 -translate-x-1/2`;
     }
   }, [isDesktop, dropdownPosition]);
+  const menuItemTabIndex = isOpen ? undefined : -1;
 
   return (
     <div
@@ -336,6 +359,10 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
         }
       }}
       onFocusCapture={() => {
+        if (suppressFocusOpenRef.current) {
+          return;
+        }
+
         if (hasMenu) {
           openMenu();
         }
@@ -357,6 +384,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       >
         {to ? (
           <NavLink
+            ref={triggerControlRef}
             to={to}
             end={false}
             className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
@@ -366,6 +394,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
           </NavLink>
         ) : (
           <button
+            ref={triggerControlRef}
             type="button"
             className={`min-w-0 flex-1 rounded-l-xl px-3 sm:px-4 py-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${triggerBaseClass}`}
             onClick={toggleMenu}
@@ -410,6 +439,8 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
       {hasMenu ? (
         <div
           id={menuId}
+          aria-hidden={!isOpen}
+          inert={isOpen ? undefined : ""}
           className={`sketch-dropdown-panel transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
             isDesktop
               ? `${getPositionClasses} ${
@@ -448,6 +479,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                             to={group.link}
                             className="group/link flex items-center gap-1.5 font-display text-sm font-semibold text-text-primary transition-colors duration-200 hover:text-accent"
                             onClick={() => closeMenu()}
+                            tabIndex={menuItemTabIndex}
                           >
                             <span className="truncate">{group.label}</span>
                             <svg
@@ -483,6 +515,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                         <NavLink
                           key={option.link}
                           to={option.link}
+                          tabIndex={menuItemTabIndex}
                           className={({ isActive: isOptionActive }) =>
                             `group/tag sketch-chip inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium transition-all duration-150 ${
                               isOptionActive
@@ -515,6 +548,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                             to={group.link}
                             className="sketch-chip sketch-chip-muted inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium text-text-muted transition-all duration-150 hover:text-accent"
                             onClick={() => closeMenu()}
+                            tabIndex={menuItemTabIndex}
                           >
                             <span>+{remainingCount}</span>
                             <span className="hidden sm:inline">more</span>
@@ -534,6 +568,7 @@ function DropdownMenu({ label, to = "", options = [], groups = [], className = "
                         to={group.link}
                         className="group mt-3 sm:mt-4 inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-accent transition-all duration-150 hover:text-text-primary"
                         onClick={() => closeMenu()}
+                        tabIndex={menuItemTabIndex}
                       >
                         <span>View all</span>
                         <svg
