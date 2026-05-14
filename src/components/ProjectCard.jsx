@@ -58,7 +58,7 @@ function ProjectCard({ project }) {
             {title}
           </h3>
         </div>
-        <span className="sketch-badge px-2.5 py-1 text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
+        <span className="sketch-badge px-2.5 py-1 text-xs font-medium uppercase tracking-[0.06em] text-text-muted">
           {year}
         </span>
       </div>
@@ -83,7 +83,7 @@ function ProjectCard({ project }) {
       </div>
 
       <div className="relative mt-6">
-        <p className="text-xs font-medium uppercase tracking-[0.1em] text-text-muted">
+        <p className="text-xs font-medium uppercase tracking-[0.06em] text-text-muted">
           Key Features
         </p>
         {features.length ? (

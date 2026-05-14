@@ -40,7 +40,7 @@
         const visualMode =
           storedVisualMode === "clean" || storedVisualMode === "sketch"
             ? storedVisualMode
-            : "sketch";
+            : "clean";
 
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.dataset.theme = theme;

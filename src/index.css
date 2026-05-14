@@ -20,16 +20,16 @@
   --paper-line: rgba(15, 23, 42, 0.045);
   --surface-blur: 14px;
   --surface-blur-strong: 18px;
-  --surface-radius: 1.35rem;
+  --surface-radius: 0.875rem;
   --surface-border-width: 1px;
   --surface-border-style: solid;
   --surface-inner-line: rgba(15, 23, 42, 0.05);
-  --surface-shadow: 0 18px 44px -30px rgba(15, 23, 42, 0.28);
-  --surface-shadow-hover: 0 24px 54px -32px rgba(15, 23, 42, 0.34);
-  --surface-shadow-strong: 0 22px 54px -34px rgba(15, 23, 42, 0.32);
-  --surface-shadow-strong-hover: 0 30px 64px -36px rgba(15, 23, 42, 0.38);
-  --button-shadow: 0 10px 24px -20px rgba(15, 23, 42, 0.32);
-  --button-shadow-hover: 0 14px 28px -20px rgba(15, 23, 42, 0.36);
+  --surface-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px -6px rgba(15, 23, 42, 0.08);
+  --surface-shadow-hover: 0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px -6px rgba(15, 23, 42, 0.12);
+  --surface-shadow-strong: 0 1px 3px rgba(15, 23, 42, 0.05), 0 6px 20px -6px rgba(15, 23, 42, 0.1);
+  --surface-shadow-strong-hover: 0 2px 6px rgba(15, 23, 42, 0.06), 0 12px 32px -6px rgba(15, 23, 42, 0.14);
+  --button-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 2px 8px -3px rgba(15, 23, 42, 0.08);
+  --button-shadow-hover: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 14px -3px rgba(15, 23, 42, 0.12);
   --button-border-width: 1px;
   --button-border-style: solid;
   --button-rotation-primary: 0deg;
@@ -49,12 +49,12 @@
   --line: rgba(255, 255, 255, 0.1);
   --paper-line: rgba(255, 255, 255, 0.045);
   --surface-inner-line: rgba(255, 255, 255, 0.08);
-  --surface-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.44);
-  --surface-shadow-hover: 0 24px 52px -28px rgba(0, 0, 0, 0.54);
-  --surface-shadow-strong: 0 22px 58px -30px rgba(0, 0, 0, 0.52);
-  --surface-shadow-strong-hover: 0 30px 66px -32px rgba(0, 0, 0, 0.62);
-  --button-shadow: 0 12px 28px -22px rgba(0, 0, 0, 0.48);
-  --button-shadow-hover: 0 16px 32px -22px rgba(0, 0, 0, 0.54);
+  --surface-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 4px 16px -6px rgba(0, 0, 0, 0.18);
+  --surface-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.14), 0 8px 24px -6px rgba(0, 0, 0, 0.22);
+  --surface-shadow-strong: 0 1px 4px rgba(0, 0, 0, 0.12), 0 6px 20px -6px rgba(0, 0, 0, 0.2);
+  --surface-shadow-strong-hover: 0 2px 8px rgba(0, 0, 0, 0.16), 0 12px 32px -6px rgba(0, 0, 0, 0.26);
+  --button-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 2px 8px -3px rgba(0, 0, 0, 0.18);
+  --button-shadow-hover: 0 1px 4px rgba(0, 0, 0, 0.18), 0 4px 14px -3px rgba(0, 0, 0, 0.22);
 }
 
 html[data-visual-mode="sketch"] {
@@ -140,14 +140,14 @@ body {
     background-color 240ms ease,
     color 240ms ease;
   background-image:
-    radial-gradient(circle at 18% 0%, rgba(37, 99, 235, 0.06), transparent 42%),
-    radial-gradient(circle at 82% 100%, rgba(37, 99, 235, 0.035), transparent 36%);
+    radial-gradient(circle at 18% 0%, rgba(37, 99, 235, 0.03), transparent 42%),
+    radial-gradient(circle at 82% 100%, rgba(37, 99, 235, 0.02), transparent 36%);
 }
 
 .dark body {
   background-image:
-    radial-gradient(circle at 18% 0%, rgba(94, 164, 255, 0.09), transparent 42%),
-    radial-gradient(circle at 82% 100%, rgba(94, 164, 255, 0.04), transparent 36%);
+    radial-gradient(circle at 18% 0%, rgba(94, 164, 255, 0.04), transparent 42%),
+    radial-gradient(circle at 82% 100%, rgba(94, 164, 255, 0.02), transparent 36%);
 }
 
 html[data-visual-mode="sketch"] body {
@@ -249,8 +249,8 @@ textarea {
       linear-gradient(to right, var(--line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--line) 1px, transparent 1px);
     background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.48), transparent 78%);
-    opacity: 0.38;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 70%);
+    opacity: 0.16;
   }
 
   html[data-visual-mode="sketch"] .ambient-grid {
@@ -265,8 +265,8 @@ textarea {
     position: absolute;
     border-radius: 9999px;
     background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-    filter: blur(84px);
-    opacity: 0.7;
+    filter: blur(100px);
+    opacity: 0.3;
   }
 
   html[data-visual-mode="sketch"] .ambient-orb {
@@ -327,8 +327,8 @@ textarea {
   }
 
   .eyebrow {
-    @apply font-display text-xs font-medium uppercase tracking-[0.2em] text-accent;
-    letter-spacing: 0.15em;
+    @apply font-display text-xs font-medium uppercase tracking-[0.08em] text-accent;
+    letter-spacing: 0.08em;
   }
 
   html[data-visual-mode="sketch"] .eyebrow {
@@ -486,7 +486,7 @@ textarea {
 
   .sketch-nav-divider {
     background: linear-gradient(to right, transparent, var(--accent), transparent);
-    opacity: 0.78;
+    opacity: 0.3;
   }
 
   .sketch-logo-mark {
@@ -837,57 +837,47 @@ textarea {
   .primary-link:hover {
     background: var(--accent);
     box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
+    transform: translateY(-1px);
   }
 
   .ghost-link:hover {
     border-color: var(--accent);
     color: var(--accent);
     box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
+    transform: translateY(-1px);
   }
 
   .footer-link:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
     color: var(--text);
-    box-shadow: var(--button-shadow);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation-secondary));
   }
 
   .theme-toggle-button:hover {
     border-color: var(--accent);
     color: var(--accent);
-    box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(var(--button-rotation));
   }
 
   .sketch-nav-link:hover,
   .sketch-mobile-link:hover {
     background: var(--accent-soft);
-    border-color: var(--accent);
     color: var(--text);
-    box-shadow: var(--button-shadow);
-    transform: translate(-2px, -2px) rotate(0.45deg);
   }
 
   html[data-visual-mode="clean"] .sketch-nav-link:hover,
   html[data-visual-mode="clean"] .sketch-mobile-link:hover {
-    transform: translateY(-1px);
+    transform: none;
   }
 
   .sketch-icon-button:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
     color: var(--accent);
-    box-shadow: var(--button-shadow-hover);
-    transform: translate(-2px, -2px) rotate(0.8deg);
   }
 
   .sketch-dropdown-frame:hover {
     border-color: var(--accent);
     background: color-mix(in srgb, var(--accent-soft) 84%, transparent);
-    box-shadow: var(--button-shadow);
   }
 
   .sketch-dropdown-caret:hover {
@@ -897,24 +887,20 @@ textarea {
   .sketch-dropdown-group:hover {
     border-color: var(--accent);
     box-shadow: var(--surface-shadow-hover);
-    transform: translate(-2px, -2px);
   }
 
   .skills-category-button:not(.is-active):hover {
     border-color: var(--accent);
-    transform: translateY(-2px);
     box-shadow: var(--button-shadow);
   }
 
   .game-board-cell-idle:hover:not(:disabled) {
     border-color: var(--accent);
     color: var(--text);
-    transform: translateY(-2px);
   }
 
   .related-skill-link:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
     box-shadow: var(--surface-shadow-hover);
   }
 
@@ -923,22 +909,22 @@ textarea {
   }
 
   .group:hover .sketch-project-sheen {
-    opacity: 0.8;
-    transform: translateX(16px);
+    opacity: 0.6;
+    transform: translateX(12px);
   }
 
   html[data-visual-mode="sketch"] .sketch-card-lift:not([data-reveal]):hover {
-    transform: translate(-3px, -3px) rotate(var(--reveal-tilt, 0deg));
+    transform: translate(-2px, -2px) rotate(var(--reveal-tilt, 0deg));
   }
 
   html[data-visual-mode="sketch"] .sketch-card-lift[data-reveal][data-reveal-ready="true"][data-reveal-visible="true"]:hover {
-    transform: translate3d(-3px, -3px, 0) scale(1) rotateX(0deg) rotate(var(--reveal-tilt, 0deg));
+    transform: translate3d(-2px, -2px, 0) scale(1) rotateX(0deg) rotate(var(--reveal-tilt, 0deg));
   }
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 1200px) {
   .hero-panel:hover {
-    transform: translateY(-4px) rotate(var(--reveal-tilt, 0deg));
+    transform: translateY(-2px);
   }
 }
 

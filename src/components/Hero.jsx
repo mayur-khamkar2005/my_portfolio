@@ -104,7 +104,7 @@ function Hero({ resumeUrl, highlights }) {
                   }`}
                   data-reveal
                 >
-                  <p className="text-xs font-medium uppercase tracking-[0.15em] text-text-muted">
+                  <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-muted">
                     {item.label}
                   </p>
                   <p className="mt-3 text-sm font-medium text-text-primary">
@@ -132,11 +132,10 @@ function Hero({ resumeUrl, highlights }) {
           className="surface-card-strong hero-panel sketch-panel sketch-card-lift sketch-tilt-right relative overflow-hidden p-6 sm:p-8"
           data-reveal
         >
-          <div className="grid-outline absolute inset-0" />
-          <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-accent-soft opacity-75 blur-[72px]" />
+          <div className="absolute inset-x-10 top-0 h-16 rounded-full bg-accent-soft opacity-30 blur-[80px]" />
 
           <div className="relative">
-            <div className="sketch-pill inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent">
+            <div className="sketch-pill inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.08em] text-accent">
               What I Work On
             </div>
 

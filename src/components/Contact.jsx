@@ -157,8 +157,8 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
           className="surface-card-strong sketch-panel sketch-card-lift sketch-tilt-left relative overflow-hidden p-7 sm:p-8 lg:p-10"
           data-reveal
         >
-          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent opacity-70" />
-          <div className="absolute -left-8 top-10 h-28 w-28 rounded-full bg-accent-soft blur-[72px]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent opacity-30" />
+          <div className="absolute -left-8 top-10 h-28 w-28 rounded-full bg-accent-soft blur-[80px] opacity-30" />
           <div className="relative">
             <p className="eyebrow">Contact</p>
             <h2 className="section-title mt-4 max-w-lg">
@@ -217,13 +217,13 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               <div className="surface-card sketch-card-lift sketch-tilt-left p-4">
-                <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Response Style</p>
+                <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Response Style</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
                   I try to reply in a simple and clear way.
                 </p>
               </div>
               <div className="surface-card sketch-card-lift sketch-tilt-right p-4">
-                <p className="text-xs uppercase tracking-[0.16em] text-text-muted">Work Setup</p>
+                <p className="text-xs uppercase tracking-[0.06em] text-text-muted">Work Setup</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">
                   Open to remote internships, junior roles, and freelance projects.
                 </p>
@@ -318,7 +318,7 @@ function Contact({ contactMethods, resumeUrl, primaryEmailHref }) {
                         index % 2 === 0 ? "sketch-tilt-left" : "sketch-tilt-right"
                       }`}
                     >
-                      <p className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
+                      <p className="text-xs font-medium uppercase tracking-[0.06em] text-text-muted">
                         {item.label}
                       </p>
                       <p className="mt-3 text-base font-medium text-text-primary">{item.value}</p>
