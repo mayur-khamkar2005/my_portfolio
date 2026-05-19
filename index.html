@@ -29,12 +29,29 @@
             sketch: "#171411",
           },
         };
-        const storedTheme = localStorage.getItem(themeStorageKey);
-        const storedVisualMode = localStorage.getItem(visualModeStorageKey);
+        const readStorageValue = (key) => {
+          try {
+            return window.localStorage.getItem(key);
+          } catch {
+            return null;
+          }
+        };
+        const prefersDarkTheme = () => {
+          try {
+            return (
+              typeof window.matchMedia === "function" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches
+            );
+          } catch {
+            return true;
+          }
+        };
+        const storedTheme = readStorageValue(themeStorageKey);
+        const storedVisualMode = readStorageValue(visualModeStorageKey);
         const theme =
           storedTheme === "light" || storedTheme === "dark"
             ? storedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
+            : prefersDarkTheme()
               ? "dark"
               : "light";
         const visualMode =
