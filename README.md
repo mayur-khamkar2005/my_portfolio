@@ -10,7 +10,7 @@ This portfolio website is designed to present a strong full stack developer prof
 
 - Modern and professional developer portfolio design
 - Fully responsive layout for mobile, tablet, laptop, and desktop
-- Dark and light theme toggle
+- Dark and light theme toggle  ......
 - Theme preference saved with `localStorage`
 - Smooth transitions and hover effects
 - Resume download button             ...
